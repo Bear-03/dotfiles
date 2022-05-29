@@ -23,6 +23,9 @@ return function()
         end
     })
 
+    -- Fix weird blue-ish background in NeoTree for modified files
+    vim.api.nvim_set_hl(0, "NeoTreeGitModified", { link = "Blue" })
+
     -- File associations
     vim.filetype.add {
         extension = {
