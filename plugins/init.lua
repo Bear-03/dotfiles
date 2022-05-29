@@ -9,12 +9,12 @@ return {
         "simrat39/rust-tools.nvim",
         after = { "nvim-lspconfig" },
     },
-    { -- neovim API autocompletion for lua
+    { -- Neovim API autocompletion for lua
         "folke/lua-dev.nvim",
         after = { "nvim-lspconfig" },
     },
     -- Treesitter
-    {
+    { -- Treesitter debugging
       "nvim-treesitter/playground",
       cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" },
     },
@@ -24,16 +24,16 @@ return {
         event = { "BufRead", "BufNewFile" },
         config = require("user.plugins.custom.vim_better_whitespace")
     },
-    {
+    { -- Discord RPC
         "andweeb/presence.nvim",
         config = require("user.plugins.custom.presence")
     },
-    {
-        "saecki/crates.nvim", -- Rust crates info
+    { -- Rust crates info
+        "saecki/crates.nvim",
         requires = { "nvim-lua/plenary.nvim" },
         event = { "BufRead Cargo.toml" },
     },
-    {
+    { -- Github copilot
         "github/copilot.vim",
         event = { "BufRead", "BufNewFile" },
     }
