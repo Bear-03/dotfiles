@@ -1,0 +1,2 @@
+# AstroNvimCfg
+My AstroNvim Config
