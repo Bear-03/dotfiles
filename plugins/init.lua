@@ -2,7 +2,7 @@ return {
     -- Themes
     {
         "sainnhe/gruvbox-material",
-        config = require("user.plugins.gruvbox_material")
+        config = require("user.plugins.custom.gruvbox_material")
     },
     -- Lsp
     { -- Better rust support (inlay hints etc)
@@ -22,15 +22,19 @@ return {
     {
         "ntpeters/vim-better-whitespace", -- Highlight trailing spaces
         event = { "BufRead", "BufNewFile" },
-        config = require("user.plugins.vim_better_whitespace")
+        config = require("user.plugins.custom.vim_better_whitespace")
     },
     {
         "andweeb/presence.nvim",
-        config = require("user.plugins.presence")
+        config = require("user.plugins.custom.presence")
     },
     {
         "saecki/crates.nvim", -- Rust crates info
         requires = { "nvim-lua/plenary.nvim" },
         event = { "BufRead Cargo.toml" },
+    },
+    {
+        "github/copilot.vim",
+        event = { "BufRead", "BufNewFile" },
     }
 }
