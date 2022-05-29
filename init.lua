@@ -6,6 +6,7 @@ return {
         opt = {
             virtualedit = "onemore",
             mouse = "", -- Disable mouse
+            clipboard = "", -- Disconnect vim and sytem clipboards
 
             -- Tab settings
             expandtab = true, -- Always use spaces instead of TABS
