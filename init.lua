@@ -7,6 +7,7 @@ return {
             virtualedit = "onemore",
             mouse = "", -- Disable mouse
             clipboard = "", -- Disconnect vim and sytem clipboards
+            smartcase = true,
 
             -- Tab settings
             expandtab = true, -- Always use spaces instead of TABS
