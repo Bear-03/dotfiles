@@ -1,7 +1,7 @@
 -- NOTE: Toggleterm can be open with "<leader>t"
 
 return {
-    -- colorscheme = "" is broken with vimscript themes
+    colorscheme = "gruvqueen", -- is broken with vimscript themes
     options = {
         opt = {
             virtualedit = "onemore",
