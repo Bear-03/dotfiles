@@ -17,7 +17,7 @@ return function ()
     -- -- vim.api.nvim_set_hl(0, "TSFunction", { fg = style_palette.fg0 })
     vim.api.nvim_set_hl(0, "TSConstant", { link = "TSNumber" })
     vim.api.nvim_set_hl(0, "TSConstBuiltin", { link = "TSConstant" })
-    vim.api.nvim_set_hl(0, "TSVariableBuiltin", { fg = common_palette.grey0 }) -- ex. self / this
+    vim.api.nvim_set_hl(0, "TSVariableBuiltin", { fg = common_palette.grey1 }) -- ex. self / this
     vim.api.nvim_set_hl(0, "rustTSPunctBracket", { fg = style_palette.red }) -- For closures in rust
     vim.api.nvim_set_hl(0, "TSOperator", { fg = style_palette.aqua })
 end
