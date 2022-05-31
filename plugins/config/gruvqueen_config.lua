@@ -12,6 +12,7 @@ return function ()
     local split_palette = require("gruvqueen.palette").get_dark_theme_palette()
     local palette = vim.tbl_deep_extend("force", split_palette.common, split_palette[style])
 
+    vim.api.nvim_set_hl(0, "TSVariable", { fg = palette.blue })
     vim.api.nvim_set_hl(0, "TSParameter", { fg = palette.blue })
     vim.api.nvim_set_hl(0, "TSField", { fg = palette.fg0 }) -- Attributes
     -- vim.api.nvim_set_hl(0, "TSFunction", { fg = palette.fg0 })
