@@ -3,6 +3,15 @@ return function()
         vim.opt.termguicolors = true
     end
 
+    -- Change LSP message prefix
+    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+        vim.lsp.diagnostic.on_publish_diagnostics, {
+            virtual_text = {
+                prefix = "●"
+            }
+        }
+    )
+
     -- Force English
     vim.cmd([[
         for s:lang in ["en", "en_US", "en_US.UTF-8", "English_US"]
