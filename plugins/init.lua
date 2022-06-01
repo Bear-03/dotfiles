@@ -42,6 +42,9 @@ return {
             require("crates").setup()
         end
     },
+    { -- Git integration
+        "tpope/vim-fugitive"
+    },
     { -- Github copilot
         "github/copilot.vim",
         event = { "BufRead", "BufNewFile" },
