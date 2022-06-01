@@ -2,7 +2,9 @@ return {
     -- Themes
     {
         "murtaza-u/gruvqueen",
-        config = require("user.plugins.config.gruvqueen_config")
+        config = function()
+            require("user.plugins.config.gruvqueen_config")()
+        end
     },
     -- Lsp
     { -- Better rust support (inlay hints etc)
@@ -22,11 +24,15 @@ return {
     {
         "ntpeters/vim-better-whitespace", -- Highlight trailing spaces
         event = { "BufRead", "BufNewFile" },
-        config = require("user.plugins.config.vim_better_whitespace_config")
+        config = function()
+            require("user.plugins.config.vim_better_whitespace_config")()
+        end
     },
     { -- Discord RPC
         "andweeb/presence.nvim",
-        config = require("user.plugins.config.presence_config")
+        config = function()
+            require("user.plugins.config.presence_config")()
+        end
     },
     { -- Rust crates info
         "saecki/crates.nvim",
