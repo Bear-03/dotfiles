@@ -1,4 +1,25 @@
-return function ()
+local function get_custom_styles(palette)
+    return {
+        -- Treesitter
+        TSVariable = { fg = palette.blue },
+        TSParameter = { fg = palette.blue },
+        TSField = { fg = palette.fg0 }, -- Attributes
+        -- TSFunction = { fg = palette.fg0 },
+        TSConstant = { link = "TSNumber" },
+        TSConstBuiltin = { link = "TSConstant" },
+        TSVariableBuiltin = { fg = palette.grey1 }, -- ex. self / this
+        rustTSPunctBracket = { fg = palette.red }, -- For closures in rust
+        TSOperator = { fg = palette.aqua },
+
+        -- Other
+        VertSplit = { fg = palette.bg2 }, -- General vertical splits (e.g. PackerSync prompt borders)
+
+        -- Prompt menu (e.g. LSP autocompletion menu)
+        PmenuThumb = { bg = palette.fg0 }, -- Scroll indicator
+    }
+end
+
+return function()
     local style = "original"
 
     require("gruvqueen").setup({
@@ -12,13 +33,8 @@ return function ()
     local split_palette = require("gruvqueen.palette").get_dark_theme_palette()
     local palette = vim.tbl_deep_extend("force", split_palette.common, split_palette[style])
 
-    vim.api.nvim_set_hl(0, "TSVariable", { fg = palette.blue })
-    vim.api.nvim_set_hl(0, "TSParameter", { fg = palette.blue })
-    vim.api.nvim_set_hl(0, "TSField", { fg = palette.fg0 }) -- Attributes
-    -- vim.api.nvim_set_hl(0, "TSFunction", { fg = palette.fg0 })
-    vim.api.nvim_set_hl(0, "TSConstant", { link = "TSNumber" })
-    vim.api.nvim_set_hl(0, "TSConstBuiltin", { link = "TSConstant" })
-    vim.api.nvim_set_hl(0, "TSVariableBuiltin", { fg = palette.grey1 }) -- ex. self / this
-    vim.api.nvim_set_hl(0, "rustTSPunctBracket", { fg = palette.red }) -- For closures in rust
-    vim.api.nvim_set_hl(0, "TSOperator", { fg = palette.aqua })
+    for group, value in pairs(get_custom_styles(palette)) do
+        vim.api.nvim_set_hl(0, group, value)
+    end
 end
+
