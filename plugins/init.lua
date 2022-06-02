@@ -15,6 +15,13 @@ return {
         "folke/lua-dev.nvim",
         after = { "nvim-lspconfig" },
     },
+    {
+        "folke/trouble.nvim",
+        requires = { "kyazdani42/nvim-web-devicons" },
+        config = function()
+            require("trouble").setup()
+        end
+    },
     -- Treesitter
     { -- Treesitter debugging
       "nvim-treesitter/playground",
