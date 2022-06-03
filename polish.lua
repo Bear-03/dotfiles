@@ -25,10 +25,10 @@ return function()
     ]])
 
     -- Mappings
-    vim.keymap.set({ "", "!" }, "<Left>", "<Nop>", { noremap = true })
-    vim.keymap.set({ "", "!" }, "<Right>", "<Nop>", { noremap = true })
-    vim.keymap.set({ "", "!" }, "<Up>", "<Nop>", { noremap = true })
-    vim.keymap.set({ "", "!" }, "<Down>", "<Nop>", { noremap = true })
+    vim.keymap.set({ "n", "i", "v" }, "<Left>", "<Nop>", { noremap = true })
+    vim.keymap.set({ "n", "i", "v" }, "<Right>", "<Nop>", { noremap = true })
+    vim.keymap.set({ "n", "i", "v" }, "<Up>", "<Nop>", { noremap = true })
+    vim.keymap.set({ "n", "i", "v" }, "<Down>", "<Nop>", { noremap = true })
 
     -- Format on save
     vim.api.nvim_create_autocmd("BufWritePre", {
