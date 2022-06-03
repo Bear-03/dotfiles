@@ -12,7 +12,8 @@ local function get_custom_styles(palette)
         TSOperator = { fg = palette.aqua },
 
         -- Other
-        VertSplit = { fg = palette.bg2 }, -- General vertical splits (e.g. PackerSync prompt borders)
+        VertSplit = { fg = palette.bg1 }, -- Vertical splits (e.g. NeoTree border)
+        FloatBorder = { fg = palette.fg0, bg = palette.bg1 }, -- Floating window borders (e.g. PackerSync)
 
         -- Prompt menu (e.g. LSP autocompletion menu)
         PmenuThumb = { bg = palette.fg0 }, -- Scroll indicator
