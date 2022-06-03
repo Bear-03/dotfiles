@@ -24,12 +24,6 @@ return function()
         endfor
     ]])
 
-    -- Mappings
-    vim.keymap.set({ "n", "i", "v" }, "<Left>", "<Nop>", { noremap = true })
-    vim.keymap.set({ "n", "i", "v" }, "<Right>", "<Nop>", { noremap = true })
-    vim.keymap.set({ "n", "i", "v" }, "<Up>", "<Nop>", { noremap = true })
-    vim.keymap.set({ "n", "i", "v" }, "<Down>", "<Nop>", { noremap = true })
-
     -- Format on save
     vim.api.nvim_create_autocmd("BufWritePre", {
         pattern = "*",
@@ -45,5 +39,7 @@ return function()
             X68 = "m68k"
         },
     }
+
+    require("mappings")
 end
 
