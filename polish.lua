@@ -40,6 +40,6 @@ return function()
         },
     }
 
-    require("mappings")
+    require("user.mappings")
 end
 
