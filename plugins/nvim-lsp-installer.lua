@@ -5,10 +5,10 @@ return {
         "sumneko_lua",
         "taplo", -- TOML
         "cssls",
-        "cssmodules_ls",
         "emmet_ls",
         "html",
         "jsonls",
-        "tsserver",
+        "tsserver", -- JS and TS
+        "jdtls" -- Java
     }
 }
