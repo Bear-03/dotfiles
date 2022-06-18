@@ -9,9 +9,18 @@ return function(server, opts)
                     other_hints_prefix = "",
                 },
             },
+            server = vim.tbl_deep_extend("force", opts, {
+                settings = {
+                    ["rust-analyzer"] = {
+                        diagnostics = {
+                            disabled = { "inactive-code" },
+                        }
+                    }
+                }
+            }),
         }
 
-        require("rust-tools").setup(vim.tbl_deep_extend("force", opts, custom_opts))
+        require("rust-tools").setup(custom_opts)
         return
 
     elseif server == "sumneko_lua" then
