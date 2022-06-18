@@ -3,7 +3,7 @@ return function(server, opts)
         local custom_opts = {
             tools = {
                 inlay_hints = {
-                    hover_with_actions = true,
+                    show_parameter_hints = false,
                     parameter_hints_prefix = "",
                     other_hints_prefix = "",
                 },
