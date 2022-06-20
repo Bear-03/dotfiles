@@ -6,3 +6,8 @@ vim.keymap.set({ "n", "i", "v" }, "<Down>", "<Nop>", { noremap = true })
 
 -- Delete buffer
 vim.keymap.set("n", "<leader>bd", "<cmd>Bdelete<CR>", { noremap = true })
+
+-- Block CTRL-Z on Windows (It freezes the console)
+if vim.loop.os_uname().sysname == "Windows_NT" then
+    vim.keymap.set({ "", "!" }, "<C-z>", "<Nop>", { noremap = true })
+end
