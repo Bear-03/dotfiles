@@ -43,7 +43,10 @@ return {
         end
     },
     { -- Git integration
-        "tpope/vim-fugitive"
+        "TimUntersberger/neogit",
+        config = function()
+            require("neogit").setup()
+        end
     },
     { -- Github copilot
         "github/copilot.vim",
