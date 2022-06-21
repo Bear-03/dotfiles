@@ -11,3 +11,6 @@ vim.keymap.set("n", "<leader>bd", "<cmd>Bdelete<CR>", { noremap = true })
 if vim.loop.os_uname().sysname == "Windows_NT" then
     vim.keymap.set({ "", "!" }, "<C-z>", "<Nop>", { noremap = true })
 end
+
+-- Neogit mapping (Overrides toggle-term LazyGit binding)
+vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<CR>", { noremap = true })
