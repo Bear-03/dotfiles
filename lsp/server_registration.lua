@@ -19,6 +19,8 @@ return function(server, opts)
             }),
         }
 
+        -- Lspconfig has to be set up before rust-tools
+        require("lspconfig")[server].setup(opts)
         require("rust-tools").setup(custom_opts)
         return
 
@@ -26,8 +28,7 @@ return function(server, opts)
         opts = require("lua-dev").setup({
             lspconfig = opts
         })
+        require("lspconfig")[server].setup(opts)
     end
-
-    require("lspconfig")[server].setup(opts)
 end
 
