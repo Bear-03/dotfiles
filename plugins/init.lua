@@ -2,9 +2,6 @@ return {
     -- Themes
     {
         "murtaza-u/gruvqueen",
-        config = function()
-            require("user.plugins.config.gruvqueen_config")()
-        end
     },
     -- Lsp
     { -- Better rust support (inlay hints etc)

@@ -40,6 +40,7 @@ return function()
         },
     }
 
+    require("user.themes")
     require("user.mappings")
 end
 
