@@ -1,6 +1,6 @@
-return function(server, opts)
-    if server == "rust_analyzer" then
-        local custom_opts = {
+local setup = {
+    rust_analyzer = function(opts)
+        require("rust-tools").setup({
             tools = {
                 inlay_hints = {
                     show_parameter_hints = false,
@@ -17,18 +17,21 @@ return function(server, opts)
                     }
                 }
             }),
-        }
-
-        -- Lspconfig has to be set up before rust-tools
-        require("lspconfig")[server].setup(opts)
-        require("rust-tools").setup(custom_opts)
-        return
-
-    elseif server == "sumneko_lua" then
+        })
+    end,
+    sumneko_lua = function(opts)
         opts = require("lua-dev").setup({
             lspconfig = opts
         })
-        require("lspconfig")[server].setup(opts)
+        require("lspconfig").sumneko_lua.setup(opts)
+    end
+}
+
+return function(server, opts)
+    local setup_fn = setup[server]
+
+    if setup_fn ~= nil then
+        setup_fn(opts)
     end
 end
 

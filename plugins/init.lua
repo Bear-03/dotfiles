@@ -6,11 +6,11 @@ return {
     -- Lsp
     { -- Better rust support (inlay hints etc)
         "simrat39/rust-tools.nvim",
-        after = { "nvim-lspconfig" },
+        after = { "nvim-lspconfig", "nvim-lsp-installer" },
     },
     { -- Neovim API autocompletion for lua
         "folke/lua-dev.nvim",
-        after = { "nvim-lspconfig" },
+        after = { "nvim-lspconfig", "nvim-lsp-installer" },
     },
     -- Treesitter
     { -- Treesitter debugging
