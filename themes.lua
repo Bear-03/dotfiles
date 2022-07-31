@@ -4,6 +4,7 @@ local configs = {
 
         require("gruvqueen").setup({
             config = {
+                disable_bold = true,
                 style = style,
                 bg_color = "#1d2021",
             },
