@@ -32,6 +32,8 @@ return function(server, opts)
 
     if setup_fn ~= nil then
         setup_fn(opts)
+    else
+        require("lspconfig")[server].setup(opts)
     end
 end
 
