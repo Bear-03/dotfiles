@@ -20,10 +20,20 @@ local setup = {
         })
     end,
     sumneko_lua = function(opts)
-        opts = require("lua-dev").setup({
+        require("lspconfig").sumneko_lua.setup(require("lua-dev").setup({
             lspconfig = opts
-        })
-        require("lspconfig").sumneko_lua.setup(opts)
+        }))
+    end,
+    cssls = function(opts)
+        require('lspconfig').cssls.setup(vim.tbl_deep_extend("force", opts, {
+            settings = {
+                css = {
+                    lint = {
+                        unknownAtRules = "ignore",
+                    },
+                },
+            },
+        }))
     end
 }
 
