@@ -4,4 +4,4 @@
 	email = 64696287+Bear-03@users.noreply.github.com
 	name = Bear-03
 [core]
-	autocrlf = true
+	autocrlf = input
