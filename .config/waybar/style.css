@@ -1,0 +1,98 @@
+* {
+    all: unset;
+}
+
+window#waybar,
+tooltip {
+    color: white;
+    font-size: 14px;
+    font-family: monospace;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+    margin: 10px;
+    margin-bottom: 0;
+}
+
+#tags,
+#window,
+#pulseaudio,
+#network,
+#cpu,
+#memory,
+#backlight,
+#battery,
+#clock,
+#tray,
+#tray menu,
+tooltip {
+    background: black;
+    border-radius: 10px;
+}
+
+#tags button,
+#window,
+#pulseaudio,
+#network,
+#cpu,
+#memory,
+#backlight,
+#battery,
+#clock,
+#tray,
+tooltip {
+    padding: 3px 10px;
+}
+
+#tags {
+    padding: 0 10px;
+}
+
+#tags button:hover {
+    background: white;
+    color: black;
+}
+
+#tags button.focused {
+    border-bottom: 2px solid white;
+}
+
+#tags button.focused:hover {
+    border-color: black;
+}
+
+#battery > box {
+    background: red;
+}
+
+#battery.warning:not(.charging) {
+    color: yellow;
+    animation: blink 2s steps(2, start) infinite;
+}
+
+#battery.critical:not(.charging) {
+    color: red;
+    animation: blink 0.5s steps(2, start) infinite;
+}
+
+#tray menu {
+    padding: 10px;
+}
+
+#tray menu > * {
+    padding: 3px;
+}
+
+#tray menu > :hover {
+    background: white;
+    color: black;
+}
+
+@keyframes blink {
+    50% {
+        color: white;
+    }
+}
+

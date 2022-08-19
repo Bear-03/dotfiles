@@ -1,0 +1,15 @@
+show=drun
+no_actions=true
+prompt=...
+term=alacritty
+insensitive=true
+allow_images=true
+image_size=20
+width=500
+lines=5
+
+key_left=h
+key_down=j
+key_up=k
+key_right=l
+

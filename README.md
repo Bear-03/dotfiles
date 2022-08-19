@@ -1,9 +1,10 @@
-# AstroNvimCfg
-My [AstroNvim](https://github.com/AstroNvim/AstroNvim.git) Config
+# Bear's dotfiles
 
-# Setup
-```
-git clone https://github.com/AstroNvim/AstroNvim.git ~/.config/nvim
-git clone https://github.com/Bear-03/AstroNvimCfg.git ~/.config/nvim/lua/user
+## Setup ([Nushell][nushell] needed)
+```bash
+git clone https://github.com/Bear-03/dotfiles ~/.dotfiles
+cd .dotfiles
+nu bootstrap.nu
 ```
 
+[nushell]: https://www.nushell.sh
