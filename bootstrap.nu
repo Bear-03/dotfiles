@@ -31,6 +31,7 @@ def link [...argv: any] {
     ln -rns $argv
 }
 
+
 prompt ".profile" {
     link (from ".profile" --home) (to ".profile" --home)
 }

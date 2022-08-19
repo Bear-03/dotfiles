@@ -17,6 +17,13 @@ return {
       "nvim-treesitter/playground",
       cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" },
     },
+    { -- Nu support (Nushell)
+        "LhKipp/nvim-nu",
+        run = ":TSInstall nu",
+        config = function()
+            require("nu").setup()
+        end
+    },
     -- Other
     {
         "ntpeters/vim-better-whitespace", -- Highlight trailing spaces
