@@ -3,7 +3,6 @@ add_newline = false
 [hostname]
 ssh_only = false
 format =  "@(bold blue)[$hostname](bold red) "
-trim_at = ".companyname.com"
 
 [username]
 style_user = "yellow bold"
