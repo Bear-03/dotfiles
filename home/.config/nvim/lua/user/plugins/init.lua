@@ -1,0 +1,59 @@
+return {
+    -- Themes
+    {
+        "murtaza-u/gruvqueen",
+    },
+    -- Lsp
+    { -- Better rust support (inlay hints etc)
+        "simrat39/rust-tools.nvim",
+        after = { "nvim-lspconfig", "nvim-lsp-installer" },
+    },
+    { -- Neovim API autocompletion for lua
+        "folke/lua-dev.nvim",
+        after = { "nvim-lspconfig", "nvim-lsp-installer" },
+    },
+    -- Treesitter
+    { -- Treesitter debugging
+      "nvim-treesitter/playground",
+      cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" },
+    },
+    { -- Nu support (Nushell)
+        "LhKipp/nvim-nu",
+        run = ":TSInstall nu",
+        config = function()
+            require("nu").setup()
+        end
+    },
+    -- Other
+    {
+        "ntpeters/vim-better-whitespace", -- Highlight trailing spaces
+        event = { "BufRead", "BufNewFile" },
+        config = function()
+            require("user.plugins.config.vim_better_whitespace_config")()
+        end
+    },
+    { -- Discord RPC
+        "andweeb/presence.nvim",
+        config = function()
+            require("user.plugins.config.presence_config")()
+        end
+    },
+    { -- Rust crates info
+        "saecki/crates.nvim",
+        event = { "BufRead Cargo.toml" },
+        requires = { "nvim-lua/plenary.nvim" },
+        config = function()
+            require("crates").setup()
+        end
+    },
+    { -- Git integration
+        "TimUntersberger/neogit",
+        config = function()
+            require("neogit").setup()
+        end
+    },
+    { -- Github copilot
+        "github/copilot.vim",
+        event = { "BufRead", "BufNewFile" },
+    }
+}
