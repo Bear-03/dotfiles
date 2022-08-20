@@ -12,7 +12,7 @@ return {
                 "package-lock.json",
                 ".next",
 
-                -- Pythong
+                -- Python
                 "__pycache__",
                 ".venv",
 
