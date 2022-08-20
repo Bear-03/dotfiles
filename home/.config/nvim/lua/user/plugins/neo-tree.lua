@@ -1,5 +1,6 @@
 return {
     filesystem = {
+        group_empty_dirs = true,
         filtered_items = {
             hide_dotfiles = false,
             hide_by_name = {
