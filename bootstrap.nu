@@ -1,5 +1,11 @@
 #!/bin/nu
 
+# TODO: Make a function that combines `echo (from "name") (to "name")`
+# when nushell supports list destructuring (so it can be passed as
+# arguments rather than a list)
+
+# Generates the path to a folder in ~/.config,
+# or just ~/ if $home is set
 def to [
     name: string
     --home: bool
@@ -7,6 +13,8 @@ def to [
     echo $"($env.HOME)/(if $home { '' } else { '.config/' })($name)"
 }
 
+# Generates the path to a folder in .dotfiles/.config,
+# or just .dotfiles/ if $home is set
 def from [
     name: string
     --home: bool
