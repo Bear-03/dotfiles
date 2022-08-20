@@ -45,6 +45,10 @@ prompt "Nushell" {
     link (from "nushell") (to "nushell")
 }
 
+prompt "Starship" {
+    link (from "starship.toml") (to "starship.toml")
+}
+
 prompt "Paru" {
     link (from "paru") (to "paru")
 }
