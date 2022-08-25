@@ -7,5 +7,6 @@ alias la = ls -la
 alias grep = rg
 alias cat = bat
 
+# Starship setup
 source ~/.cache/starship/init.nu
 
