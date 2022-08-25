@@ -5,7 +5,15 @@ def link [...argv: any] {
     ln -rns $argv
 }
 
-git clone "https://github.com/AstroNvim/AstroNvim" "~/.config/nvim"
+do {
+    let nvim_cfg_path = "~/.config/nvim"
+
+    if (ls $nvim_cfg_path | empty?) {
+        git clone "https://github.com/AstroNvim/AstroNvim" $nvim_cfg_path
+    } else {
+        print $"Cloning AstroNvim was skipped, ($nvim_cfg_path) was not empty"
+    }
+}
 
 # Symlink files individually instead of folders
 # so programs can create new files in those folders
