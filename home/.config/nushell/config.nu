@@ -1,5 +1,6 @@
 let-env config = {
-    show_banner: false
+    show_banner: false,
+    edit_mode: vi
 }
 
 alias la = ls -la
