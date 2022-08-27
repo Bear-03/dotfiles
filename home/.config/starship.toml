@@ -11,8 +11,8 @@ format = "[$user]($style)"
 show_always = true
 
 [character]
-success_symbol = "[✓](bold white)" 
-error_symbol = "[✗](bold red) "
+success_symbol = "[ ✓](bold white)" 
+error_symbol = "[ ✗](bold red) "
 
 [directory]
 truncate_to_repo = false
