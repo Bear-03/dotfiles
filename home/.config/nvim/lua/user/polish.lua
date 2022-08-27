@@ -40,6 +40,9 @@ return function()
         endfor
     ]])
 
+    -- Trailing whitespace highlight group (used in themes.lua)
+    vim.fn.matchadd("TrailingWhitespace", [[\s\+$]])
+
     -- Format on save
     vim.api.nvim_create_autocmd("BufWritePre", {
         pattern = "*",

@@ -32,12 +32,10 @@ local configs = {
 
             -- Prompt menu (e.g. LSP autocompletion menu)
             PmenuThumb = { bg = palette.fg0 }, -- Scroll indicator
+
+            -- Custom
+            TrailingWhitespace = { bg = palette.red },
         }
-
-
-        for group, value in pairs(custom_hl) do
-            vim.api.nvim_set_hl(0, group, value)
-        end
     end
 }
 

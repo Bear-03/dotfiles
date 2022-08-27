@@ -24,10 +24,9 @@ return {
     },
     -- Other
     {
-        "ntpeters/vim-better-whitespace", -- Highlight trailing spaces
-        event = { "BufRead", "BufNewFile" },
+        "lewis6991/spaceless.nvim",
         config = function()
-            require("user.plugins.config.vim_better_whitespace_config")()
+            require("spaceless").setup()
         end
     },
     { -- Discord RPC
