@@ -52,8 +52,4 @@ return {
             require("neogit").setup()
         end
     },
-    { -- Github copilot
-        "github/copilot.vim",
-        event = { "BufRead", "BufNewFile" },
-    }
 }
