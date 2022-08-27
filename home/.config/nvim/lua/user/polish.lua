@@ -1,3 +1,19 @@
+local function shebang_to_filetype(associations)
+    vim.api.nvim_create_autocmd("BufEnter", {
+        pattern = "*",
+        callback = function()
+            local shebang = vim.fn.getline(1)
+
+            for pattern, filetype in pairs(associations) do
+                if shebang:match(pattern) then
+                    vim.bo.filetype = filetype;
+                end
+            end
+        end
+    })
+end
+
+
 return function()
     if vim.fn.has("termguicolors") == 1 then
         vim.opt.termguicolors = true
@@ -19,7 +35,7 @@ return function()
                 execute "language ".s:lang
                 break
             catch /^Vim(language):E197:/
-            " Do nothing
+                " Do nothing
             endtry
         endfor
     ]])
@@ -33,14 +49,20 @@ return function()
     })
 
     -- File associations
-    vim.filetype.add {
+    vim.filetype.add({
         extension = {
             x68 = "m68k",
             X68 = "m68k"
         },
-    }
+    })
+
+    -- Shebang set filetype
+    shebang_to_filetype({
+        ["[ /]nu$"] = "nu",
+    })
 
     require("user.themes")
     require("user.mappings")
 end
+
 
