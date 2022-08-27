@@ -22,5 +22,10 @@ return {
             breakindentopt = "sbr",
         }
     },
+    mappings = {
+        n = {
+            ["<leader>gg"] = { "<cmd>Neogit<CR>", desc = "Neogit" },
+        },
+    },
 }
 
