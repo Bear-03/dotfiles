@@ -6,23 +6,21 @@ return {
     -- Lsp
     { -- Better rust support (inlay hints etc)
         "simrat39/rust-tools.nvim",
-        after = { "nvim-lspconfig", "nvim-lsp-installer" },
     },
     { -- Neovim API autocompletion for lua
         "folke/lua-dev.nvim",
-        after = { "nvim-lspconfig", "nvim-lsp-installer" },
-    },
-    -- Treesitter
-    { -- Treesitter debugging
-      "nvim-treesitter/playground",
-      cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" },
     },
     { -- Nu support (Nushell)
         "LhKipp/nvim-nu",
         run = ":TSInstall nu",
         config = function()
-            require("nu").setup()
+            require("nu").setup({})
         end
+    },
+    -- Treesitter
+    { -- Treesitter debugging
+      "nvim-treesitter/playground",
+      cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" },
     },
     -- Other
     {
