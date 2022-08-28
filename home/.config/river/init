@@ -17,6 +17,8 @@ swaybg --image ~/Pictures/wallpapers/bg.png &
 riverctl map normal Super+Shift Return spawn alacritty
 
 riverctl map normal Super P spawn "rofi -show drun"
+riverctl map normal Super B spawn "rofi-bluetooth"
+riverctl map normal Super W spawn "$SCRIPTS/rofi-wifi"
 riverctl map normal Super+Shift S spawn "$SCRIPTS/screenshot"
 
 # Super+Q to close the focused view

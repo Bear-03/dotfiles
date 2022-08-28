@@ -73,7 +73,8 @@ return function()
     vim.filetype.add({
         extension = {
             x68 = "m68k",
-            X68 = "m68k"
+            X68 = "m68k",
+            rasi = "css",
         },
     })
 

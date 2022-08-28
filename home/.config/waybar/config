@@ -5,12 +5,19 @@
     // "width": 1280, // Waybar width
     "spacing": 5, // Gaps between modules
     // Choose the order of the modules
-    "modules-left": ["river/tags"],
+    "modules-left": ["river/tags", "cpu", "memory"],
     "modules-center": ["river/window"],
-    "modules-right": ["pulseaudio", "network", "cpu", "memory", "backlight", "battery", "clock", "tray"],
+    "modules-right": ["pulseaudio", "network", "bluetooth", "backlight", "battery", "clock", "tray"],
     // Modules configuration
     "river/tags": {
        "num-tags": 5 
+    },
+    "cpu": {
+        "format": "{usage}% ",
+        "tooltip": false
+    },
+    "memory": {
+        "format": "{}% "
     },
     "window": {
         "max-length": 60 
@@ -36,17 +43,19 @@
     "network": {
         "format-wifi": "{essid} ({signalStrength}%) ",
         "format-ethernet": "{ipaddr}/{cidr} ",
-        "tooltip-format": "{ifname} via {gwaddr} ",
+        "tooltip-format": "{ifname}: {ipaddr}/{cidr} via {gwaddr} ",
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "Disconnected ⚠",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+        "on-click": "$SCRIPTS/rofi-wifi"
     },
-    "cpu": {
-        "format": "{usage}% ",
-        "tooltip": false
-    },
-    "memory": {
-        "format": "{}% "
+    "bluetooth": {
+    	"format": " {status}",
+    	"format-connected": " {device_alias}",
+	    "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+    	"tooltip-format": "{controller_alias}\t{controller_address}",
+    	"tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+    	"tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+	    "on-click": "rofi-bluetooth"
     },
     "backlight": {
         "format": "{percent}% {icon}",
@@ -64,7 +73,6 @@
         "format-alt": "{time} {icon}",
         "format-icons": ["", "", "", "", ""]
     },
-    
     "clock": {
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format-alt": "{:%Y-%m-%d}"
