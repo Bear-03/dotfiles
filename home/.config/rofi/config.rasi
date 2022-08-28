@@ -1,0 +1,97 @@
+/*
+ * Based on the minimal theme in rofi-collection
+ * (https://github.com/Murzchnvok/rofi-collection)
+ */
+
+configuration {
+    font: "monospace Medium 11";
+    modi: "drun";
+    show-icons: true;
+
+    /* Keybindings (Vim-like) */
+    kb-row-up: "Up,k";
+    kb-row-down: "Down,j";
+    kb-page-prev: "Control+b";
+    kb-page-next: "Control+f";
+    kb-move-char-forward: "Right";
+    kb-move-char-back: "Left";
+
+    drun {
+      display-name: "[^.^]";
+    }
+
+    run {
+      display-name: "[°.°]";
+    }
+
+    window {
+      display-name: "[*.*]";
+    }
+
+    timeout {
+      delay: 10;
+      action: "kb-cancel";
+    }
+}
+
+@theme "/dev/null"
+
+* {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    spacing: 0;
+
+    bg: #000000;
+    fg: #ffffff;
+
+    background-color: @bg;
+    text-color: @fg;
+}
+
+window {
+    transparency: "real";
+    border-radius: 10px;
+    width: 30%;
+}
+
+mainbox {
+    children: [inputbar, listview];
+}
+
+inputbar {
+    children: [prompt, entry];
+}
+
+entry {
+    padding: 12px 0;
+}
+
+prompt {
+    padding: 12px;
+}
+
+listview {
+    lines: 7;
+}
+
+element {
+    padding: 10px;
+}
+
+element selected {
+	background-color: @fg;
+	text-color: @bg;
+}
+
+element-icon {
+	size: 20px;
+	padding: 0 10px 0 0;
+    background-color: inherit;
+}
+
+element-text {
+    background-color: inherit;
+    text-color: inherit;
+}
+

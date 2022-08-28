@@ -14,9 +14,9 @@ swaybg --image ~/Pictures/wallpapers/bg.png &
 # Note: the "Super" modifier is also known as Logo, GUI, Windows, Mod4, etc.
 
 # Super+Shift+Return to start an instance of alacritty
-riverctl map normal Super+Shift Return spawn alacritty 
+riverctl map normal Super+Shift Return spawn alacritty
 
-riverctl map normal Super P spawn wofi
+riverctl map normal Super P spawn "rofi -show drun"
 riverctl map normal Super+Shift S spawn "$SCRIPTS/screenshot"
 
 # Super+Q to close the focused view
