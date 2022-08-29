@@ -4,7 +4,7 @@
 ```bash
 git clone https://github.com/Bear-03/dotfiles ~/.dotfiles
 cd .dotfiles
-nu bootstrap.nu
+sudo nu bootstrap.nu
 ```
 
 [nushell]: https://www.nushell.sh
