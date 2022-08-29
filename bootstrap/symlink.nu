@@ -24,7 +24,7 @@ do {
 # without them being committed automatically
 (ls -la "home/**/*" | where type == file).name
 | each { |from|
-    let to = ($from | str replace "home" "~")
+    let to = ($from | str replace "home" $home)
 
     print $"($from)..."
     link $from $to
