@@ -1,7 +1,8 @@
-#!/bin/sh
+#!/bin/nu
 
-waybar &
-swaybg --image ~/Pictures/wallpapers/bg.png &
+# Use sh for parallelism, nu doesn't support it yet
+sh -c "waybar &"
+sh -c "swaybg --image ~/Pictures/wallpapers/bg.png &"
 
 # This is the example configuration file for river.
 #
@@ -18,8 +19,8 @@ riverctl map normal Super+Shift Return spawn alacritty
 
 riverctl map normal Super P spawn "rofi -show drun"
 riverctl map normal Super B spawn "rofi-bluetooth"
-riverctl map normal Super W spawn "$SCRIPTS/rofi-wifi.nu"
-riverctl map normal Super+Shift S spawn "$SCRIPTS/screenshot.nu"
+riverctl map normal Super W spawn $"($env.SCRIPTS)/rofi-wifi.nu"
+riverctl map normal Super+Shift S spawn $"($env.SCRIPTS)/screenshot.nu"
 
 # Super+Q to close the focused view
 riverctl map normal Super Q close
@@ -79,9 +80,8 @@ riverctl map-pointer normal Super BTN_LEFT move-view
 # Super + Right Mouse Button to resize views
 riverctl map-pointer normal Super BTN_RIGHT resize-view
 
-for i in $(seq 1 9)
-do
-    tags=$((1 << ($i - 1)))
+seq 1 9 | each { |i|
+    let tags = 1 bit-shl ($i - 1)
 
     # Super+[1-9] to focus tag [0-8]
     riverctl map normal Super $i set-focused-tags $tags
@@ -94,11 +94,11 @@ do
 
     # Super+Shift+Ctrl+[1-9] to toggle tag [0-8] of focused view
     riverctl map normal Super+Shift+Control $i toggle-view-tags $tags
-done
+}
 
 # Super+0 to focus all tags
 # Super+Shift+0 to tag focused view with all tags
-all_tags=$(((1 << 32) - 1))
+let all_tags = 1 bit-shl 32 - 1
 riverctl map normal Super 0 set-focused-tags $all_tags
 riverctl map normal Super+Shift 0 set-view-tags $all_tags
 
@@ -126,8 +126,7 @@ riverctl map passthrough Super F11 enter-mode normal
 
 # Various media key mapping examples for both normal and locked mode which do
 # not have a modifier
-for mode in normal locked
-do
+["normal" "locked"] | each { |mode|
     # Eject the optical drive (well if you still have one that is)
     riverctl map $mode None XF86Eject spawn 'eject -T'
 
@@ -143,9 +142,9 @@ do
     riverctl map $mode None XF86AudioNext  spawn 'playerctl next'
 
     # Control screen backlight brightness with light (https://github.com/haikarainen/light)
-    riverctl map $mode None XF86MoBrightnessUp   spawn 'brightnessctl s 10%-'
-    riverctl map $mode None XF86MonBrightnessDown spawn 'brightnessctl s 10%+'
-done
+    riverctl map $mode None XF86MonBrightnessUp   spawn 'brightnessctl s 10%+'
+    riverctl map $mode None XF86MonBrightnessDown spawn 'brightnessctl s 10%-'
+}
 
 # Set background and border color
 riverctl background-color 0x002b36
@@ -165,4 +164,5 @@ riverctl csd-filter-add app-id "gedit"
 # Set the default layout generator to be rivertile and start it.
 # River will send the process group of the init executable SIGTERM on exit.
 riverctl default-layout rivertile
-rivertile -view-padding 5 -outer-padding 5 
+rivertile -view-padding 5 -outer-padding 5
+
