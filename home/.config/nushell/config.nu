@@ -7,7 +7,7 @@ alias la = ls -la
 alias grep = rg
 alias cat = bat
 
-def downlad [url: string] {
+def download [url: string] {
     cd (xdg-user-dir DOWNLOAD)
     curl $url -O
     cd -
