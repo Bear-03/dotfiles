@@ -10,7 +10,7 @@ def remove-color [] {
 # {
 #     connected: bool,
 #     ssid: string,
-#      security: string,
+#     security: string,
 #     signal: int
 # }
 def networks [station: string] {
