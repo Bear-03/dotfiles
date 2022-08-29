@@ -1,5 +1,7 @@
 #!/bin/nu
 
+let station = "wlan0"
+
 # Removes color codes from input string
 def remove-color [] {
     $in | str replace `\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]` "" --all
@@ -13,7 +15,7 @@ def remove-color [] {
 #     security: string,
 #     signal: int
 # }
-def networks [station: string] {
+def networks [] {
     iwctl station $station get-networks
     | tail -n +5
     | head -n -1
@@ -53,33 +55,71 @@ def network-into-string [network] {
     $"($security) ($connected) ($network.ssid)"
 }
 
-def show-menu [station: string] {
-    let networks = networks $station
-
-    let selected_str = (
-        $networks
-        | sort-by -r signal
-            | each { |it|
-            network-into-string $it
-        }
-        | str collect "\n"
-        | rofi -dmenu -selected-row 1 -p "SSID: "
-        | str trim
-    )
-
-    $networks
-    | find -p { |network| (network-into-string $network) == $selected_str }
-    | get 0
+def connect [ssid: string] {
+    if (iwctl known-networks list) =~ $ssid {
+        iwctl station $station connect $ssid
+    } else {
+        let passphrase = (rofi -dmenu -password -p "Passphrase: " | str trim)
+        iwctl station $station connect $ssid --passphrase $passphrase
+    }
 }
 
-let station = "wlan0"
+def scan [] {
+    iwctl station $station scan
+    sleep 3sec
+}
 
-let selected_network = show-menu $station
+def show-menu [] {
+    let networks = networks
 
-if (iwctl known-networks list) =~ $selected_network.ssid {
-    iwctl station $station connect $selected_network.ssid
-} else {
-    let passphrase = (rofi -dmenu -password -p "Passphrase: " | str trim)
-    iwctl station $station connect $selected_network.ssid --passphrase $passphrase
+    let options = (
+        $networks
+        | sort-by -r signal
+        | each { |it|
+            {
+                text: (network-into-string $it)
+                block: { connect $it.ssid }
+            }
+        }
+        | append {
+            text: "",
+            block: {;}
+        }
+        | append {
+            text: "Scan",
+            block: { scan }
+        }
+        | append {
+            text: "Exit",
+            block: { exit 0 }
+        }
+    )
+
+    let selected_str = (
+        $options.text
+        | str collect "\n"
+        | rofi -dmenu -selected-row 0 -p "SSID: "
+    )
+
+    if ($selected_str | empty?) {
+        $nothing
+    } else {
+        $options
+        | find -p { |option|
+            $option.text == ($selected_str | str trim)
+        }
+        | get 0
+    }
+}
+
+0.. | each {
+    let selection = show-menu
+
+    if $selection == $nothing {
+        print "No selection, exiting..."
+        exit 0
+    }
+
+    do $selection.block
 }
 
