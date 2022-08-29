@@ -2,7 +2,7 @@
 
 # Removes color codes from input string
 def remove-color [] {
-	$in | str replace `\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]` "" --all
+    $in | str replace `\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]` "" --all
 }
 
 # Retuns a list of networks (table)
@@ -10,23 +10,23 @@ def remove-color [] {
 # {
 #     connected: bool,
 #     ssid: string,
-#	  security: string,
+#      security: string,
 #     signal: int
 # }
 def networks [station: string] {
-	iwctl station $station get-networks
-	| tail -n +5
-	| head -n -1
-	| remove-color
-	| split row "\n"
-	| each { |it|
-		$it
-		| parse -r `\s{2}(?P<connected>[> ])\s{3}(?P<ssid>.+)\s+(?P<security>[a-zA-Z0-9]+)\s{17}(?P<signal>\**)\s{4}`
-		| update connected { |x| $x.connected == ">" }
-		| update ssid { |x| $x.ssid | str trim }
-		| update signal { |x| $x.signal | str length }
-	}
-	| flatten
+    iwctl station $station get-networks
+    | tail -n +5
+    | head -n -1
+    | remove-color
+    | split row "\n"
+    | each { |it|
+        $it
+        | parse -r `\s{2}(?P<connected>[> ])\s{3}(?P<ssid>.+)\s+(?P<security>[a-zA-Z0-9]+)\s{17}(?P<signal>\**)\s{4}`
+        | update connected { |x| $x.connected == ">" }
+        | update ssid { |x| $x.ssid | str trim }
+        | update signal { |x| $x.signal | str length }
+    }
+    | flatten
 }
 
 
@@ -38,38 +38,38 @@ def networks [station: string] {
 #     signal: int
 # }
 def network-into-string [network] {
-	let connected = (if $network.connected {
-		">"
-	} else {
-		" "
-	})
-
-	let security = (if ($network.security | empty?) == false {
-		""
+    let connected = (if $network.connected {
+        ">"
     } else {
-		""
+        " "
     })
 
-	$"($security) ($connected) ($network.ssid)"
+    let security = (if ($network.security | empty?) == false {
+        ""
+    } else {
+        ""
+    })
+
+    $"($security) ($connected) ($network.ssid)"
 }
 
 def show-menu [station: string] {
-	let networks = networks $station
+    let networks = networks $station
 
-	let selected_str = (
-		$networks
-		| sort-by -r signal
-			| each { |it|
-			network-into-string $it
-		}
-		| str collect "\n"
-		| rofi -dmenu -selected-row 1 -p "SSID: "
-		| str trim
-	)
+    let selected_str = (
+        $networks
+        | sort-by -r signal
+            | each { |it|
+            network-into-string $it
+        }
+        | str collect "\n"
+        | rofi -dmenu -selected-row 1 -p "SSID: "
+        | str trim
+    )
 
-	$networks
-	| find -p { |network| (network-into-string $network) == $selected_str }
-	| get 0
+    $networks
+    | find -p { |network| (network-into-string $network) == $selected_str }
+    | get 0
 }
 
 let station = "wlan0"
@@ -77,9 +77,9 @@ let station = "wlan0"
 let selected_network = show-menu $station
 
 if (iwctl known-networks list) =~ $selected_network.ssid {
-	iwctl station $station connect $selected_network.ssid
+    iwctl station $station connect $selected_network.ssid
 } else {
-	let passphrase = (rofi -dmenu -password -p "Passphrase: " | str trim)
-	iwctl station $station connect $selected_network.ssid --passphrase $passphrase
+    let passphrase = (rofi -dmenu -password -p "Passphrase: " | str trim)
+    iwctl station $station connect $selected_network.ssid --passphrase $passphrase
 }
 
