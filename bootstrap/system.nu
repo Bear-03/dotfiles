@@ -6,23 +6,28 @@
 do {
     echo "Blacklisting i2c_i801 kernel module"
 
-    let path = (
+    let file = (
         ls "/boot/loader/entries"
         | get 0
     ).name
 
-    open $path
-    | str replace "(options .+)" "$1 modprobe.blacklist=i2c_i801"
-    | save $path
+    let kernel_arg = "modprobe.blacklist=i2c_i801"
+    let file_contents = open $file
+
+    if ($file_contents =~ $kernel_arg) == false {
+        $file_contents
+        | str replace "(options .+)" $"$1 ($kernel_arg)"
+        | save $file
+    }
 }
 
 # Stop bluetooth from turning on automatically
 do {
     echo "Turning bluetooth AutoEnable off"
 
-    let path = "/etc/bluetooth/main.conf"
+    let file = "/etc/bluetooth/main.conf"
 
-    open $path
+    open $file
     | str replace "#AutoEnable=true" "AutoEnable=false"
-    | save $path
+    | save $file
 }
