@@ -1,7 +1,7 @@
 #!/bin/nu
 
 if (whoami | str trim) != "root" {
-    echo "Please run the bootstrap scripg as root"
+    echo "Please run the bootstrap script as root"
     exit 1
 }
 
