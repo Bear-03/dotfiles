@@ -18,8 +18,8 @@ riverctl map normal Super+Shift Return spawn alacritty
 
 riverctl map normal Super P spawn "rofi -show drun"
 riverctl map normal Super B spawn "rofi-bluetooth"
-riverctl map normal Super W spawn "$SCRIPTS/rofi-wifi"
-riverctl map normal Super+Shift S spawn "$SCRIPTS/screenshot"
+riverctl map normal Super W spawn "$SCRIPTS/rofi-wifi.nu"
+riverctl map normal Super+Shift S spawn "$SCRIPTS/screenshot.nu"
 
 # Super+Q to close the focused view
 riverctl map normal Super Q close

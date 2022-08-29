@@ -46,7 +46,7 @@
         "tooltip-format": "{ifname}: {ipaddr}/{cidr} via {gwaddr} ",
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "Disconnected ⚠",
-        "on-click": "$SCRIPTS/rofi-wifi"
+        "on-click": "$SCRIPTS/rofi-wifi.nu"
     },
     "bluetooth": {
     	"format": " {status}",
