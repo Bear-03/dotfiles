@@ -59,7 +59,9 @@
     },
     "backlight": {
         "format": "{percent}% {icon}",
-        "format-icons": ["", "", "", "", "", "", "", "", ""]
+        "format-icons": ["", "", "", "", "", "", "", "", ""],
+        "on-click": "brightnessctl s 10%-",
+        "on-click-right": "brightnessctl s 10%+"
     },
     "battery": {
         "states": {
