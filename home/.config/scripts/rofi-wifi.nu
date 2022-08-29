@@ -13,7 +13,6 @@ def remove-color [] {
 #     connected: bool,
 #     ssid: string,
 #     security: string,
-#     signal: int
 # }
 def networks [] {
     iwctl station $station get-networks
@@ -23,10 +22,9 @@ def networks [] {
     | split row "\n"
     | each { |it|
         $it
-        | parse -r `\s{2}(?P<connected>[> ])\s{3}(?P<ssid>.+)\s+(?P<security>[a-zA-Z0-9]+)\s{17}(?P<signal>\**)\s{4}`
+        | parse -r `\s{2}(?P<connected>[> ])\s{3}(?P<ssid>.+)\s+(?P<security>[a-zA-Z0-9]+)\s{17}\**\s{4}`
         | update connected { |x| $x.connected == ">" }
         | update ssid { |x| $x.ssid | str trim }
-        | update signal { |x| $x.signal | str length }
     }
     | flatten
 }
@@ -37,7 +35,6 @@ def networks [] {
 #     connected: bool,
 #     ssid: string,
 #     security: string,
-#     signal: int
 # }
 def network-into-string [network] {
     let connected = (if $network.connected {
@@ -59,7 +56,7 @@ def connect [ssid: string] {
     if (iwctl known-networks list) =~ $ssid {
         iwctl station $station connect $ssid
     } else {
-        let passphrase = (rofi -dmenu -password -p "Passphrase: " | str trim)
+        let passphrase = (rofi -dmenu -l 0 -password -p "Passphrase: " | str trim)
         iwctl station $station connect $ssid --passphrase $passphrase
     }
 }
@@ -70,56 +67,45 @@ def scan [] {
 }
 
 def show-menu [] {
-    let networks = networks
+    let exit_title = "Exit"
 
+    # option representation -> block record, used to access
+    # the code that has to be run for a given option
     let options = (
-        $networks
-        | sort-by -r signal
-        | each { |it|
-            {
-                text: (network-into-string $it)
-                block: { connect $it.ssid }
-            }
+        networks
+        # Each network record will be converted into a name->block record
+        # and all of them will be merged together with reduce
+        | reduce -f {} { |it, acc|
+            $acc | merge {{
+                (network-into-string $it): {
+                    connect $it.ssid
+                    exit 0
+                }
+            }}
         }
-        | append {
-            text: "",
-            block: {;}
-        }
-        | append {
-            text: "Scan",
-            block: { scan }
-        }
-        | append {
-            text: "Exit",
-            block: { exit 0 }
-        }
+        | merge {{
+            "": {;}
+            "Scan": { scan }
+            $exit_title: { exit 0 }
+        }}
     )
 
     let selected_str = (
-        $options.text
+        $options
+        | columns
         | str collect "\n"
         | rofi -dmenu -selected-row 0 -p "SSID: "
     )
 
     if ($selected_str | empty?) {
-        $nothing
+        # Last option is considered exit
+        $options | get $exit_title
     } else {
-        $options
-        | find -p { |option|
-            $option.text == ($selected_str | str trim)
-        }
-        | get 0
+        $options | get ($selected_str | str trim)
     }
 }
 
 0.. | each {
-    let selection = show-menu
-
-    if $selection == $nothing {
-        print "No selection, exiting..."
-        exit 0
-    }
-
-    do $selection.block
+    do (show-menu)
 }
 
