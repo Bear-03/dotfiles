@@ -1,3 +1,5 @@
+PATH="$PATH:$HOME/.local/bin"
+
 export TERM="alacritty"
 export EDITOR="nvim"
 export VISUAL="nvim"
