@@ -2,17 +2,24 @@
 
 # Set up things outside of $HOME (/etc, /boot...)
 
+# Install rust
+do {
+    if (rustup toolchain list | str trim) == "no installed toolchains" {
+        print "Installing Rust"
+        rustup toolchain install nightly
+    } else {
+        print "Rust already installed, skipping"
+    }
+}
+
 # Blacklist i2c_i801 module (Fixes SMBus error on login)
 do {
-    echo "Blacklisting i2c_i801 kernel module"
+    print "Blacklisting i2c_i801 kernel module"
 
-    let file = (
-        ls "/boot/loader/entries"
-        | get 0
-    ).name
+    let file = (ls "/boot/loader/entries" | get 0).name
+    let file_contents = open $file
 
     let kernel_arg = "modprobe.blacklist=i2c_i801"
-    let file_contents = open $file
 
     if ($file_contents =~ $kernel_arg) == false {
         $file_contents
@@ -23,7 +30,7 @@ do {
 
 # Stop bluetooth from turning on automatically
 do {
-    echo "Turning bluetooth AutoEnable off"
+    print "Turning bluetooth AutoEnable off"
 
     let file = "/etc/bluetooth/main.conf"
 
