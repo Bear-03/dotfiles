@@ -13,6 +13,20 @@ def download [url: string] {
     cd -
 }
 
+# Pacman autoremove (Remove orphan packages)
+def pacman-au [] {
+    let orphans = (sudo pacman -Qdtq | split row "\n")
+
+    if ($orphans | is-empty) {
+        print "Nothing to uninstall"
+    } else {
+        $orphans | each { |it|
+            print $"Uninstalling ($it)..."
+            sudo pacman -Rnsq --noconfirm $it | ignore
+        }
+    }
+}
+
 def mnt [name: string] {
     let mnt_dir = $"/mnt/($name)"
     mkdir $mnt_dir
