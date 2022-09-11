@@ -12,7 +12,7 @@ let home = $"/home/(logname | str trim)"
 do {
     let nvim_cfg_path = $"($home)/.config/nvim"
 
-    if (ls $nvim_cfg_path | empty?) {
+    if (ls $nvim_cfg_path | is-empty) {
         git clone "https://github.com/AstroNvim/AstroNvim" $nvim_cfg_path
     } else {
         print $"Cloning AstroNvim was skipped, ($nvim_cfg_path) was not empty"
