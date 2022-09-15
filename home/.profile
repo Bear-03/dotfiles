@@ -25,7 +25,10 @@ export XDG_DESKTOP_DIR=$HOME
 
 # Fix white screen for java apps
 export _JAVA_AWT_WM_NONREPARENTING=1
+# Fix RStudio
+export QT_QPA_PLATFORM=xcb
 # Fix font antialiasing for java apps
 export JDK_JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true"
+
 export SCRIPTS="$HOME/.config/scripts"
 
