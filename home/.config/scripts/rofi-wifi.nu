@@ -43,7 +43,7 @@ def network-into-string [network] {
         " "
     })
 
-    let security = (if ($network.security | empty?) == false {
+    let security = (if ($network.security | is-empty) == false {
         ""
     } else {
         ""
@@ -97,7 +97,7 @@ def show-menu [] {
         | rofi -dmenu -selected-row 0 -p "SSID: "
     )
 
-    if ($selected_str | empty?) {
+    if ($selected_str | is-empty) {
         # Last option is considered exit
         $options | get $exit_title
     } else {
