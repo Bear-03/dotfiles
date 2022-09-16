@@ -143,8 +143,8 @@ riverctl map passthrough Super F11 enter-mode normal
     riverctl map $mode None XF86AudioNext  spawn 'playerctl next'
 
     # Control screen backlight brightness with light (https://github.com/haikarainen/light)
-    riverctl map $mode None XF86MonBrightnessUp   spawn 'brightnessctl s 10%+'
-    riverctl map $mode None XF86MonBrightnessDown spawn 'brightnessctl s 10%-'
+    riverctl map $mode None XF86MonBrightnessUp   spawn $"($env.SCRIPTS)/brightness.nu up"
+    riverctl map $mode None XF86MonBrightnessDown spawn $"($env.SCRIPTS)/brightness.nu down"
 }
 
 # Set background and border color
