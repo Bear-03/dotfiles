@@ -38,3 +38,11 @@ do {
     | str replace "#AutoEnable=true" "AutoEnable=false"
     | save $file
 }
+
+# Enable system modules
+do {
+    # TLP
+    systemctl enable tlp
+    systemctl mask systemd-rfkill.service systemd-rfkill.socket
+}
+

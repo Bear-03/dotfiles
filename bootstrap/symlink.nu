@@ -7,8 +7,28 @@ def link [...argv: any] {
     ln -rns $argv
 }
 
+# "to" gets the destination dir from the origin
+def link-dir [from_dir: string, to_dir: string] {
+    # Add trailing / if not present
+    let to_dir = $to_dir + (if ($to_dir | str ends-with "/") { "" } else { "/" })
+
+    cd $from_dir
+
+    (ls -la "./**/*" | where type == file).name
+    | each { |from_file|
+        let to_file = $to_dir + $from_file
+
+        print $"($to_file)..."
+        link $from_file $to_file
+        print "DONE";
+    }
+
+    cd -
+}
+
 let home = $"/home/(logname | str trim)"
 
+# Clone AstroNvim
 do {
     let nvim_cfg_path = $"($home)/.config/nvim"
 
@@ -22,12 +42,6 @@ do {
 # Symlink files individually instead of folders
 # so programs can create new files in those folders
 # without them being committed automatically
-(ls -la "home/**/*" | where type == file).name
-| each { |from|
-    let to = ($from | str replace "home" $home)
-
-    print $"($from)..."
-    link $from $to
-    print "DONE";
-}
+link-dir "home" $home
+link-dir "etc" "/etc"
 
