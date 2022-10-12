@@ -6,9 +6,11 @@ return {
     -- Lsp
     { -- Better rust support (inlay hints etc)
         "simrat39/rust-tools.nvim",
-    },
-    { -- Neovim API autocompletion for lua
-        "folke/lua-dev.nvim",
+        after = "mason-lspconfig.nvim",
+        ft = { "rust" },
+        config = function()
+            require("rust-tools").setup(require("user.plugins.rust-tools"))
+        end
     },
     { -- Nu support (Nushell)
         "LhKipp/nvim-nu",
@@ -19,8 +21,8 @@ return {
     },
     -- Treesitter
     { -- Treesitter debugging
-      "nvim-treesitter/playground",
-      cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" },
+        "nvim-treesitter/playground",
+        cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" },
     },
     -- Other
     {
@@ -32,7 +34,7 @@ return {
     { -- Discord RPC
         "andweeb/presence.nvim",
         config = function()
-            require("user.plugins.config.presence_config")()
+            -- require("presence"):setup(require("user.plugins.presence"))
         end
     },
     { -- Rust crates info
