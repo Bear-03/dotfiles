@@ -1,5 +1,3 @@
--- NOTE: Toggleterm can be open with "<leader>t"
-
 return {
     colorscheme = "gruvqueen", -- is broken with vimscript themes
     options = {
@@ -25,6 +23,9 @@ return {
     mappings = {
         n = {
             ["<leader>gg"] = { "<cmd>Neogit<CR>", desc = "Neogit" },
+        },
+        t = {
+            ["<esc>"] = { "<C-\\><C-n>", desc = "Terminal normal mode" },
         },
     },
 }

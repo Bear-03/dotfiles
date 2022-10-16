@@ -1,4 +1,7 @@
 return {
+    -- Disabled
+    ["Darazaki/indent-o-matic"] = { disable = true },
+
     -- Themes
     {
         "murtaza-u/gruvqueen",
