@@ -1,4 +1,4 @@
-version = "0.19.0"
+version = "0.20.0"
 
 local home = os.getenv("HOME")
 local xpm_path = home .. "/.local/share/xplr/dtomvan/xpm.xplr"
