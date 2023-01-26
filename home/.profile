@@ -19,9 +19,12 @@ export EDITOR="nvim"
 export VISUAL="nvim"
 export BROWSER="firefox"
 export GTK_THEME="Adwaita:dark"
+export QT_STYLE_OVERRIDE="adwaita-dark"
 export XKB_DEFAULT_LAYOUT="es"
 # WMs don"t have a desktop, having a Desktop folder is unintuitive
 export XDG_DESKTOP_DIR=$HOME
+# Fixes valgrind glibc error (https://bbs.archlinux.org/viewtopic.php?id=276422)
+export DEBUGINFOD_URLS="https://debuginfod.archlinux.org"
 
 # Fix white screen for java apps
 export _JAVA_AWT_WM_NONREPARENTING=1
