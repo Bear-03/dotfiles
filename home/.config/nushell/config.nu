@@ -22,9 +22,21 @@ def pacman-au [] {
     } else {
         $orphans | each { |it|
             print $"Uninstalling ($it)..."
-            sudo pacman -Rnsq --noconfirm $it | ignore
+            sudo pacman -Rns --noconfirm $it | ignore
         }
     }
+}
+
+# Activate python venv
+def pyenv [env_path?: string] {
+    let env_path = if ($env_path == null) {
+        ".venv"
+    } else {
+        $env_path
+    }
+
+    print $"Activating environment \"($env_path)\"... \(Deactivate with Ctrl-D\)"
+    bash -c $"source ($env_path)/bin/activate && nu"
 }
 
 def mnt [name: string] {
