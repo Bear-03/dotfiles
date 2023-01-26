@@ -76,18 +76,19 @@ def show-menu [] {
         # Each network record will be converted into a name->block record
         # and all of them will be merged together with reduce
         | reduce -f {} { |it, acc|
-            $acc | merge {{
+            $acc | merge {
                 (network-into-string $it): {
                     connect $it.ssid
                     exit 0
                 }
-            }}
+            }
         }
-        | merge {{
+        # Add extra control options at the end
+        | merge {
             "": {;}
             "Scan": { scan }
             $exit_title: { exit 0 }
-        }}
+        }
     )
 
     let selected_str = (
