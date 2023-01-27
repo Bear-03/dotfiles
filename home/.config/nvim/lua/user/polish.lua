@@ -40,11 +40,10 @@ return function()
     -- Change LSP message prefix
     vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
         vim.lsp.diagnostic.on_publish_diagnostics, {
-            virtual_text = {
-                prefix = "●"
-            }
+        virtual_text = {
+            prefix = "●"
         }
-    )
+    })
 
     -- Force English
     vim.cmd([[
@@ -61,14 +60,6 @@ return function()
     -- Trailing whitespace highlight group (used in themes.lua)
     vim.fn.matchadd("TrailingWhitespace", [[\s\+$]])
 
-    -- Format on save
-    vim.api.nvim_create_autocmd("BufWritePre", {
-        pattern = "*",
-        callback = function()
-            vim.lsp.buf.formatting_sync(nil, 1000)
-        end
-    })
-
     -- File associations
     vim.filetype.add({
         extension = {
@@ -84,7 +75,4 @@ return function()
     })
 
     mappings()
-    require("user.themes")
 end
-
-

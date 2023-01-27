@@ -4,7 +4,7 @@ return {
 
     -- Themes
     {
-        "murtaza-u/gruvqueen",
+        "sainnhe/gruvbox-material"
     },
     -- Lsp
     { -- Better rust support (inlay hints etc)
@@ -13,13 +13,6 @@ return {
         ft = { "rust" },
         config = function()
             require("rust-tools").setup(require("user.plugins.rust-tools"))
-        end
-    },
-    { -- Nu support (Nushell)
-        "LhKipp/nvim-nu",
-        run = ":TSInstall nu",
-        config = function()
-            require("nu").setup({})
         end
     },
     -- Treesitter
@@ -37,7 +30,7 @@ return {
     { -- Discord RPC
         "andweeb/presence.nvim",
         config = function()
-            -- require("presence"):setup(require("user.plugins.presence"))
+            require("presence"):setup(require("user.plugins.presence"))
         end
     },
     { -- Rust crates info

@@ -1,5 +1,7 @@
+local transparent = vim.loop.os_uname().sysname == "Linux"
+
 return {
-    colorscheme = "gruvqueen", -- is broken with vimscript themes
+    colorscheme = "gruvbox-material",
     options = {
         opt = {
             virtualedit = "onemore",
@@ -18,6 +20,12 @@ return {
             linebreak = true, -- Break at spaces
             breakindent = true, -- Keep indentation on break
             breakindentopt = "sbr",
+        },
+        g = {
+            gruvbox_material_foreground = "original",
+        },
+        t = {
+            transparent = transparent,
         }
     },
     mappings = {
