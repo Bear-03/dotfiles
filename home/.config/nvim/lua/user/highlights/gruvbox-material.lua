@@ -3,9 +3,6 @@ return function()
     local palette = vim.tbl_map(function(color) return color[1] end,
         vim.fn["gruvbox_material#get_palette"](config.background, config.foreground, config.colors_override)
     )
-    print(vim.inspect(palette))
-
-    -- local palette = require("gruvqueen.util").get_palette(vim.g.gruvqueen_style, "dark")
 
     return {
         -- Treesitter

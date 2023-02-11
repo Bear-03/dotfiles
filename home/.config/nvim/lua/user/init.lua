@@ -1,5 +1,3 @@
-local transparent = vim.loop.os_uname().sysname == "Linux"
-
 return {
     colorscheme = "gruvbox-material",
     options = {
@@ -24,9 +22,6 @@ return {
         g = {
             gruvbox_material_foreground = "original",
         },
-        t = {
-            transparent = transparent,
-        }
     },
     mappings = {
         n = {

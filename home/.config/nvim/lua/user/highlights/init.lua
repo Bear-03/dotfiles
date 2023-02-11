@@ -1,9 +1,4 @@
 return function()
-    print("lolo")
-    if not vim.t.transparent then
-        return {}
-    end
-
     return {
         Normal = { bg = "NONE", ctermbg = "NONE" },
         NormalNC = { bg = "NONE", ctermbg = "NONE" },
