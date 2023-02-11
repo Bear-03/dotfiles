@@ -1,18 +1,3 @@
-local function shebang_to_filetype(associations)
-    vim.api.nvim_create_autocmd("BufEnter", {
-        pattern = "*",
-        callback = function()
-            local shebang = vim.fn.getline(1)
-
-            for pattern, filetype in pairs(associations) do
-                if shebang:match(pattern) then
-                    vim.bo.filetype = filetype;
-                end
-            end
-        end
-    })
-end
-
 local function mappings()
     -- Disables arrow keys in modes where hjkl are available
     vim.keymap.set({ "n", "i", "v" }, "<Left>", "<Nop>", { noremap = true })
@@ -67,11 +52,6 @@ return function()
             X68 = "m68k",
             rasi = "css",
         },
-    })
-
-    -- Shebang set filetype
-    shebang_to_filetype({
-        ["[ /]nu$"] = "nu",
     })
 
     mappings()

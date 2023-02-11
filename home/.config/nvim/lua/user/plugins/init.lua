@@ -16,6 +16,13 @@ return {
         end
     },
     -- Treesitter
+    { -- Nu support
+        "LhKipp/nvim-nu",
+        run = ":TSInstall nu",
+        config = function()
+            require("nu").setup({})
+        end
+    },
     { -- Treesitter debugging
         "nvim-treesitter/playground",
         cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" },
