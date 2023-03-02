@@ -32,6 +32,8 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 export QT_QPA_PLATFORM=xcb
 # Fix font antialiasing for java apps
 export JDK_JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true"
+# Fix images in WGPU apps
+export WGPU_BACKEND=vulkan
 
 export SCRIPTS="$HOME/.config/scripts"
 
