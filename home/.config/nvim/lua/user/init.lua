@@ -21,6 +21,7 @@ return {
         },
         g = {
             gruvbox_material_foreground = "original",
+            c_syntax_for_h = 1,
         },
     },
     mappings = {
