@@ -21,9 +21,10 @@ return {
                 "Cargo.lock",
             },
             hide_by_pattern = {
-                "^.*\\.o$",
-                "^.*\\.import$",
-                "^.*\\.mono$"
+                "*.o",
+                "*.import",
+                "*.mono",
+                "*.class",
             }
         },
     },
