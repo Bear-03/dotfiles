@@ -5,10 +5,6 @@ return {
         "nvim-treesitter/playground",
         cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" }
     },
-    -- Remove trailing spaces
-    {
-        "lewis6991/spaceless.nvim",
-    },
     -- Git integration
     {
         "TimUntersberger/neogit",

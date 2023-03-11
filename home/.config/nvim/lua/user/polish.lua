@@ -1,4 +1,4 @@
-local function mappings()
+local function multimode_mappings()
     -- Disables arrow keys in modes where hjkl are available
     vim.keymap.set({ "n", "i", "v" }, "<Left>", "<Nop>", { noremap = true })
     vim.keymap.set({ "n", "i", "v" }, "<Right>", "<Nop>", { noremap = true })
@@ -38,9 +38,6 @@ return function()
         endfor
     ]])
 
-    -- Trailing whitespace highlight group (used in themes.lua)
-    vim.fn.matchadd("TrailingWhitespace", [[\s\+$]])
-
     -- File associations
     vim.filetype.add({
         extension = {
@@ -50,5 +47,5 @@ return function()
         },
     })
 
-    mappings()
+    multimode_mappings()
 end

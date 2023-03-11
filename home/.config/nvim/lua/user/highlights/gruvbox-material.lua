@@ -18,7 +18,7 @@ return function()
         -- Prompt menu (e.g. LSP autocompletion menu)
         PmenuThumb = { bg = palette.fg0 }, -- Scroll indicator
 
-        -- Custom
-        TrailingWhitespace = { bg = palette.red },
+        -- BetterWhitespace
+        ExtraWhitespace = { bg = palette.red },
     }
 end
