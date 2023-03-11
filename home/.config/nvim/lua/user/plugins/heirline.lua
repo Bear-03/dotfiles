@@ -1,5 +1,5 @@
 return {
-    "rebelot/heirline.nvim",
+    "heirline.nvim",
     opts = function(_, opts)
         local status = require("astronvim.utils.status")
 

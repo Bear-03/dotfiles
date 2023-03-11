@@ -1,6 +1,6 @@
 -- LSP support for Nu
 return {
     "LhKipp/nvim-nu",
-    lazy = false,
+    event = "BufRead *.nu",
     build = ":TSInstall nu",
 }

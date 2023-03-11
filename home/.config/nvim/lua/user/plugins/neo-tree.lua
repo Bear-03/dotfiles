@@ -1,5 +1,5 @@
 return {
-    "nvim-neo-tree/neo-tree.nvim",
+    "neo-tree.nvim",
     opts = {
         close_if_last_window = true,
         default_component_configs = {

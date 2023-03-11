@@ -1,5 +1,5 @@
 return {
-    "windwp/nvim-autopairs",
+    "nvim-autopairs",
     opts = {
         enable_moveright = false,
         enable_check_bracket_line = false,

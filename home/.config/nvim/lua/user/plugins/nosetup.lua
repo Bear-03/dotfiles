@@ -8,7 +8,7 @@ return {
     -- Git integration
     {
         "TimUntersberger/neogit",
-        lazy = false,
+        cmd = "Neogit",
     },
     -- Rust crates info
     {
