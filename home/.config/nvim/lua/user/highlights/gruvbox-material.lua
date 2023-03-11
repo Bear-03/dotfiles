@@ -7,18 +7,17 @@ return function()
     return {
         -- Treesitter
         ["@constant"] = { link = "@number" },
-        ["@variable.builtin"] = { fg = palette.grey1 }, -- ex. self / this
+        ["@variable.builtin"] = { fg = palette.grey1 },  -- ex. self / this
         ["@punctuation.bracket"] = { fg = palette.red }, -- For closures in rust
         ["@operator"] = { fg = palette.aqua },
-
         -- NvimTree
         NeoTreeGitConflict = { fg = palette.purple },
         NeoTreeGitUntracked = { fg = palette.orange },
-
         -- Prompt menu (e.g. LSP autocompletion menu)
         PmenuThumb = { bg = palette.fg0 }, -- Scroll indicator
-
         -- BetterWhitespace
         ExtraWhitespace = { bg = palette.red },
+        -- Fidget
+        FidgetTask = { link = "Normal" }
     }
 end
