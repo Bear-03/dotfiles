@@ -35,8 +35,14 @@ def pyenv [env_path?: string] {
         $env_path
     }
 
-    print $"Activating environment \"($env_path)\"... \(Deactivate with Ctrl-D\)"
+    print $"Activating environment '($env_path)'... \(Deactivate with Ctrl-D\)"
     bash -c $"source ($env_path)/bin/activate && nu"
+}
+
+def javarun [class: string] {
+    print "Compiling..."
+    javac $"($class).java"
+    java $class
 }
 
 def mnt [name: string] {
