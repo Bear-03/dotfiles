@@ -36,7 +36,7 @@ do {
 
     open $file
     | str replace "#AutoEnable=true" "AutoEnable=false"
-    | save $file
+    | save $file -f
 }
 
 # Enable system modules
