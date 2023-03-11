@@ -18,17 +18,13 @@ local function mappings()
 end
 
 return function()
-    if vim.fn.has("termguicolors") == 1 then
-        vim.opt.termguicolors = true
-    end
-
     -- Change LSP message prefix
     vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
         vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = {
-            prefix = "●"
-        }
-    })
+            virtual_text = {
+                prefix = "●"
+            }
+        })
 
     -- Force English
     vim.cmd([[

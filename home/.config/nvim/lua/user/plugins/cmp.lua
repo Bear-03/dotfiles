@@ -1,10 +1,11 @@
-return function(config)
-    local cmp = require("cmp")
+return {
+    "hrsh7th/nvim-cmp",
+    opts = function(_, opts)
+        local cmp = require("cmp")
 
-    return vim.tbl_deep_extend("force", config, {
-        mapping = {
+        opts.mapping = {
             ["<Tab>"] = cmp.mapping.select_next_item(),
             ["<S-Tab>"] = cmp.mapping.select_prev_item(),
         }
-    })
-end
+    end
+}

@@ -1,10 +1,15 @@
 return {
-    tools = {
-        inlay_hints = {
-            show_parameter_hints = false,
-            parameter_hints_prefix = "",
-            other_hints_prefix = "",
+    "simrat39/rust-tools.nvim",
+    ft = "rust",
+    event = "User AstroLspSetup",
+    opts = {
+        tools = {
+            inlay_hints = {
+                show_parameter_hints = false,
+                parameter_hints_prefix = "",
+                other_hints_prefix = "",
+            },
         },
-    },
-    server = astronvim.lsp.server_settings("rust_analyzer")
+        server = require("astronvim.utils.lsp").config("rust_analyzer")
+    }
 }
