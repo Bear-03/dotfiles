@@ -1,5 +1,25 @@
 -- Small plugins that require no configuration
 return {
+    -- Astronvim community repository
+    {
+        "AstroNvim/astrocommunity"
+    },
+    { import = "astrocommunity.utility.noice-nvim" },
+    {
+        "noice.nvim",
+        opts = {
+            views = {
+                mini = {
+                    border = {
+                        style = "rounded",
+                    },
+                    win_options = {
+                        winblend = 0
+                    }
+                },
+            },
+        }
+    },
     -- Treesitter debugging
     {
         "nvim-treesitter/playground",
@@ -9,11 +29,5 @@ return {
     {
         "TimUntersberger/neogit",
         cmd = "Neogit",
-    },
-    -- Rust crates info
-    {
-        "saecki/crates.nvim",
-        event = "BufRead Cargo.toml",
-        dependencies = { "nvim-lua/plenary.nvim" },
     },
 }

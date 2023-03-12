@@ -1,1 +1,0 @@
-return { "rust_analyzer" }
