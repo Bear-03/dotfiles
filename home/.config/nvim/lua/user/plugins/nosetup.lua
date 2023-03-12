@@ -1,9 +1,5 @@
 -- Small plugins that require no configuration
 return {
-    -- Astronvim community repository
-    {
-        "AstroNvim/astrocommunity"
-    },
     -- Treesitter debugging
     {
         "nvim-treesitter/playground",
