@@ -2,6 +2,7 @@ return {
     "nvim-treesitter",
     dependencies = {
         "HiPhish/nvim-ts-rainbow2",
+        "andymass/vim-matchup",
     },
     opts = {
         rainbow = {
@@ -15,6 +16,9 @@ return {
                 "Purple",
                 "Aqua",
             }
+        },
+        matchup = {
+            enable = true,
         }
     }
 }
