@@ -69,15 +69,16 @@ def scan [] {
 def show-menu [] {
     let exit_title = "Exit"
 
-    # option representation -> block record, used to access
+    # option "representation: block", used to access
     # the code that has to be run for a given option
     let options = (
         networks
-        # Each network record will be converted into a name->block record
-        # and all of them will be merged together with reduce
+        # Transform the network list into their string representation
+        # And also create the closure to execute when the option is clicked
         | reduce -f {} { |it, acc|
             $acc | merge {
-                (network-into-string $it): {
+                # Network representation: { what to do when it is clicked }
+                (network-into-string $it): { ||
                     connect $it.ssid
                     exit 0
                 }
@@ -85,16 +86,16 @@ def show-menu [] {
         }
         # Add extra control options at the end
         | merge {
-            "": {;}
-            "Scan": { scan }
-            $exit_title: { exit 0 }
+            "": { || }
+            "Scan": { || scan }
+            $exit_title: { || exit 0 }
         }
     )
 
     let selected_str = (
         $options
         | columns
-        | str collect "\n"
+        | str join "\n"
         | rofi -dmenu -selected-row 0 -p "SSID: "
     )
 
@@ -106,7 +107,7 @@ def show-menu [] {
     }
 }
 
-0.. | each {
+0.. | each { ||
     do (show-menu)
 }
 

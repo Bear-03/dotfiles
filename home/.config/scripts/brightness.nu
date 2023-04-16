@@ -5,13 +5,13 @@ let min = 1
 
 def main [op: string] {
     do ({
-        up: { up }
-        down: { down }
+        up: { || up }
+        down: { || down }
     } | get $op)
 }
 
 def up [] {
-    let percent = brightness-percent
+    let percent = (brightness-percent)
 
     if $percent < $step {
         brightnessctl -q s 1%+
@@ -21,7 +21,8 @@ def up [] {
 }
 
 def down [] {
-    let percent = brightness-percent
+    let percent = (brightness-percent)
+
     if $percent <= $step {
         # Don't let brightness get to 0 (screen goes black)
         let new_value = ([($percent - 1) $min] | math max)
