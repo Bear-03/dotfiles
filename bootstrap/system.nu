@@ -12,19 +12,29 @@ do {
     }
 }
 
-# Blacklist i2c_i801 module (Fixes SMBus error on login)
+# Change kernel parameters
 do {
-    print "Blacklisting i2c_i801 kernel module"
+    print "Changing kernel parameters"
 
     let file = (ls "/boot/loader/entries" | get 0).name
-    let file_contents = open $file
 
+    # Fixes SMBus error on login
     let kernel_arg = "modprobe.blacklist=i2c_i801"
+    # Fixes VirtualBox being stuck at loading 20%
+    let ibt_arg = "ibt=off"
 
+    let file_contents = open $file
     if ($file_contents =~ $kernel_arg) == false {
         $file_contents
         | str replace "(options .+)" $"$1 ($kernel_arg)"
-        | save $file
+        | save -f $file
+    }
+
+    let file_contents = open $file
+    if ($file_contents =~ $ibt_arg) == false {
+        $file_contents
+        | str replace "(options .+)" $"$1 ($ibt_arg)"
+        | save -f $file
     }
 }
 
@@ -37,12 +47,5 @@ do {
     open $file
     | str replace "#AutoEnable=true" "AutoEnable=false"
     | save $file -f
-}
-
-# Enable system modules
-do {
-    # TLP
-    systemctl enable tlp
-    systemctl mask systemd-rfkill.service systemd-rfkill.socket
 }
 
