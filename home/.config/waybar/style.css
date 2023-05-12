@@ -16,7 +16,7 @@ tooltip {
     margin-bottom: 0;
 }
 
-#tags,
+#workspaces,
 #window,
 #pulseaudio,
 #network,
@@ -33,7 +33,6 @@ tooltip {
     border-radius: 10px;
 }
 
-#tags button,
 #window,
 #pulseaudio,
 #network,
@@ -48,20 +47,30 @@ tooltip {
     padding: 3px 10px;
 }
 
-#tags {
-    padding: 0 10px;
+#workspaces button {
+    padding: 3px 5px;
 }
 
-#tags button:hover {
+#workspaces button:first-child {
+    border-radius: 10px 0 0 10px;
+    padding-left: 10px;
+}
+
+#workspaces button:last-child {
+    border-radius: 0 10px 10px 0;
+    padding-right: 10px;
+}
+
+#workspaces button:hover {
     background: white;
     color: black;
 }
 
-#tags button.focused {
+#workspaces button.focused {
     border-bottom: 2px solid white;
 }
 
-#tags button.focused:hover {
+#workspaces button.focused:hover {
     border-color: black;
 }
 

@@ -5,13 +5,10 @@
     // "width": 1280, // Waybar width
     "spacing": 5, // Gaps between modules
     // Choose the order of the modules
-    "modules-left": ["river/tags", "cpu", "memory"],
-    "modules-center": ["river/window"],
+    "modules-left": ["wlr/workspaces", "cpu", "memory"],
+    "modules-center": ["hyprland/window"],
     "modules-right": ["pulseaudio", "network", "bluetooth", "backlight", "battery", "clock", "tray"],
     // Modules configuration
-    "river/tags": {
-       "num-tags": 5 
-    },
     "cpu": {
         "format": "{usage}% ",
         "tooltip": false
@@ -19,8 +16,8 @@
     "memory": {
         "format": "{}% "
     },
-    "window": {
-        "max-length": 60 
+    "hyprland/window": {
+        "max-length": 60
     },
     "pulseaudio": {
         "format": "{volume}% {icon} {format_source}",
