@@ -23,6 +23,7 @@ export QT_STYLE_OVERRIDE="adwaita-dark"
 export XKB_DEFAULT_LAYOUT="es"
 # WMs don"t have a desktop, having a Desktop folder is unintuitive
 export XDG_DESKTOP_DIR=$HOME
+export XDG_DATA_HOME=$HOME
 # Fixes valgrind glibc error (https://bbs.archlinux.org/viewtopic.php?id=276422)
 export DEBUGINFOD_URLS="https://debuginfod.archlinux.org"
 
