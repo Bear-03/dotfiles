@@ -1,6 +1,9 @@
 let-env config = {
     show_banner: false,
-    edit_mode: vi
+    edit_mode: vi,
+    table: {
+        mode: light,
+    },
 }
 
 alias la = ls -la
