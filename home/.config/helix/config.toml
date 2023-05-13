@@ -1,0 +1,23 @@
+theme = "gruvcustom"
+
+[editor]
+line-number = "relative"
+bufferline = "multiple"
+mouse = false
+
+[editor.cursor-shape]
+insert = "bar"
+
+[editor.soft-wrap]
+enable = true
+
+[editor.file-picker]
+hidden = false
+
+[editor.lsp]
+display-inlay-hints = true
+
+[keys.normal]
+C-o = ":config-open"
+C-r = ":config-reload"
+C-s = [":format", ":w"]
