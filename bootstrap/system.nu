@@ -16,35 +16,29 @@ do {
 do {
     print "Changing kernel parameters"
 
-    let file = (ls "/boot/loader/entries" | get 0).name
+    let new_params = [
+         # Fixes SMBus error on login
+        "modprobe.blacklist=i2c_i801"
+        # Fixes VirtualBox being stuck at loading 20%
+        "ibt=off"
+        # Removes non-important kernel errors from showing in LY DM and TTY
+        "quiet"
+    ]
 
-    # Fixes SMBus error on login
-    let kernel_arg = "modprobe.blacklist=i2c_i801"
-    # Fixes VirtualBox being stuck at loading 20%
-    let ibt_arg = "ibt=off"
-    # Removes non-important kernel errors from showing in LY DM and TTY
-    let quiet_arg = "quiet"
-
-    let file_contents = (open $file)
-    if ($file_contents =~ $kernel_arg) == false {
-        $file_contents
-        | str replace "(options .+)" $"$1 ($kernel_arg)"
-        | save -f $file
-    }
-
-    let file_contents = (open $file)
-    if ($file_contents =~ $ibt_arg) == false {
-        $file_contents
-        | str replace "(options .+)" $"$1 ($ibt_arg)"
-        | save -f $file
-    }
-
-
-    let file_contents = (open $file)
-    if ($file_contents =~ $quiet_arg) == false {
-        $file_contents
-        | str replace "(options .+)" $"$1 ($quiet_arg)"
-        | save -f $file
+    ls "/boot/loader/entries" | each { |file|
+        print $"Changing entry ($file.name)"
+        $new_params | reduce -f (open $file.name) { |param, contents| 
+            if $contents =~ $param {
+                print $"Parameter ($param) already set, skipping"
+                $contents
+            } else {
+                print $"Adding parameter ($param)"
+                $contents
+                # Keep all existing params, just append the new one
+                | str replace "(options .+)" $"$1 ($param)"
+            }
+        }
+        | save -f $file.name
     }
 }
 
