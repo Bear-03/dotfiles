@@ -3,14 +3,9 @@
 let step = 10
 let min = 1
 
-def main [op: string] {
-    do ({
-        up: { || up }
-        down: { || down }
-    } | get $op)
-}
+def main [] {}
 
-def up [] {
+def "main up" [] {
     let percent = (brightness-percent)
 
     if $percent < $step {
@@ -20,7 +15,7 @@ def up [] {
     }
 }
 
-def down [] {
+def "main down" [] {
     let percent = (brightness-percent)
 
     if $percent <= $step {
