@@ -1,0 +1,19 @@
+; Static
+(defvar icon-workspace "")
+(defvar icon-workspace-active "")
+(defvar icon-cpu "")
+(defvar icon-ram "󱟲")
+(defvar icon-power "")
+
+; Dynamic
+(defvar speaker "")
+(defvar brightness "")
+(defvar hover-control-panel false)
+
+(defpoll wifi :interval "2s" "scripts/wifi.nu")
+(defpoll bluetooth :interval "2s" "scripts/bluetooth.nu")
+(defpoll battery :interval "2s" "scripts/battery.nu")
+(defpoll time :interval "2s" "date +'%R'")
+
+(deflisten workspace "scripts/workspaces.nu")
+(deflisten window "scripts/window.nu")

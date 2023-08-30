@@ -1,0 +1,30 @@
+(defwidget control_panel []
+  (box :class "module control-panel"
+    (eventbox
+      :onhover "eww update hover-control-panel=true"
+      :onhoverlost "eww update hover-control-panel=false"
+      (box :space-evenly false
+        (control_panel_item :info speaker
+          :expand hover-control-panel
+        :tooltip "${speaker.volume}%")
+        (control_panel_item :info wifi
+          :expand hover-control-panel
+        :tooltip "${wifi.ssid}")
+        (control_panel_item :info bluetooth
+          :expand {bluetooth.alias != "null" && hover-control-panel}
+        :tooltip "${bluetooth.alias}")
+        (control_panel_item :info brightness
+          :expand hover-control-panel
+        :tooltip "${brightness.percent}%")
+        (control_panel_item :info battery
+          :expand hover-control-panel
+        :tooltip "${battery.percent}%")))))
+
+(defwidget control_panel_item [info expand tooltip]
+  (box :class "item"
+    :space-evenly false
+    (revealer :class "tooltip"
+      :transition "slideleft"
+      :reveal expand
+    "${tooltip}")
+  "${info.icon}"))

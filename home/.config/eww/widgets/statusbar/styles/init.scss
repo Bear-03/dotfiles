@@ -1,0 +1,41 @@
+.statusbar-inner {
+    font-family: "Roboto";
+    color: $fg0;
+    background: $bg0;
+    margin: $margin0 $margin0 0 $margin0;
+    padding: $margin1;
+}
+
+.statusbar-inner,
+.module {
+    border-radius: 9999px;
+}
+
+.module {
+    padding: 0 $margin0;
+
+    &+& {
+        margin-left: $margin1;
+    }
+}
+
+.module:not(.window) {
+    background: $bg1;
+}
+
+.workspaces {
+    .item+.item {
+        padding-left: $margin1;
+    }
+}
+
+.monitors,
+.control-panel {
+    .item+.item {
+        padding-left: $margin0;
+    }
+}
+
+.control-panel .tooltip {
+    padding-right: $margin1
+}
