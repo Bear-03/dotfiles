@@ -1,6 +1,6 @@
 #!/bin/nu
 
-use ../global/util.nu [mapped-get eww-update-record str-ellipsis]
+use ./util.nu [mapped-get eww-update-record str-ellipsis]
 
 def main [] {
     let output = (iwctl station wlan0 show

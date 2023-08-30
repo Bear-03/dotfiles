@@ -1,6 +1,6 @@
 #!/bin/nu
 
-use ../global/util.nu [hypr-listen str-ellipsis]
+use ./util.nu [hypr-listen str-ellipsis]
 
 let title_max_length = 60;
 let ellipsis = "...";

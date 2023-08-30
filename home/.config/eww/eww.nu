@@ -11,10 +11,10 @@ def "main reload" [] {
 }
 
 def init [] {
-    cd $env.FILE_PWD
+    cd $env.SCRIPTS
 
-    scripts/speaker.nu eww-update
-    scripts/brightness.nu eww-update
+    ./speaker.nu
+    ./brightness.nu
 
     eww open statusbar
 }

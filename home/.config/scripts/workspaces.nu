@@ -1,6 +1,6 @@
 #!/bin/nu
 
-use ../global/util.nu hypr-listen
+use ./util.nu hypr-listen
 
 let max_workspaces = 5;
 

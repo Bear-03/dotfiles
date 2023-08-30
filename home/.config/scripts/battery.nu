@@ -1,6 +1,6 @@
 #!/bin/nu
 
-use ../global/util.nu [mapped-get, eww-update-record]
+use ./util.nu [mapped-get, eww-update-record]
 
 def main [] {
     let percent = (get-info "capacity" | into int)

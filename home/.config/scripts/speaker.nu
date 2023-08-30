@@ -1,6 +1,6 @@
 #!/bin/nu
 
-use ../global/util.nu [mapped-get eww-update-record]
+use ./util.nu [mapped-get eww-update-record]
 
 let volume_step = 5
 

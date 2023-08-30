@@ -1,34 +1,59 @@
 #!/bin/nu
 
-let step = 10
-let min = 1
+use ./util.nu [mapped-get eww-update-record]
 
-def main [] {}
+let step = 10
+
+def main [percent?: int] {
+    let percent = if $percent == null {
+        percent
+    } else {
+        $percent
+    }
+
+    let icons = ["󰛩", "󱩎", "󱩏", "󱩐", "󱩑", "󱩒", "󱩓", "󱩔", "󱩕", "󱩖", "󰛨"]
+
+    let info = {
+        icon: ($icons | mapped-get $percent 1 100),
+        percent: $percent,
+    }
+
+    eww-update-record "brightness" $info
+}
 
 def "main up" [] {
-    let percent = (brightness-percent)
+    let old_percent = (percent)
 
-    if $percent < $step {
-        brightnessctl -q s 1%+
+    let new_percent = (if $old_percent < $step {
+        $old_percent + 1
     } else {
-        brightnessctl -q s $"($step)%+"
+        $old_percent + $step
     }
+    # Clamp value
+    | append 100
+    | math min)
+
+    brightnessctl -q s $"($new_percent)%"
+    main $new_percent
 }
 
 def "main down" [] {
-    let percent = (brightness-percent)
+    let old_percent = (percent)
 
-    if $percent <= $step {
-        # Don't let brightness get to 0 (screen goes black)
-        let new_value = ([($percent - 1) $min] | math max)
-
-        brightnessctl -q s $"($new_value)%"
+    let new_percent = (if $old_percent <= $step {
+        $old_percent - 1
     } else {
-        brightnessctl -q s $"($step)%-"
+        $old_percent - $step
     }
+    # Don't let brightness get to 0 (screen goes black)
+    | append 1
+    | math max)
+
+    brightnessctl -q s $"($new_percent)%"
+    main $new_percent
 }
 
-def brightness-percent [] {
+def percent [] {
     (brightnessctl g | into int) / (brightnessctl m | into int) * 100
     | math round
 }

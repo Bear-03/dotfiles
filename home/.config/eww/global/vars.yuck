@@ -10,10 +10,10 @@
 (defvar brightness "")
 (defvar hover-control-panel false)
 
-(defpoll wifi :interval "2s" "scripts/wifi.nu")
-(defpoll bluetooth :interval "2s" "scripts/bluetooth.nu")
-(defpoll battery :interval "2s" "scripts/battery.nu")
+(defpoll wifi :interval "2s" "$SCRIPTS/wifi.nu")
+(defpoll bluetooth :interval "2s" "$SCRIPTS/bluetooth.nu")
+(defpoll battery :interval "2s" "$SCRIPTS/battery.nu")
 (defpoll time :interval "2s" "date +'%R'")
 
-(deflisten workspace "scripts/workspaces.nu")
-(deflisten window "scripts/window.nu")
+(deflisten workspace "$SCRIPTS/workspaces.nu")
+(deflisten window "$SCRIPTS/window.nu")

@@ -1,6 +1,6 @@
 #!/bin/nu
 
-use ../global/util.nu eww-update-record
+use ./util.nu eww-update-record
 
 def main [] {
     let powered_output = (bluetoothctl show | parse -r 'Powered: (\w+)').capture0.0
