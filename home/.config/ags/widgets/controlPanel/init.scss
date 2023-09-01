@@ -1,0 +1,44 @@
+window > .control-panel {
+    background-color: $bg0;
+    margin: $margin0;
+    padding: $margin0;
+    border-radius: $margin0;
+    min-width: 300px;
+
+    .indicator {
+        $size: 20px;
+
+        font-size: $size;
+        min-width: $size;
+        margin-right: $margin0;
+    }
+
+    .setting + .setting {
+        margin-top: $margin1;
+    }
+
+    scale {
+        &,
+        * {
+            all: unset;
+        }
+
+        trough {
+            min-height: 10px;
+            background-color: $bg1;
+
+            highlight {
+                background-color: $fg0;
+            }
+
+            &,
+            highlight {
+                border-radius: 9999px;
+            }
+        }
+
+        slider {
+            background-color: transparent;
+        }
+    }
+}

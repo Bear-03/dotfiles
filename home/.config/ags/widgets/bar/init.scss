@@ -1,0 +1,33 @@
+@import "../../shared/theme.scss";
+
+window > .bar {
+    margin: $margin0 $margin0 0 $margin0;
+
+    .module {
+        background-color: $bg0;
+        border-radius: 9999px;
+        padding: $margin1 $margin0;
+
+        & + * {
+            margin-left: $margin1;
+        }
+    }
+
+    .workspaces button {
+        background: transparent;
+
+        & + * {
+            margin-left: $margin0;
+        }
+    }
+
+    .setting-overview {
+        &.others > * + * {
+            margin-left: $margin0;
+        }
+
+        > * + * {
+            margin-left: $margin1;
+        }
+    }
+}

@@ -1,0 +1,18 @@
+@import "shared/theme.scss";
+@import "widgets/bar/init.scss";
+@import "widgets/controlPanel/init.scss";
+
+window {
+    background-color: transparent;
+    font-family: "JetBrains Mono Nerd Font";
+    font-size: 14px;
+    color: $fg0;
+}
+
+button {
+    all: unset;
+}
+
+.indicator {
+    font-family: monospace;
+}
