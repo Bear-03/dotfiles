@@ -46,8 +46,7 @@ class BrightnessService extends Service {
     }
 }
 
-class Brightness {
-    static { Service.export(this, "Brightness") }
+export default class Brightness {
     static _instance;
 
     static get instance() {

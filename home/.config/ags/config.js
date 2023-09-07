@@ -1,10 +1,12 @@
-import "./shared/services/system.js";
-import "./shared/services/brightness.js";
-
+import Brightness from "./shared/services/brightness.js";
 import Bar from "./widgets/bar/init.js";
 import ControlPanel from "./widgets/controlPanel/init.js";
 
+const { Service } = ags;
 const { exec } = ags.Utils;
+
+// Make services available globally so they can be used in `ags run-js`
+Service["Brightness"] = Brightness;
 
 const scss = ags.App.configDir + "/style.scss";
 const css = ags.App.configDir + "/style.css";

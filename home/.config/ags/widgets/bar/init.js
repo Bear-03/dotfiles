@@ -1,8 +1,17 @@
 import { activeWorkspaceId, stringEllipsis } from "../../shared/utils.js";
-import { BluetoothIndicator, BrightnessIndicator, NetworkIndicator, SpeakerIndicator, BatteryIndicator, MicrophoneIndicator } from "../../modules/indicators.js";
+import {
+    BluetoothIndicator,
+    BrightnessIndicator,
+    NetworkIndicator,
+    SpeakerIndicator,
+    BatteryIndicator,
+    MicrophoneIndicator,
+    MicrophoneIndicatorDetails,
+    SpeakerIndicatorDetails,
+} from "../../modules/indicators.js";
 
 const { App } = ags;
-const { Hyprland, Audio, Battery } = ags.Service;
+const { Hyprland, Battery } = ags.Service;
 const { execAsync } = ags.Utils;
 const {
     Box, Button, Label, CenterBox, Window,
@@ -64,30 +73,14 @@ const SettingOverview = (props) => Button({
 const MicrophoneOverview = () => SettingOverview({
     children: [
         MicrophoneIndicator(),
-        Label({
-            connections: [[Audio, label => {
-                if (!Audio.microphone) {
-                    return;
-                }
-
-                label.label = `${Math.ceil(Audio.microphone.volume * 100)}%`;
-            }, "microphone-changed"]]
-        })
+        MicrophoneIndicatorDetails(),
     ]
 })
 
 const SpeakerOverview = () => SettingOverview({
     children: [
         SpeakerIndicator(),
-        Label({
-            connections: [[Audio, label => {
-                if (!Audio.speaker) {
-                    return;
-                }
-
-                label.label = `${Math.ceil(Audio.speaker.volume * 100)}%`;
-            }, "speaker-changed"]]
-        })
+        SpeakerIndicatorDetails(),
     ]
 });
 

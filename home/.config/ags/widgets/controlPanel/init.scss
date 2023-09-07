@@ -1,20 +1,25 @@
-window > .control-panel {
+.control-panel {
     background-color: $bg0;
     margin: $margin0;
     padding: $margin0;
     border-radius: $margin0;
     min-width: 300px;
 
-    .indicator {
-        $size: 20px;
+    .slider-setting {
+        &:not(:first-child) {
+            margin-top: $margin1;
+        }
 
-        font-size: $size;
-        min-width: $size;
-        margin-right: $margin0;
-    }
+        .indicator {
+            $size: 20px;
 
-    .setting + .setting {
-        margin-top: $margin1;
+            font-size: $size;
+            min-width: $size;
+        }
+
+        .indicator-details {
+            min-width: 32px;
+        }
     }
 
     scale {
@@ -24,6 +29,7 @@ window > .control-panel {
         }
 
         trough {
+            margin: 0 $margin0;
             min-height: 10px;
             background-color: $bg1;
 
@@ -39,6 +45,25 @@ window > .control-panel {
 
         slider {
             background-color: transparent;
+        }
+    }
+
+    .button-setting-row {
+        margin-top: $margin0;
+    }
+
+    .button-setting {
+        background-color: $bg1;
+        padding: $margin0;
+        border-radius: $margin0;
+
+        &:not(:first-child) {
+            margin-left: $margin0;
+        }
+
+        .indicator {
+            font-size: 30px;
+            margin-bottom: $margin0;
         }
     }
 }

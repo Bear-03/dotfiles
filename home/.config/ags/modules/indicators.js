@@ -1,13 +1,14 @@
 import { mappedGet } from "../shared/utils.js";
+import Brightness from "../shared/services/brightness.js";
 
-const { Audio, Network, Bluetooth, Battery, Brightness } = ags.Service;
+const { Audio, Network, Bluetooth, Battery } = ags.Service;
 const { Label, Button } = ags.Widget;
 
 export const MicrophoneIndicator = (props) => Button({
     onClicked: () => Audio.microphone.isMuted = !Audio.microphone.isMuted,
     child: Label({
         ...props,
-        className: ["indicator", props?.className ?? ""],
+        className: "indicator",
         connections: [[Audio, label => {
             if (!Audio.microphone) {
                 return;
@@ -21,13 +22,25 @@ export const MicrophoneIndicator = (props) => Button({
             label.label = Audio.microphone.isMuted ? icons.off : icons.on;
         }, "microphone-changed"]]
     }),
-})
+});
+
+export const MicrophoneIndicatorDetails = (props) => Label({
+    ...props,
+    className: "indicator-details",
+    connections: [[Audio, label => {
+        if (!Audio.microphone) {
+            return;
+        }
+
+        label.label = `${Math.ceil(Audio.microphone.volume * 100)}%`;
+    }, "microphone-changed"]]
+});
 
 export const SpeakerIndicator = (props) => Button({
     onClicked: () => Audio.speaker.isMuted = !Audio.speaker.isMuted,
     child: Label({
         ...props,
-        className: ["indicator", props?.className ?? ""],
+        className: "indicator",
         connections: [[Audio, label => {
             if (!Audio.speaker) {
                 return;
@@ -48,9 +61,21 @@ export const SpeakerIndicator = (props) => Button({
     }),
 });
 
+export const SpeakerIndicatorDetails = (props) => Label({
+    ...props,
+    className: "indicator-details",
+    connections: [[Audio, label => {
+        if (!Audio.speaker) {
+            return;
+        }
+
+        label.label = `${Math.ceil(Audio.speaker.volume * 100)}%`;
+    }, "speaker-changed"]]
+});
+
 export const NetworkIndicator = (props) => Label({
     ...props,
-    className: ["indicator", props?.className ?? ""],
+    className: "indicator",
     connections: [[Network, label => {
         const wifi = Network.wifi;
 
@@ -74,7 +99,7 @@ export const NetworkIndicator = (props) => Label({
 
 export const BluetoothIndicator = (props) => Label({
     ...props,
-    className: ["indicator", props?.className ?? ""],
+    className: "indicator",
     connections: [[Bluetooth, label => {
         const icons = {
             off: "󰂲",
@@ -84,7 +109,7 @@ export const BluetoothIndicator = (props) => Label({
 
         if (!Bluetooth.enabled) {
             label.label = icons.off;
-        } else if (!Bluetooth.connectedDevices) {
+        } else if (Array.from(Bluetooth.connectedDevices).length === 0) {
             label.label = icons.on;
         } else {
             label.label = icons.connected;
@@ -94,7 +119,7 @@ export const BluetoothIndicator = (props) => Label({
 
 export const BrightnessIndicator = (props) => Label({
     ...props,
-    className: ["indicator", props?.className ?? ""],
+    className: "indicator",
     connections: [[Brightness, label => {
         const icons = ["󰛩", "󱩎", "󱩏", "󱩐", "󱩑", "󱩒", "󱩓", "󱩔", "󱩕", "󱩖", "󰛨"];
 
@@ -102,9 +127,17 @@ export const BrightnessIndicator = (props) => Label({
     }]]
 });
 
+export const BrightnessIndicatorDetails = (props) => Label({
+    ...props,
+    className: "indicator-details",
+    connections: [[Brightness, label => {
+        label.label = `${Math.round(Brightness.percent)}%`;
+    }]]
+})
+
 export const BatteryIndicator = (props) => Label({
     ...props,
-    className: ["indicator", props?.className ?? ""],
+    className: "indicator",
     connections: [[Battery, label => {
         const icons = {
             charging: ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
@@ -114,3 +147,10 @@ export const BatteryIndicator = (props) => Label({
         label.label = mappedGet(Battery.charging || Battery.charged ? icons.charging : icons.discharging, Battery.percent, 0, 100, Math.floor);
     }]]
 });
+
+export const BatteryIndicatorDetails = (props) => Label({
+    className: "indicator-details",
+    connections: [[Battery, label => {
+        label.label = `${Math.floor(Battery.percent)}%`;
+    }]]
+})

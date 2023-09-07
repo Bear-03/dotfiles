@@ -1,6 +1,6 @@
 @import "../../shared/theme.scss";
 
-window > .bar {
+.bar {
     margin: $margin0 $margin0 0 $margin0;
 
     .module {
@@ -8,7 +8,7 @@ window > .bar {
         border-radius: 9999px;
         padding: $margin1 $margin0;
 
-        & + * {
+        &:not(:first-child) {
             margin-left: $margin1;
         }
     }
@@ -16,18 +16,18 @@ window > .bar {
     .workspaces button {
         background: transparent;
 
-        & + * {
+        &:not(:first-child) {
             margin-left: $margin0;
         }
     }
 
     .setting-overview {
-        &.others > * + * {
-            margin-left: $margin0;
+        > :not(:first-child) {
+            margin-left: $margin1;
         }
 
-        > * + * {
-            margin-left: $margin1;
+        &.others > :not(:first-child) {
+            margin-left: $margin0;
         }
     }
 }

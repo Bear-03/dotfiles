@@ -50,8 +50,7 @@ class SystemService extends Service {
     }
 }
 
-class System {
-    static { Service.export(this, "System") }
+export default class System {
     static _instance;
 
     static get instance() {
