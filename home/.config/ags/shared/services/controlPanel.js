@@ -13,23 +13,28 @@ class ControlPanelService extends Service {
     static {
         Service.register(this, {
             "open": [],
+            "closing": [],
             "close": [],
         });
     }
     static CLOSE_DELAY = 500;
 
+    // TODO: Fix panel not disappearing if it is never hovered for a first time
     _state = State.CLOSED;
 
     open() {
         this._state = State.OPEN;
         App.openWindow(WindowNames.CONTROL_PANEL);
         this.emit("open");
+        this.emit("changed");
     }
 
-    close() {
+    close(delay = ControlPanelService.CLOSE_DELAY) {
         this._state = State.CLOSING;
+        this.emit("closing");
+        this.emit("changed");
 
-        timeout(ControlPanelService.CLOSE_DELAY, () => {
+        timeout(delay, () => {
             if (this._state != State.CLOSING) {
                 return;
             }
@@ -37,7 +42,16 @@ class ControlPanelService extends Service {
             this._state = State.CLOSED;
             App.closeWindow(WindowNames.CONTROL_PANEL);
             this.emit("close");
+            this.emit("changed");
         });
+    }
+
+    toggle() {
+        if (this._state == State.OPEN) {
+            this.close(0);
+        } else {
+            this.open();
+        }
     }
 }
 
@@ -49,6 +63,7 @@ export default class ControlPanel {
         return ControlPanel._instance;
     }
 
-    static open() { ControlPanel.instance.open() }
-    static close() { ControlPanel.instance.close() }
+    static open(...params) { ControlPanel.instance.open(...params) }
+    static close(...params) { ControlPanel.instance.close(...params) }
+    static toggle(...params) { ControlPanel.instance.toggle(...params) }
 }

@@ -64,7 +64,7 @@ const Clock = () => Label({
 
 const SettingOverview = (props) => Button({
     className: "module",
-    onClicked: () => ControlPanel.open(),
+    onClicked: () => ControlPanel.toggle(),
     child: Box({
         ...props,
         className: ["setting-overview", props?.className ?? ""],
@@ -109,6 +109,12 @@ const Left = () => Box({
     children: [
         Workspaces(),
         ActiveWindow(),
+        Label({
+            className: "module",
+            connections: [[ControlPanel, (label) => {
+                label.label = ControlPanel.instance._state;
+            }]]
+        })
     ],
 });
 
