@@ -8,10 +8,16 @@ import {
     BrightnessIndicatorDetails,
     SpeakerIndicatorDetails,
     MicrophoneIndicatorDetails,
-    BatteryIndicatorDetails
+    BatteryIndicatorDetails,
+    CpuIndicator,
+    CpuIndicatorDetails,
+    MemIndicator,
+    MemIndicatorDetails
 } from "../../modules/indicators.js";
 import { stringEllipsis } from "../../shared/utils.js";
+import { WindowNames } from "../../windows.js";
 import Brightness from "../../shared/services/brightness.js";
+import ControlPanel from "../../shared/services/controlPanel.js";
 
 const { App } = ags;
 const { Box, EventBox, Window, Slider, Label, Button } = ags.Widget;
@@ -52,23 +58,18 @@ const ButtonSettingRow = (props) => Box({
 })
 
 export default () => Window({
-    name: "control-panel",
+    name: WindowNames.CONTROL_PANEL,
     anchor: ["top", "right"],
     exclusive: true,
     popup: true,
     child: EventBox({
         aboveChild: true,
+        onHover: () => ControlPanel.open(),
         // For some reason this event fires twice when aboveChild == true
         // TODO: Reduce disappearing speed (maybe use revealer)
         // TODO: Maybe make it also toggle in SettingOverview with just hover
         // TODO: Make it reopen if it is in the middle of the closing animation (or waiting for timeout) and it regains hover
-        onHoverLost: () => {
-            log("event fired");
-            timeout(1000, () => {
-                log("timeout fired")
-                App.closeWindow("control-panel")
-            });
-        },
+        onHoverLost: () => ControlPanel.close(),
         child: Box({
             className: "control-panel",
             vertical: true,
@@ -131,12 +132,12 @@ export default () => Window({
                 ButtonSettingRow({
                     children: [
                         ButtonSetting({
-                            icon: BatteryIndicator(),
-                            label: BatteryIndicatorDetails(),
+                            icon: CpuIndicator(),
+                            label: CpuIndicatorDetails(),
                         }),
                         ButtonSetting({
-                            icon: BatteryIndicator(),
-                            label: BatteryIndicatorDetails(),
+                            icon: MemIndicator(),
+                            label: MemIndicatorDetails(),
                         }),
                         ButtonSetting({
                             icon: BatteryIndicator(),

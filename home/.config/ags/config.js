@@ -1,6 +1,5 @@
 import Brightness from "./shared/services/brightness.js";
-import Bar from "./widgets/bar/init.js";
-import ControlPanel from "./widgets/controlPanel/init.js";
+import { windows } from "./windows.js";
 
 const { Service } = ags;
 const { exec } = ags.Utils;
@@ -18,8 +17,5 @@ if (scssResult) {
 
 export default {
     style: css,
-    windows: [
-        Bar(),
-        ControlPanel(),
-    ],
+    windows,
 };

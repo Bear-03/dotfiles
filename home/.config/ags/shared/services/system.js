@@ -4,8 +4,8 @@ const { subprocess } = ags.Utils;
 class SystemService extends Service {
     static {
         Service.register(this, {
-            "cpu-usage": ["float"],
-            "mem-usage": ["float"],
+            "cpu-changed": ["float"],
+            "mem-changed": ["float"],
         });
     }
 
@@ -24,7 +24,7 @@ class SystemService extends Service {
             this._cpuUsage = 100 - idle;
 
             this.emit("changed");
-            this.emit("cpu-usage", this._cpuUsage)
+            this.emit("cpu-changed", this._cpuUsage)
         });
 
         subprocess("free -s 2", (line) => {
@@ -41,12 +41,16 @@ class SystemService extends Service {
             this._memUsage = (usedMem / totalMem) * 100;
 
             this.emit("changed");
-            this.emit("mem-usage", this._memUsage)
+            this.emit("mem-changed", this._memUsage)
         });
     }
 
     get cpuUsage() {
         return this._cpuUsage;
+    }
+
+    get memUsage() {
+        return this._memUsage;
     }
 }
 
@@ -60,5 +64,9 @@ export default class System {
 
     static get cpuUsage() {
         return System.instance.cpuUsage;
+    }
+
+    static get memUsage() {
+        return System.instance.memUsage;
     }
 }

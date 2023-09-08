@@ -1,5 +1,6 @@
 import { mappedGet } from "../shared/utils.js";
 import Brightness from "../shared/services/brightness.js";
+import System from "../shared/services/system.js";
 
 const { Audio, Network, Bluetooth, Battery } = ags.Service;
 const { Label, Button } = ags.Widget;
@@ -149,8 +150,37 @@ export const BatteryIndicator = (props) => Label({
 });
 
 export const BatteryIndicatorDetails = (props) => Label({
+    ...props,
     className: "indicator-details",
     connections: [[Battery, label => {
         label.label = `${Math.floor(Battery.percent)}%`;
     }]]
+})
+
+export const CpuIndicator = (props) => Label({
+    ...props,
+    className: "indicator",
+    label: "",
+});
+
+export const CpuIndicatorDetails = (props) => Label({
+    ...props,
+    className: "indicator-details",
+    connections: [[System, label => {
+        label.label = `${Math.round(System.cpuUsage)}%`;
+    }, "cpu-changed"]]
+})
+
+export const MemIndicator = (props) => Label({
+    ...props,
+    className: "indicator",
+    label: "",
+});
+
+export const MemIndicatorDetails = (props) => Label({
+    ...props,
+    className: "indicator-details",
+    connections: [[System, label => {
+        label.label = `${Math.round(System.memUsage)}%`;
+    }, "mem-changed"]]
 })

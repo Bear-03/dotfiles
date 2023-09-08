@@ -9,8 +9,9 @@ import {
     MicrophoneIndicatorDetails,
     SpeakerIndicatorDetails,
 } from "../../modules/indicators.js";
+import { WindowNames } from "../../windows.js";
+import ControlPanel from "../../shared/services/controlPanel.js";
 
-const { App } = ags;
 const { Hyprland, Battery } = ags.Service;
 const { execAsync } = ags.Utils;
 const {
@@ -63,7 +64,7 @@ const Clock = () => Label({
 
 const SettingOverview = (props) => Button({
     className: "module",
-    onClicked: () => App.toggleWindow("control-panel"),
+    onClicked: () => ControlPanel.open(),
     child: Box({
         ...props,
         className: ["setting-overview", props?.className ?? ""],
@@ -127,7 +128,7 @@ const Right = () => Box({
 });
 
 export default () => Window({
-    name: "bar",
+    name: WindowNames.BAR,
     anchor: ["top", "left", "right"],
     exclusive: true,
     child: CenterBox({

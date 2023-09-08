@@ -5,7 +5,7 @@ const { execAsync, exec } = ags.Utils;
 
 class BrightnessService extends Service {
     static { Service.register(this); }
-    static step = 10;
+    static STEP = 10;
 
     _percent = 0;
 
@@ -30,16 +30,16 @@ class BrightnessService extends Service {
     }
 
     increase() {
-        if (this.percent < BrightnessService.step) {
+        if (this.percent < BrightnessService.STEP) {
             this.percent += 1;
         } else {
-            this.percent += BrightnessService.step;
+            this.percent += BrightnessService.STEP;
         }
     }
 
     decrease() {
-        if (this.percent > BrightnessService.step) {
-            this.percent -= BrightnessService.step;
+        if (this.percent > BrightnessService.STEP) {
+            this.percent -= BrightnessService.STEP;
         } else {
             this.percent -= 1;
         }
