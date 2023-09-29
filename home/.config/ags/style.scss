@@ -15,4 +15,12 @@ button {
 
 .indicator {
     font-family: monospace;
+
+    .percent-bar {
+        $size: 60px;
+
+        font-size: 3px;
+        min-width: $size;
+        min-height: $size;
+    }
 }

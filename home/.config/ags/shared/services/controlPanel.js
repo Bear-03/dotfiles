@@ -19,7 +19,6 @@ class ControlPanelService extends Service {
     }
     static CLOSE_DELAY = 500;
 
-    // TODO: Fix panel not disappearing if it is never hovered for a first time
     _state = State.CLOSED;
 
     open() {
