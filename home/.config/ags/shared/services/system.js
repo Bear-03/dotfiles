@@ -1,33 +1,36 @@
-const { Service } = ags;
-const { subprocess } = ags.Utils;
+import { Service, Utils } from "../../imports.js";
 
-class SystemService extends Service {
+class System extends Service {
     static {
-        Service.register(this, {
-            "cpu-changed": ["float"],
-            "mem-changed": ["float"],
-        });
+        Service.register(
+            this,
+            {
+                "cpu-changed": ["float"],
+                "mem-changed": ["float"],
+            },
+            {},
+        );
     }
 
-    _cpuUsage = 0.0;
-    _memUsage = 0.0;
+    #cpuUsage = 0.0;
+    #memUsage = 0.0;
 
     constructor() {
         super();
 
-        subprocess("top -b", (line) => {
+        Utils.subprocess("top -b", (line) => {
             if (!line.startsWith("%Cpu")) {
                 return;
             }
 
             const idle = parseFloat(line.match(/.*ni,\s?(.+)\sid/)[1]);
-            this._cpuUsage = 100 - idle;
+            this.#cpuUsage = 100 - idle;
 
             this.emit("changed");
-            this.emit("cpu-changed", this._cpuUsage)
+            this.emit("cpu-changed", this.#cpuUsage)
         });
 
-        subprocess("free -s 2", (line) => {
+        Utils.subprocess("free -s 2", (line) => {
             if (!line.startsWith("Mem")) {
                 // Vmstat header
                 return;
@@ -38,35 +41,20 @@ class SystemService extends Service {
             const totalMem = parseInt(cols[1]);
             const usedMem = parseInt(cols[2]);
 
-            this._memUsage = (usedMem / totalMem) * 100;
+            this.#memUsage = (usedMem / totalMem) * 100;
 
             this.emit("changed");
-            this.emit("mem-changed", this._memUsage)
+            this.emit("mem-changed", this.#memUsage)
         });
     }
 
     get cpuUsage() {
-        return this._cpuUsage;
+        return this.#cpuUsage;
     }
 
     get memUsage() {
-        return this._memUsage;
+        return this.#memUsage;
     }
 }
 
-export default class System {
-    static _instance;
-
-    static get instance() {
-        Service.ensureInstance(System, SystemService);
-        return System._instance;
-    }
-
-    static get cpuUsage() {
-        return System.instance.cpuUsage;
-    }
-
-    static get memUsage() {
-        return System.instance.memUsage;
-    }
-}
+export default new System();

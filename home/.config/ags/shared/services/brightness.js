@@ -1,61 +1,48 @@
 import { clamp } from "../utils.js";
+import { Service, Utils } from "../../imports.js";
 
-const { Service } = ags;
-const { execAsync, exec } = ags.Utils;
+const STEP = 10;
 
-class BrightnessService extends Service {
-    static { Service.register(this); }
-    static STEP = 10;
+class Brightness extends Service {
+    static { Service.register(this, {}, {}); }
 
-    _percent = 0;
+    #percent = 0;
 
     constructor() {
         super();
 
-        this._percent = parseInt(exec("brightnessctl -m i").split(",")[3].slice(0, -1));
+        this.#percent = parseInt(Utils.exec("brightnessctl -m i").split(",")[3].slice(0, -1));
     }
 
     get percent() {
-        return this._percent;
+        return this.#percent;
     }
 
     set percent(value) {
         value = clamp(value, 1, 100);
 
-        execAsync(`brightnessctl -q s ${value}%`)
+        Utils.execAsync(`brightnessctl -q s ${value}%`)
             .then(() => {
-                this._percent = value;
+                this.#percent = value;
                 this.emit("changed");
             });
     }
 
     increase() {
-        if (this.percent < BrightnessService.STEP) {
+        if (this.percent < STEP) {
             this.percent += 1;
         } else {
-            this.percent += BrightnessService.STEP;
+            this.percent += STEP;
         }
     }
 
     decrease() {
-        if (this.percent > BrightnessService.STEP) {
-            this.percent -= BrightnessService.STEP;
+        if (this.percent > STEP) {
+            this.percent -= STEP;
         } else {
             this.percent -= 1;
         }
     }
 }
 
-export default class Brightness {
-    static _instance;
-
-    static get instance() {
-        Service.ensureInstance(Brightness, BrightnessService);
-        return Brightness._instance;
-    }
-
-    static get percent() { return Brightness.instance.percent; }
-    static set percent(value) { Brightness.instance.percent = value; }
-    static increase() { Brightness.instance.increase() }
-    static decrease() { Brightness.instance.decrease() }
-}
+export default new Brightness()

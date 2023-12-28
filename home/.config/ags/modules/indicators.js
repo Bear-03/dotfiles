@@ -2,12 +2,11 @@ import { mappedGet } from "../shared/utils.js";
 import Brightness from "../shared/services/brightness.js";
 import System from "../shared/services/system.js";
 
-const { Audio, Network, Bluetooth, Battery } = ags.Service;
-const { Label, Button, Overlay, CircularProgress } = ags.Widget;
+import { Audio, Network, Bluetooth, Battery, Widget } from "../imports.js";
 
-export const MicrophoneIndicator = () => Button({
+export const MicrophoneIndicator = () => Widget.Button({
     onClicked: () => Audio.microphone.isMuted = !Audio.microphone.isMuted,
-    child: Label({
+    child: Widget.Label({
         className: "indicator",
         connections: [[Audio, label => {
             if (!Audio.microphone) {
@@ -24,7 +23,7 @@ export const MicrophoneIndicator = () => Button({
     }),
 });
 
-export const MicrophoneIndicatorDetails = () => Label({
+export const MicrophoneIndicatorDetails = () => Widget.Label({
     className: "indicator-details",
     connections: [[Audio, label => {
         if (!Audio.microphone) {
@@ -35,9 +34,9 @@ export const MicrophoneIndicatorDetails = () => Label({
     }, "microphone-changed"]]
 });
 
-export const SpeakerIndicator = () => Button({
+export const SpeakerIndicator = () => Widget.Button({
     onClicked: () => Audio.speaker.isMuted = !Audio.speaker.isMuted,
-    child: Label({
+    child: Widget.Label({
         className: "indicator",
         connections: [[Audio, label => {
             if (!Audio.speaker) {
@@ -59,7 +58,7 @@ export const SpeakerIndicator = () => Button({
     }),
 });
 
-export const SpeakerIndicatorDetails = () => Label({
+export const SpeakerIndicatorDetails = () => Widget.Label({
     className: "indicator-details",
     connections: [[Audio, label => {
         if (!Audio.speaker) {
@@ -70,7 +69,7 @@ export const SpeakerIndicatorDetails = () => Label({
     }, "speaker-changed"]]
 });
 
-export const NetworkIndicator = () => Label({
+export const NetworkIndicator = () => Widget.Label({
     className: "indicator",
     connections: [[Network, label => {
         const wifi = Network.wifi;
@@ -93,7 +92,7 @@ export const NetworkIndicator = () => Label({
     }]]
 });
 
-export const BluetoothIndicator = () => Label({
+export const BluetoothIndicator = () => Widget.Label({
     className: "indicator",
     connections: [[Bluetooth, label => {
         const icons = {
@@ -112,7 +111,7 @@ export const BluetoothIndicator = () => Label({
     }]]
 });
 
-export const BrightnessIndicator = () => Label({
+export const BrightnessIndicator = () => Widget.Label({
     className: "indicator",
     connections: [[Brightness, label => {
         const icons = ["󰛩", "󱩎", "󱩏", "󱩐", "󱩑", "󱩒", "󱩓", "󱩔", "󱩕", "󱩖", "󰛨"];
@@ -121,14 +120,14 @@ export const BrightnessIndicator = () => Label({
     }]]
 });
 
-export const BrightnessIndicatorDetails = () => Label({
+export const BrightnessIndicatorDetails = () => Widget.Label({
     className: "indicator-details",
     connections: [[Brightness, label => {
         label.label = `${Math.round(Brightness.percent)}%`;
     }]]
 })
 
-export const BatteryIndicator = () => Label({
+export const BatteryIndicator = () => Widget.Label({
     className: "indicator",
     connections: [[Battery, label => {
         const icons = {
@@ -140,15 +139,15 @@ export const BatteryIndicator = () => Label({
     }]]
 });
 
-export const BatteryIndicatorDetails = () => Label({
+export const BatteryIndicatorDetails = () => Widget.Label({
     className: "indicator-details",
     connections: [[Battery, label => {
         label.label = `${Math.floor(Battery.percent)}%`;
     }]]
 })
 
-export const SystemIndicatorWithBar = ({ indicator, getUsage, signal }) => Overlay({
-    child: CircularProgress({
+export const SystemIndicatorWithBar = ({ indicator, getUsage, signal }) => Widget.Overlay({
+    child: Widget.CircularProgress({
         className: "percent-bar",
         connections: [[System, progress => {
             progress.value = getUsage() / 100;
@@ -159,24 +158,24 @@ export const SystemIndicatorWithBar = ({ indicator, getUsage, signal }) => Overl
     ],
 });
 
-export const CpuIndicator = () => Label({
+export const CpuIndicator = () => Widget.Label({
     className: "indicator",
     label: "",
 });
 
-export const CpuIndicatorDetails = () => Label({
+export const CpuIndicatorDetails = () => Widget.Label({
     className: "indicator-details",
     connections: [[System, label => {
         label.label = `${Math.round(System.cpuUsage)}%`;
     }, "cpu-changed"]]
 })
 
-export const MemIndicator = () => Label({
+export const MemIndicator = () => Widget.Label({
     className: "indicator",
     label: "",
 });
 
-export const MemIndicatorDetails = () => Label({
+export const MemIndicatorDetails = () => Widget.Label({
     className: "indicator-details",
     connections: [[System, label => {
         label.label = `${Math.round(System.memUsage)}%`;

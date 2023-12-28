@@ -15,17 +15,16 @@ import {
     MemIndicatorDetails
 } from "../../modules/indicators.js";
 import { stringEllipsis } from "../../shared/utils.js";
-import { WindowNames } from "../../windows.js";
+import { WindowNames } from "../../config.js";
 import Brightness from "../../shared/services/brightness.js";
 
-const { Box, Window, Slider, Label, Button } = ags.Widget;
-const { Audio, Network } = ags.Service;
+import { Widget, Audio, Network } from "../../imports.js";
 
-const SliderSetting = ({ icon, label, onChange, connections }) => Box({
+const SliderSetting = ({ icon, label, onChange, connections }) => Widget.Box({
     className: "slider-setting",
     children: [
         icon,
-        Slider({
+        Widget.Slider({
             max: 100,
             hexpand: true,
             drawValue: false,
@@ -36,10 +35,10 @@ const SliderSetting = ({ icon, label, onChange, connections }) => Box({
     ]
 })
 
-const ButtonSetting = ({ icon, onClicked, label }) => Button({
+const ButtonSetting = ({ icon, onClicked, label }) => Widget.Button({
     className: "button-setting",
-    onClicked,
-    child: Box({
+    onClicked: onClicked || (() => { }),
+    child: Widget.Box({
         hexpand: true,
         vertical: true,
         children: [
@@ -49,19 +48,19 @@ const ButtonSetting = ({ icon, onClicked, label }) => Button({
     })
 })
 
-const ButtonSettingRow = ({ children }) => Box({
+const ButtonSettingRow = ({ children }) => Widget.Box({
     className: "button-setting-row",
     homogeneous: true,
     children
 })
 
-export default () => Window({
+export default () => Widget.Window({
     name: WindowNames.CONTROL_PANEL,
     anchor: ["top", "right"],
-    exclusive: true,
     popup: true,
+    visible: false,
     focusable: true,
-    child: Box({
+    child: Widget.Box({
         vertical: true,
         className: "control-panel",
         children: [
@@ -101,7 +100,7 @@ export default () => Window({
                 children: [
                     ButtonSetting({
                         icon: NetworkIndicator(),
-                        label: Label({
+                        label: Widget.Label({
                             connections: [[Network, label => {
                                 if (!Network.wifi) {
                                     return;

@@ -9,28 +9,24 @@ import {
     MicrophoneIndicatorDetails,
     SpeakerIndicatorDetails,
 } from "../../modules/indicators.js";
-import { WindowNames } from "../../windows.js";
+import { WindowNames } from "../../config.js";
 import ControlPanel from "../../shared/services/controlPanel.js";
 
-const { Hyprland, Battery } = ags.Service;
-const { execAsync } = ags.Utils;
-const {
-    Box, Button, Label, CenterBox, Window,
-} = ags.Widget;
+import { Hyprland, Battery, Utils, Widget } from "../../imports.js";
 
-const Workspaces = (length = 5) => Box({
+const Workspaces = (length = 5) => Widget.Box({
     className: "module workspaces",
     children: [
-        ...Array.from({ length }, (_, i) => i + 1).map(i => Button({
-            onClicked: () => execAsync(`hyprctl dispatch workspace ${i}`),
-            child: Label({
+        ...Array.from({ length }, (_, i) => i + 1).map(i => Widget.Button({
+            onClicked: () => Utils.execAsync(`hyprctl dispatch workspace ${i}`),
+            child: Widget.Label({
                 connections: [[Hyprland, label => {
                     label.label = activeWorkspaceId() == i ? "" : "";
                 }]],
             })
         })),
-        Box({
-            child: Label({
+        Widget.Box({
+            child: Widget.Label({
                 connections: [[Hyprland, label => {
                     label.label = activeWorkspaceId().toString();
                 }]]
@@ -42,7 +38,7 @@ const Workspaces = (length = 5) => Box({
     ]
 });
 
-const ActiveWindow = () => Label({
+const ActiveWindow = () => Widget.Label({
     className: "module active-window",
     connections: [[Hyprland, label => {
         const title = Hyprland.active.client.title;
@@ -54,18 +50,18 @@ const ActiveWindow = () => Label({
     }]],
 });
 
-const Clock = () => Label({
+const Clock = () => Widget.Label({
     className: "module clock",
     connections: [
-        [1000, label => execAsync(["date", "+%R"])
+        [1000, label => Utils.execAsync(["date", "+%R"])
             .then(date => label.label = date)],
     ],
 });
 
-const SettingOverview = ({ children }) => Button({
+const SettingOverview = ({ children }) => Widget.Button({
     className: "module",
     onClicked: () => ControlPanel.toggle(),
-    child: Box({
+    child: Widget.Box({
         className: "setting-overview",
         children
     })
@@ -88,7 +84,7 @@ const SpeakerOverview = () => SettingOverview({
 const BatteryOverview = () => SettingOverview({
     children: [
         BatteryIndicator(),
-        Label({
+        Widget.Label({
             connections: [[Battery, label => {
                 label.label = `${Battery.percent}%`;
             }]]
@@ -105,19 +101,19 @@ const OthersOverview = () => SettingOverview({
     ]
 })
 
-const Left = () => Box({
+const Left = () => Widget.Box({
     children: [
         Workspaces(),
         ActiveWindow(),
     ],
 });
 
-const Center = () => Box({
+const Center = () => Widget.Box({
     children: [],
 });
 
-const Right = () => Box({
-    halign: "end",
+const Right = () => Widget.Box({
+    hpack: "end",
     children: [
         MicrophoneOverview(),
         SpeakerOverview(),
@@ -127,11 +123,11 @@ const Right = () => Box({
     ],
 });
 
-export default () => Window({
+export default () => Widget.Window({
     name: WindowNames.BAR,
     anchor: ["top", "left", "right"],
-    exclusive: true,
-    child: CenterBox({
+    exclusivity: "exclusive",
+    child: Widget.CenterBox({
         className: "bar",
         startWidget: Left(),
         centerWidget: Center(),

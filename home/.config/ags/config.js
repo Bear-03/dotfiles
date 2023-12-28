@@ -1,21 +1,28 @@
+import { App, Utils } from "./imports.js"
 import Brightness from "./shared/services/brightness.js";
-import { windows } from "./windows.js";
 
-const { Service } = ags;
-const { exec } = ags.Utils;
+import Bar from "./widgets/bar/init.js";
+import ControlPanel from "./widgets/controlPanel/init.js";
 
-// Make services available globally so they can be used in `ags run-js`
-Service["Brightness"] = Brightness;
+globalThis.Brightness = Brightness;
 
-const scss = ags.App.configDir + "/style.scss";
-const css = ags.App.configDir + "/style.css";
+const scss = App.configDir + "/style.scss";
+const css = App.configDir + "/style.css";
 
-const scssResult = exec(`bash -c "sassc ${scss} ${css} 2>&1"`).trim();
+const scssResult = Utils.exec(`bash -c "sassc ${scss} ${css} 2>&1"`).trim();
 if (scssResult) {
     console.warn("\n" + scssResult);
 }
 
+export const WindowNames = Object.freeze({
+    BAR: "bar",
+    CONTROL_PANEL: "control-panel",
+});
+
 export default {
     style: css,
-    windows,
+    windows: [
+        Bar(),
+        ControlPanel(),
+    ]
 };

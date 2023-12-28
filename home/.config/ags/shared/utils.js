@@ -1,4 +1,4 @@
-const { Hyprland } = ags.Service;
+import { Hyprland } from "../imports.js";
 
 export function dbg(value) {
     console.log(value);

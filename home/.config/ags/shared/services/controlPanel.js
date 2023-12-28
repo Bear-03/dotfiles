@@ -1,7 +1,5 @@
-import { WindowNames } from "../../windows.js";
-
-const { Service, App } = ags;
-const { timeout } = ags.Utils;
+import { Service, App, Utils } from "../../imports.js";
+import { WindowNames } from "../../config.js";
 
 const State = Object.freeze({
     CLOSING: "closing",
@@ -9,13 +7,17 @@ const State = Object.freeze({
     OPEN: "open",
 })
 
-class ControlPanelService extends Service {
+class ControlPanel extends Service {
     static {
-        Service.register(this, {
-            "open": [],
-            "closing": [],
-            "close": [],
-        });
+        Service.register(
+            this,
+            {
+                "open": [],
+                "closing": [],
+                "close": [],
+            },
+            {}
+        );
     }
     static CLOSE_DELAY = 500;
 
@@ -33,7 +35,7 @@ class ControlPanelService extends Service {
         this.emit("closing");
         this.emit("changed");
 
-        timeout(delay, () => {
+        Utils.timeout(delay, () => {
             if (this._state != State.CLOSING) {
                 return;
             }
@@ -54,15 +56,4 @@ class ControlPanelService extends Service {
     }
 }
 
-export default class ControlPanel {
-    static _instance;
-
-    static get instance() {
-        Service.ensureInstance(ControlPanel, ControlPanelService);
-        return ControlPanel._instance;
-    }
-
-    static open(...params) { ControlPanel.instance.open(...params) }
-    static close(...params) { ControlPanel.instance.close(...params) }
-    static toggle(...params) { ControlPanel.instance.toggle(...params) }
-}
+export default new ControlPanel()
