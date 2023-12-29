@@ -13,6 +13,7 @@ import { WindowNames } from "../../config.js";
 
 import { Hyprland, Battery, Utils, Widget } from "../../imports.js";
 import { controlPanelVisible } from "../../shared/variables.js";
+import repr from "../../shared/repr.js";
 
 const Workspaces = (length = 5) => Widget.Box({
     className: "module workspaces",
@@ -20,7 +21,7 @@ const Workspaces = (length = 5) => Widget.Box({
         ...Array.from({ length }, (_, i) => i + 1).map(i => Widget.Button({
             onClicked: () => Utils.execAsync(`hyprctl dispatch workspace ${i}`),
             child: Widget.Label({
-                label: Hyprland.active.workspace.bind("id").transform(id => id == i ? "" : ""),
+                label: Hyprland.active.workspace.bind("id").transform(id => repr.workspace.icon(i, id)),
             })
         })),
         Widget.Label({
