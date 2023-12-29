@@ -1,10 +1,18 @@
-import { clamp } from "../utils.js";
-import { Service, Utils } from "../../imports.js";
+import { clamp } from "../shared/utils.js";
+import { Service, Utils } from "../imports.js";
 
 const STEP = 10;
 
 class Brightness extends Service {
-    static { Service.register(this, {}, {}); }
+    static {
+        Service.register(
+            this,
+            {},
+            {
+                "percent": ["float", "rw"],
+            }
+        );
+    }
 
     #percent = 0;
 
@@ -24,7 +32,7 @@ class Brightness extends Service {
         Utils.execAsync(`brightnessctl -q s ${value}%`)
             .then(() => {
                 this.#percent = value;
-                this.emit("changed");
+                this.changed("percent");
             });
     }
 

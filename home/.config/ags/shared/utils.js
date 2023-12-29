@@ -1,14 +1,3 @@
-import { Hyprland } from "../imports.js";
-
-export function dbg(value) {
-    console.log(value);
-    return value;
-}
-
-export function activeWorkspaceId() {
-    return Hyprland.active.workspace.id;
-}
-
 export function stringEllipsis(string, maxLength, ellipsis = "...") {
     if (string.length <= maxLength) {
         return string;

@@ -13,14 +13,15 @@ import {
     CpuIndicatorDetails,
     MemIndicator,
     MemIndicatorDetails
-} from "../../modules/indicators.js";
+} from "../modules/indicators.js";
 import { stringEllipsis } from "../../shared/utils.js";
 import { WindowNames } from "../../config.js";
-import Brightness from "../../shared/services/brightness.js";
+import Brightness from "../../services/brightness.js";
 
 import { Widget, Audio, Network } from "../../imports.js";
+import { controlPanelVisible } from "../../shared/variables.js";
 
-const SliderSetting = ({ icon, label, onChange, connections }) => Widget.Box({
+const SliderSetting = ({ icon, label, onChange, setup }) => Widget.Box({
     className: "slider-setting",
     children: [
         icon,
@@ -29,7 +30,7 @@ const SliderSetting = ({ icon, label, onChange, connections }) => Widget.Box({
             hexpand: true,
             drawValue: false,
             onChange,
-            connections
+            setup,
         }),
         label,
     ]
@@ -58,7 +59,7 @@ export default () => Widget.Window({
     name: WindowNames.CONTROL_PANEL,
     anchor: ["top", "right"],
     popup: true,
-    visible: false,
+    visible: controlPanelVisible.bind(),
     focusable: true,
     child: Widget.Box({
         vertical: true,
@@ -68,33 +69,34 @@ export default () => Widget.Window({
                 icon: MicrophoneIndicator(),
                 label: MicrophoneIndicatorDetails(),
                 onChange: ({ value }) => Audio.microphone.volume = value / 100,
-                connections: [[Audio, slider => {
-                    if (!Audio.microphone) {
-                        return;
-                    }
+                setup: self => self
+                    .hook(Audio, self => {
+                        if (!Audio.microphone) {
+                            return;
+                        }
 
-                    slider.value = Audio.microphone.volume * 100;
-                }, "microphone-changed"]]
+                        self.value = Audio.microphone.volume * 100;
+                    }, "microphone-changed"),
             }),
             SliderSetting({
                 icon: SpeakerIndicator(),
                 label: SpeakerIndicatorDetails(),
                 onChange: ({ value }) => Audio.speaker.volume = value / 100,
-                connections: [[Audio, slider => {
-                    if (!Audio.speaker) {
-                        return;
-                    }
-                    slider.value = Audio.speaker.volume * 100;
-                }, "speaker-changed"]]
+                setup: self => self
+                    .hook(Audio, self => {
+                        if (!Audio.speaker) {
+                            return;
+                        }
+
+                        self.value = Audio.speaker.volume * 100;
+                    }, "speaker-changed"),
             }),
             SliderSetting({
                 icon: BrightnessIndicator(),
                 label: BrightnessIndicatorDetails(),
                 onChange: ({ value }) => Brightness.percent = value,
+                value: Brightness.bind("percent"),
                 min: 1,
-                connections: [[Brightness, slider => {
-                    slider.value = Brightness.percent;
-                }]]
             }),
             ButtonSettingRow({
                 children: [

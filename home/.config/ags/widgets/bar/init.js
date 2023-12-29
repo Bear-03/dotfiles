@@ -1,4 +1,4 @@
-import { activeWorkspaceId, stringEllipsis } from "../../shared/utils.js";
+import { stringEllipsis } from "../../shared/utils.js";
 import {
     BluetoothIndicator,
     BrightnessIndicator,
@@ -8,11 +8,11 @@ import {
     MicrophoneIndicator,
     MicrophoneIndicatorDetails,
     SpeakerIndicatorDetails,
-} from "../../modules/indicators.js";
+} from "../modules/indicators.js";
 import { WindowNames } from "../../config.js";
-import ControlPanel from "../../shared/services/controlPanel.js";
 
 import { Hyprland, Battery, Utils, Widget } from "../../imports.js";
+import { controlPanelVisible } from "../../shared/variables.js";
 
 const Workspaces = (length = 5) => Widget.Box({
     className: "module workspaces",
@@ -20,47 +20,31 @@ const Workspaces = (length = 5) => Widget.Box({
         ...Array.from({ length }, (_, i) => i + 1).map(i => Widget.Button({
             onClicked: () => Utils.execAsync(`hyprctl dispatch workspace ${i}`),
             child: Widget.Label({
-                connections: [[Hyprland, label => {
-                    label.label = activeWorkspaceId() == i ? "" : "";
-                }]],
+                label: Hyprland.active.workspace.bind("id").transform(id => id == i ? "" : ""),
             })
         })),
-        Widget.Box({
-            child: Widget.Label({
-                connections: [[Hyprland, label => {
-                    label.label = activeWorkspaceId().toString();
-                }]]
-            }),
-            connections: [[Hyprland, box => {
-                box.visible = activeWorkspaceId() > length;
-            }]]
+        Widget.Label({
+            visible: Hyprland.active.workspace.bind("id").transform(id => id > length),
+            label: Hyprland.active.workspace.bind("id").transform(id => id.toString()),
         })
     ]
 });
 
 const ActiveWindow = () => Widget.Label({
     className: "module active-window",
-    connections: [[Hyprland, label => {
-        const title = Hyprland.active.client.title;
-
-        label.visible = Boolean(title);
-        if (title) {
-            label.label = stringEllipsis(title, 60);
-        }
-    }]],
+    visible: Hyprland.active.client.bind("title").transform(title => Boolean(title)),
+    label: Hyprland.active.client.bind("title").transform(title => stringEllipsis(title, 60)),
 });
 
 const Clock = () => Widget.Label({
     className: "module clock",
-    connections: [
-        [1000, label => Utils.execAsync(["date", "+%R"])
-            .then(date => label.label = date)],
-    ],
+    setup: self => self
+        .poll(1000, self => Utils.execAsync("date +%R").then(date => self.label = date)),
 });
 
 const SettingOverview = ({ children }) => Widget.Button({
     className: "module",
-    onClicked: () => ControlPanel.toggle(),
+    onClicked: () => controlPanelVisible.value = !controlPanelVisible.value,
     child: Widget.Box({
         className: "setting-overview",
         children
@@ -85,9 +69,7 @@ const BatteryOverview = () => SettingOverview({
     children: [
         BatteryIndicator(),
         Widget.Label({
-            connections: [[Battery, label => {
-                label.label = `${Battery.percent}%`;
-            }]]
+            label: Battery.bind("percent").transform(p => `${p}%`)
         })
     ]
 });

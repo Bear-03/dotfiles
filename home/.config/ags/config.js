@@ -1,5 +1,5 @@
-import { App, Utils } from "./imports.js"
-import Brightness from "./shared/services/brightness.js";
+import { App, Utils, } from "./imports.js"
+import Brightness from "./services/brightness.js";
 
 import Bar from "./widgets/bar/init.js";
 import ControlPanel from "./widgets/controlPanel/init.js";

@@ -1,4 +1,4 @@
-import { Service, Utils } from "../../imports.js";
+import { Service, Utils } from "../imports.js";
 
 class System extends Service {
     static {
