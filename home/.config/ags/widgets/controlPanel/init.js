@@ -21,7 +21,7 @@ import Brightness from "../../services/brightness.js";
 import { Widget, Audio, Network } from "../../imports.js";
 import { controlPanelVisible } from "../../shared/variables.js";
 
-const SliderSetting = ({ icon, label, onChange, setup }) => Widget.Box({
+const SliderSetting = ({ icon, label, onChange, setup, value }) => Widget.Box({
     className: "slider-setting",
     children: [
         icon,
@@ -31,6 +31,7 @@ const SliderSetting = ({ icon, label, onChange, setup }) => Widget.Box({
             drawValue: false,
             onChange,
             setup,
+            value,
         }),
         label,
     ]

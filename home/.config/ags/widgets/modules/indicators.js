@@ -1,6 +1,6 @@
 import { mappedGet } from "../../shared/utils.js";
-import System from "../../services/system.js";
 import Brightness from "../../services/brightness.js";
+import { mem, cpu } from "../../shared/variables.js";
 
 import { Audio, Network, Bluetooth, Battery, Widget } from "../../imports.js";
 
@@ -142,9 +142,7 @@ export const CpuIndicator = () => Widget.Label({
 
 export const CpuIndicatorDetails = () => Widget.Label({
     className: "indicator-details",
-    connections: [[System, label => {
-        label.label = `${Math.round(System.cpuUsage)}%`;
-    }, "cpu-changed"]]
+    label: cpu.bind().transform(usage => `${Math.round(usage)}%`),
 })
 
 export const MemIndicator = () => Widget.Label({
@@ -154,7 +152,5 @@ export const MemIndicator = () => Widget.Label({
 
 export const MemIndicatorDetails = () => Widget.Label({
     className: "indicator-details",
-    connections: [[System, label => {
-        label.label = `${Math.round(System.memUsage)}%`;
-    }, "mem-changed"]]
+    label: mem.bind().transform(usage => `${Math.round(usage)}%`),
 })
