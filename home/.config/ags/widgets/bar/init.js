@@ -1,18 +1,18 @@
 import { stringEllipsis } from "../../shared/utils.js";
 import {
-    BluetoothIndicator,
-    BrightnessIndicator,
-    NetworkIndicator,
-    SpeakerIndicator,
-    BatteryIndicator,
-    MicrophoneIndicator,
-    MicrophoneIndicatorDetails,
-    SpeakerIndicatorDetails,
-} from "../modules/indicators.js";
+    BluetoothIcon,
+    BrightnessIcon,
+    NetworkIcon,
+    SpeakerIcon,
+    BatteryIcon,
+    BatteryPercent,
+    MicrophoneIcon,
+    MicrophoneVolume,
+    SpeakerVolume,
+} from "../modules/system.js";
 import { WindowNames } from "../../config.js";
 
-import { Hyprland, Battery, Utils, Widget } from "../../imports.js";
-import { controlPanelVisible } from "../../shared/variables.js";
+import { Hyprland, Utils, Widget } from "../../imports.js";
 import repr from "../../shared/repr.js";
 
 const Workspaces = (length = 5) => Widget.Box({
@@ -32,56 +32,20 @@ const Workspaces = (length = 5) => Widget.Box({
 });
 
 const ActiveWindow = () => Widget.Label({
-    className: "module active-window",
+    className: "module",
     visible: Hyprland.active.client.bind("title").transform(title => Boolean(title)),
     label: Hyprland.active.client.bind("title").transform(title => stringEllipsis(title, 60)),
 });
 
 const Clock = () => Widget.Label({
-    className: "module clock",
+    className: "module",
     setup: self => self
         .poll(1000, self => Utils.execAsync("date +%R").then(date => self.label = date)),
 });
 
-const SettingOverview = ({ children }) => Widget.Button({
-    className: "module",
-    onClicked: () => controlPanelVisible.value = !controlPanelVisible.value,
-    child: Widget.Box({
-        className: "setting-overview",
-        children
-    })
-})
-
-const MicrophoneOverview = () => SettingOverview({
-    children: [
-        MicrophoneIndicator(),
-        MicrophoneIndicatorDetails(),
-    ]
-})
-
-const SpeakerOverview = () => SettingOverview({
-    children: [
-        SpeakerIndicator(),
-        SpeakerIndicatorDetails(),
-    ]
-});
-
-const BatteryOverview = () => SettingOverview({
-    children: [
-        BatteryIndicator(),
-        Widget.Label({
-            label: Battery.bind("percent").transform(p => `${p}%`)
-        })
-    ]
-});
-
-const OthersOverview = () => SettingOverview({
-    className: "others",
-    children: [
-        BrightnessIndicator(),
-        NetworkIndicator(),
-        BluetoothIndicator(),
-    ]
+const IconModule = (children, iconOnly = false) => Widget.Box({
+    classNames: ["module", iconOnly ? "icon-only" : ""],
+    children
 })
 
 const Left = () => Widget.Box({
@@ -98,10 +62,23 @@ const Center = () => Widget.Box({
 const Right = () => Widget.Box({
     hpack: "end",
     children: [
-        MicrophoneOverview(),
-        SpeakerOverview(),
-        BatteryOverview(),
-        OthersOverview(),
+        IconModule([
+            MicrophoneIcon(),
+            MicrophoneVolume(),
+        ]),
+        IconModule([
+            SpeakerIcon(),
+            SpeakerVolume(),
+        ]),
+        IconModule([
+            BatteryIcon(),
+            BatteryPercent(),
+        ]),
+        IconModule([
+            BrightnessIcon(),
+            NetworkIcon(),
+            BluetoothIcon(),
+        ], true),
         Clock(),
     ],
 });

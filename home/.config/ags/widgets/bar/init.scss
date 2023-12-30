@@ -1,33 +1,28 @@
 @import "../../shared/theme.scss";
 
 .bar {
-    margin: $margin0 $margin0 0 $margin0;
+    margin: $margin1 $margin1 0 $margin1;
 
     .module {
         background-color: $bg0;
         border-radius: 9999px;
-        padding: $margin1 $margin0;
+        padding: $margin2 $margin1;
 
-        &:not(:first-child) {
-            margin-left: $margin1;
+        &:not(:first-child),
+        > :not(:first-child) {
+            margin-left: $margin2;
         }
+    }
+
+    .icon-only > :not(:first-child) {
+        margin-left: $margin0;
     }
 
     .workspaces button {
         background: transparent;
 
         &:not(:first-child) {
-            margin-left: $margin0;
-        }
-    }
-
-    .setting-overview {
-        > :not(:first-child) {
             margin-left: $margin1;
-        }
-
-        &.others > :not(:first-child) {
-            margin-left: $margin0;
         }
     }
 }

@@ -1,25 +1,22 @@
 import {
-    BluetoothIndicator,
-    BrightnessIndicator,
-    NetworkIndicator,
-    SpeakerIndicator,
-    BatteryIndicator,
-    MicrophoneIndicator,
-    BrightnessIndicatorDetails,
-    SpeakerIndicatorDetails,
-    MicrophoneIndicatorDetails,
-    BatteryIndicatorDetails,
-    CpuIndicator,
-    CpuIndicatorDetails,
-    MemIndicator,
-    MemIndicatorDetails
-} from "../modules/indicators.js";
+    BluetoothIcon,
+    BrightnessIcon,
+    NetworkIcon,
+    SpeakerIcon,
+    BatteryIcon,
+    MicrophoneIcon,
+    BrightnessPercent,
+    SpeakerVolume,
+    MicrophoneVolume,
+    BatteryPercent,
+} from "../modules/system.js";
 import { stringEllipsis } from "../../shared/utils.js";
 import { WindowNames } from "../../config.js";
 import Brightness from "../../services/brightness.js";
 
 import { Widget, Audio, Network } from "../../imports.js";
-import { controlPanelVisible } from "../../shared/variables.js";
+import { cpu, mem, controlPanelVisible } from "../../shared/variables.js";
+import repr from "../../shared/repr.js";
 
 const SliderSetting = ({ icon, label, onChange, setup, value }) => Widget.Box({
     className: "slider-setting",
@@ -34,10 +31,10 @@ const SliderSetting = ({ icon, label, onChange, setup, value }) => Widget.Box({
             value,
         }),
         label,
-    ]
+    ],
 })
 
-const ButtonSetting = ({ icon, onClicked, label }) => Widget.Button({
+const ButtonSetting = ({ onClicked, icon, label }) => Widget.Button({
     className: "button-setting",
     onClicked: onClicked || (() => { }),
     child: Widget.Box({
@@ -50,7 +47,7 @@ const ButtonSetting = ({ icon, onClicked, label }) => Widget.Button({
     })
 })
 
-const ButtonSettingRow = ({ children }) => Widget.Box({
+const ButtonSettingRow = (children) => Widget.Box({
     className: "button-setting-row",
     homogeneous: true,
     children
@@ -67,75 +64,67 @@ export default () => Widget.Window({
         className: "control-panel",
         children: [
             SliderSetting({
-                icon: MicrophoneIndicator(),
-                label: MicrophoneIndicatorDetails(),
+                icon: MicrophoneIcon(),
+                label: MicrophoneVolume(),
                 onChange: ({ value }) => Audio.microphone.volume = value / 100,
                 setup: self => self
                     .hook(Audio, self => {
-                        if (!Audio.microphone) {
-                            return;
-                        }
-
-                        self.value = Audio.microphone.volume * 100;
+                        self.value = (Audio.microphone?.volume ?? 0) * 100;
                     }, "microphone-changed"),
             }),
             SliderSetting({
-                icon: SpeakerIndicator(),
-                label: SpeakerIndicatorDetails(),
+                icon: SpeakerIcon(),
+                label: SpeakerVolume(),
                 onChange: ({ value }) => Audio.speaker.volume = value / 100,
                 setup: self => self
                     .hook(Audio, self => {
-                        if (!Audio.speaker) {
-                            return;
-                        }
-
-                        self.value = Audio.speaker.volume * 100;
+                        self.value = (Audio.speaker?.volume ?? 0) * 100;
                     }, "speaker-changed"),
             }),
             SliderSetting({
-                icon: BrightnessIndicator(),
-                label: BrightnessIndicatorDetails(),
+                icon: BrightnessIcon(),
+                label: BrightnessPercent(),
                 onChange: ({ value }) => Brightness.percent = value,
                 value: Brightness.bind("percent"),
                 min: 1,
             }),
-            ButtonSettingRow({
-                children: [
-                    ButtonSetting({
-                        icon: NetworkIndicator(),
-                        label: Widget.Label({
-                            connections: [[Network, label => {
-                                if (!Network.wifi) {
-                                    return;
-                                }
+            ButtonSettingRow([
+                ButtonSetting({
+                    icon: NetworkIcon(),
+                    label: Widget.Label({
+                        connections: [[Network, label => {
+                            if (!Network.wifi) {
+                                return;
+                            }
 
-                                // TODO: Make text go from right to left to be able to read everything
-                                label.label = stringEllipsis(Network.wifi.ssid, 20);
-                            }]]
-                        }),
+                            // TODO: Make text go from right to left to be able to read everything
+                            label.label = stringEllipsis(Network.wifi.ssid, 20);
+                        }]]
                     }),
-                    ButtonSetting({
-                        icon: BluetoothIndicator(),
-                        // TODO: Show the name of the device in the label
+                }),
+                ButtonSetting({
+                    icon: BluetoothIcon(),
+                    // TODO: Show the name of the device in the label
+                })
+            ]),
+            ButtonSettingRow([
+                ButtonSetting({
+                    icon: Widget.Label(repr.cpu.icon),
+                    label: Widget.Label({
+                        label: cpu.bind().transform(usage => repr.cpu.usagePercent(usage))
+                    }),
+                }),
+                ButtonSetting({
+                    icon: Widget.Label(repr.mem.icon),
+                    label: Widget.Label({
+                        label: mem.bind().transform(usage => repr.mem.usagePercent(usage))
                     })
-                ]
-            }),
-            ButtonSettingRow({
-                children: [
-                    ButtonSetting({
-                        icon: CpuIndicator(),
-                        label: CpuIndicatorDetails(),
-                    }),
-                    ButtonSetting({
-                        icon: MemIndicator(),
-                        label: MemIndicatorDetails(),
-                    }),
-                    ButtonSetting({
-                        icon: BatteryIndicator(),
-                        label: BatteryIndicatorDetails(),
-                    })
-                ]
-            }),
+                }),
+                ButtonSetting({
+                    icon: BatteryIcon(),
+                    label: BatteryPercent(),
+                })
+            ]),
         ]
     })
 });

@@ -14,7 +14,7 @@ export default {
         icon: function (isMuted) {
             return isMuted ? this.off : this.on;
         },
-        details: (volume) => `${Math.ceil(volume * 100)}%`
+        volumePercent: (volume) => `${Math.ceil(volume * 100)}%`
     },
     speaker: {
         off: "󰝟",
@@ -22,14 +22,14 @@ export default {
         icon: function (isMuted, volume) {
             return isMuted ? this.off : mappedGet(this.on, volume, 0, 1, Math.ceil);
         },
-        details: (volume) => `${Math.ceil(volume * 100)}%`,
+        volumePercent: (volume) => `${Math.ceil(volume * 100)}%`,
     },
     network: {
         off: "󰤮",
         on: ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
         icon: function (status, strength) {
             return status != "connected" ? this.off : mappedGet(this.on, strength, 0, 80);
-        }
+        },
     },
     bluetooth: {
         off: "󰂲",
@@ -50,7 +50,7 @@ export default {
         icon: function (percent) {
             return mappedGet(this.levels, percent, 0, 100);
         },
-        details: (percent) => `${Math.round(percent)}%`,
+        percent: (percent) => `${Math.round(percent)}%`,
     },
     battery: {
         connected: ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
@@ -58,14 +58,14 @@ export default {
         icon: function (connected, percent) {
             return mappedGet(connected ? this.connected : this.disconnected, percent, 0, 100, Math.floor)
         },
-        details: (percent) => `${Math.floor(percent)}%`,
+        percent: (percent) => `${Math.floor(percent)}%`,
     },
     cpu: {
         icon: "",
-        details: (usage) => `${Math.round(usage)}%`,
+        usagePercent: (usage) => `${Math.round(usage)}%`,
     },
     mem: {
         icon: "",
-        details: (usage) => `${Math.round(usage)}%`,
+        usagePercent: (usage) => `${Math.round(usage)}%`,
     }
 }

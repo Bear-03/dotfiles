@@ -1,23 +1,23 @@
 .control-panel {
     background-color: $bg0;
-    margin: $margin0;
-    padding: $margin0;
-    border-radius: $margin0;
+    margin: $margin1;
+    padding: $margin1;
+    border-radius: $margin1;
     min-width: 300px;
 
     .slider-setting {
         &:not(:first-child) {
-            margin-top: $margin1;
+            margin-top: $margin2;
         }
 
-        .indicator {
+        .icon {
             $size: 20px;
 
             font-size: $size;
             min-width: $size;
         }
 
-        .indicator-details {
+        .details {
             min-width: 32px;
         }
     }
@@ -29,7 +29,7 @@
         }
 
         trough {
-            margin: 0 $margin0;
+            margin: 0 $margin1;
             min-height: 10px;
             background-color: $bg1;
 
@@ -49,21 +49,21 @@
     }
 
     .button-setting-row {
-        margin-top: $margin0;
+        margin-top: $margin1;
     }
 
     .button-setting {
         background-color: $bg1;
-        padding: $margin0;
-        border-radius: $margin0;
+        padding: $margin1;
+        border-radius: $margin1;
 
         &:not(:first-child) {
-            margin-left: $margin0;
+            margin-left: $margin1;
         }
 
-        .indicator {
+        .icon {
             font-size: 30px;
-            margin-bottom: $margin0;
+            margin-bottom: $margin1;
         }
     }
 }
