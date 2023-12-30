@@ -4,14 +4,10 @@
 window {
     background-color: transparent;
     font-family: "JetBrains Mono Nerd Font";
-    font-size: 14px;
+    font-size: $fontSize;
     color: $fg0;
 }
 
 button {
     all: unset;
-}
-
-.label-icon {
-    font-family: monospace;
 }

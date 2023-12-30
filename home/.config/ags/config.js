@@ -1,4 +1,4 @@
-import { App, Utils, } from "./imports.js"
+import { App, Utils } from "./imports.js"
 import Brightness from "./services/brightness.js";
 
 import Bar from "./widgets/bar/init.js";
@@ -12,11 +12,6 @@ const scssResult = Utils.exec(`bash -c "sassc ${scss} ${css} 2>&1"`).trim();
 if (scssResult) {
     console.warn("\n" + scssResult);
 }
-
-export const WindowNames = Object.freeze({
-    BAR: "bar",
-    CONTROL_PANEL: "control-panel",
-});
 
 export default {
     style: css,

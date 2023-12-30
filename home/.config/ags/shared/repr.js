@@ -63,10 +63,10 @@ export default {
     },
     cpu: {
         icon: "",
-        usagePercent: (usage) => `${Math.round(usage)}%`,
+        usagePercent: (usage) => `${Math.round(usage * 100)}%`,
     },
     mem: {
         icon: "",
-        usagePercent: (usage) => `${Math.round(usage)}%`,
+        usagePercent: (usage) => `${Math.round(usage * 100)}%`,
     }
 }

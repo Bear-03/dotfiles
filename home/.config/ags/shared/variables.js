@@ -2,6 +2,7 @@ import { Variable } from "../imports.js";
 
 export const controlPanelVisible = Variable(false);
 export const showBatteryTime = Variable(false);
+export const showSystemDetails = Variable(false);
 export const cpu = Variable(0, {
     listen: [["top", "-b"], line => {
         if (!line.startsWith("%Cpu")) {
@@ -9,7 +10,7 @@ export const cpu = Variable(0, {
         }
 
         const idle = parseFloat(line.match(/.*ni,\s?(.+)\sid/)[1]);
-        return 100 - idle;
+        return 1 - (idle / 100);
     }],
 });
 export const mem = Variable(0, {
@@ -25,6 +26,6 @@ export const mem = Variable(0, {
         const totalMem = parseInt(cols[1]);
         const usedMem = parseInt(cols[2]);
 
-        return (usedMem / totalMem) * 100;
+        return (usedMem / totalMem);
     }],
 })
