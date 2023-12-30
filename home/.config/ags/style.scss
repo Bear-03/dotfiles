@@ -1,6 +1,5 @@
 @import "shared/theme.scss";
 @import "widgets/bar/init.scss";
-@import "widgets/controlPanel/init.scss";
 
 window {
     background-color: transparent;
@@ -13,14 +12,6 @@ button {
     all: unset;
 }
 
-.indicator {
+.label-icon {
     font-family: monospace;
-
-    .percent-bar {
-        $size: 60px;
-
-        font-size: 3px;
-        min-width: $size;
-        min-height: $size;
-    }
 }

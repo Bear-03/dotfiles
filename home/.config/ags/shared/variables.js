@@ -1,6 +1,7 @@
 import { Variable } from "../imports.js";
 
 export const controlPanelVisible = Variable(false);
+export const showBatteryTime = Variable(false);
 export const cpu = Variable(0, {
     listen: [["top", "-b"], line => {
         if (!line.startsWith("%Cpu")) {

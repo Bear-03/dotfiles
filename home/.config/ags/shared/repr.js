@@ -59,6 +59,7 @@ export default {
             return mappedGet(connected ? this.connected : this.disconnected, percent, 0, 100, Math.floor)
         },
         percent: (percent) => `${Math.floor(percent)}%`,
+        timeRemaining: (seconds) => new Date(seconds * 1000).toISOString().substring(11, 19)
     },
     cpu: {
         icon: "",

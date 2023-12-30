@@ -4,25 +4,24 @@
     margin: $margin1 $margin1 0 $margin1;
 
     .module {
+        padding: $margin2 $margin1;
         background-color: $bg0;
         border-radius: 9999px;
-        padding: $margin2 $margin1;
-
-        &:not(:first-child),
-        > :not(:first-child) {
-            margin-left: $margin2;
-        }
-    }
-
-    .icon-only > :not(:first-child) {
-        margin-left: $margin0;
-    }
-
-    .workspaces button {
-        background: transparent;
 
         &:not(:first-child) {
             margin-left: $margin1;
         }
+
+        &.icon-only > :not(:first-child) {
+            margin-left: $margin0;
+        }
+
+        &:not(.icon-only) .label-icon {
+            margin-right: $margin2;
+        }
+    }
+
+    .workspaces > :not(:first-child) {
+        margin-left: $margin2;
     }
 }
