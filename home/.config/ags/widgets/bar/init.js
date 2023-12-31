@@ -1,4 +1,4 @@
-import { Hyprland, Audio, Battery, Network, Bluetooth, Utils, Widget } from "../../imports.js";
+import { Hyprland, Audio, Battery, Network, Bluetooth, Utils, Widget, SystemTray } from "../../imports.js";
 import repr from "../../shared/repr.js";
 import { cpu, mem, showBatteryTime, showSystemDetails } from "../../shared/variables.js";
 import consts from "../../shared/consts.js";
@@ -70,7 +70,6 @@ const MicrophoneModule = () => Widget.Button({
         spacing: consts.MARGINS[2],
         children: [
             Widget.Label({
-                className: "label-icon",
                 setup: self => self.hook(Audio, () => {
                     self.label = repr.microphone.icon(Audio.microphone?.isMuted ?? true)
                 }, "microphone-changed"),
@@ -92,7 +91,6 @@ const SpeakerModule = () => Widget.Button({
         spacing: consts.MARGINS[2],
         children: [
             Widget.Label({
-                className: "label-icon",
                 setup: self => self.hook(Audio, () => {
                     self.label = repr.speaker.icon(Audio.speaker?.isMuted ?? true, Audio.speaker?.volume);
                 }, "speaker-changed"),
@@ -117,7 +115,6 @@ const BatteryModule = () => Widget.Box({
                 spacing: consts.MARGINS[2],
                 children: [
                     Widget.Label({
-                        className: "label-icon",
                         setup: self => self.hook(Battery, self => {
                             self.label = repr.battery.icon(Battery.charging || Battery.charged, Battery.percent);
                         }),
@@ -226,6 +223,25 @@ const SystemModule = () => Widget.Box({
             })
         })
     ]
+});
+
+const SysTrayItem = (item) => Widget.Button({
+    child: Widget.Icon({
+        icon: item.bind("icon")
+    }),
+    tooltipMarkup: item.bind("tooltip-markup"),
+    onPrimaryClick: (_, event) => item.activate(event),
+    onSecondaryClick: (_, event) => item.openMenu(event),
+});
+
+const SysTrayModule = () => Widget.Revealer({
+    revealChild: SystemTray.bind("items").transform(i => i.length != 0),
+    transition: "slide_left",
+    transitionDuration: consts.TRANSITION_DURATIONS[0],
+    child: Widget.Box({
+        className: "module",
+        children: SystemTray.bind("items").transform(i => i.map(SysTrayItem)),
+    }),
 })
 
 const ClockModule = () => Widget.Label({
@@ -235,7 +251,6 @@ const ClockModule = () => Widget.Label({
 });
 
 const Left = () => Widget.Box({
-    spacing: consts.MARGINS[2],
     children: [
         WorkspacesModule(),
         ActiveWindowModule(),
@@ -243,12 +258,10 @@ const Left = () => Widget.Box({
 });
 
 const Center = () => Widget.Box({
-    spacing: consts.MARGINS[2],
     children: [],
 });
 
 const Right = () => Widget.Box({
-    spacing: consts.MARGINS[2],
     hpack: "end",
     children: [
         MicrophoneModule(),
@@ -256,6 +269,7 @@ const Right = () => Widget.Box({
         BatteryModule(),
         IconOnlyModule(),
         SystemModule(),
+        SysTrayModule(),
         ClockModule(),
     ],
 });

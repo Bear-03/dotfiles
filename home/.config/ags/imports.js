@@ -21,3 +21,4 @@ export const Battery = await require(service("battery"));
 export const Bluetooth = await require(service("bluetooth"));
 export const Hyprland = await require(service("hyprland"));
 export const Network = await require(service("network"));
+export const SystemTray = await require(service("systemtray"));

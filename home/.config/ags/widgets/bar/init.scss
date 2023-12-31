@@ -4,6 +4,7 @@
     margin: $margin1 $margin1 0 $margin1;
 
     .module {
+        margin: 0 $margin2 / 2;
         padding: $margin2 $margin1;
         background-color: $bg0;
         border-radius: 9999px;
@@ -22,7 +23,7 @@
             }
 
             .icon {
-                font-size: 0.7em;
+                font-size: 0.6em;
                 margin-left: -3px; // centering fix
             }
 
