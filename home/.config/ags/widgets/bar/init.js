@@ -27,6 +27,15 @@ const WorkspacesModule = (length = 5) => Widget.Box({
     ]
 });
 
+const ACTIVE_WINDOW_TRUNCATE = 60;
+const ActiveWindowLabel = () => Widget.Label({
+    truncate: "end",
+    max_width_chars: ACTIVE_WINDOW_TRUNCATE,
+    setup: self => self.hook(self, () => {
+        self.tooltipText = self.label.length > ACTIVE_WINDOW_TRUNCATE ? self.label : "";
+    }, "notify::label"),
+});
+
 const ActiveWindowModule = () => Widget.Box({
     children: [
         Widget.Revealer({
@@ -42,14 +51,8 @@ const ActiveWindowModule = () => Widget.Box({
                         transition: "crossfade",
                         transitionDuration: consts.TRANSITION_DURATIONS[0],
                         items: [
-                            ["first", Widget.Label({
-                                truncate: "end",
-                                max_width_chars: 60,
-                            })],
-                            ["second", Widget.Label({
-                                truncate: "end",
-                                max_width_chars: 60,
-                            })],
+                            ["first", ActiveWindowLabel()],
+                            ["second", ActiveWindowLabel()],
                         ],
                         setup: self => self.hook(Hyprland.active.client, () => {
                             const notShownIndex = self.items.findIndex((x) => x[0] != self.shown);
