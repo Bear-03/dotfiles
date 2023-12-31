@@ -1,11 +1,3 @@
-export function stringEllipsis(string, maxLength, ellipsis = "...") {
-    if (string.length <= maxLength) {
-        return string;
-    }
-
-    return string.substring(0, maxLength - ellipsis.length).trim() + ellipsis;
-}
-
 export function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
 }

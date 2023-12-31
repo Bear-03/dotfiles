@@ -1,4 +1,4 @@
-import { mappedGet } from "./utils.js";
+import { mappedGet } from "./util.js";
 
 export default {
     workspace: {

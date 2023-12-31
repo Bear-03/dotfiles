@@ -1,5 +1,3 @@
-import { stringEllipsis } from "../../shared/utils.js";
-
 import { Hyprland, Audio, Battery, Network, Bluetooth, Utils, Widget } from "../../imports.js";
 import repr from "../../shared/repr.js";
 import { cpu, mem, showBatteryTime, showSystemDetails } from "../../shared/variables.js";
@@ -42,14 +40,20 @@ const ActiveWindowModule = () => Widget.Box({
                         transition: "crossfade",
                         transitionDuration: consts.TRANSITION_DURATIONS[0],
                         items: [
-                            ["first", Widget.Label()],
-                            ["second", Widget.Label()],
+                            ["first", Widget.Label({
+                                truncate: "end",
+                                max_width_chars: 60,
+                            })],
+                            ["second", Widget.Label({
+                                truncate: "end",
+                                max_width_chars: 60,
+                            })],
                         ],
                         setup: self => self.hook(Hyprland.active.client, () => {
                             const notShownIndex = self.items.findIndex((x) => x[0] != self.shown);
                             const [notShownName, notShown] = self.items[notShownIndex];
 
-                            notShown.label = stringEllipsis(Hyprland.active.client.title, 60);
+                            notShown.label = Hyprland.active.client.title;
                             self.shown = notShownName;
                         })
                     })
