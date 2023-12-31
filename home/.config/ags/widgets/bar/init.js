@@ -1,7 +1,9 @@
 import { Hyprland, Audio, Battery, Network, Bluetooth, Utils, Widget, SystemTray } from "../../imports.js";
+import Brightness from "../../services/brightness.js";
 import repr from "../../shared/repr.js";
 import { cpu, mem, showBatteryTime, showSystemDetails } from "../../shared/variables.js";
 import consts from "../../shared/consts.js";
+import { muteAudioStream } from "../../shared/util.js";
 
 const WorkspacesModule = (length = 5) => Widget.Box({
     className: "module workspaces",
@@ -65,13 +67,13 @@ const ActiveWindowModule = () => Widget.Box({
 
 const MicrophoneModule = () => Widget.Button({
     className: "module",
-    onClicked: () => Audio.microphone.isMuted = !Audio.microphone.isMuted,
+    onClicked: () => muteAudioStream("microphone"),
     child: Widget.Box({
         spacing: consts.MARGINS[2],
         children: [
             Widget.Label({
                 setup: self => self.hook(Audio, () => {
-                    self.label = repr.microphone.icon(Audio.microphone?.isMuted ?? true)
+                    self.label = repr.microphone.icon(Audio.microphone?.stream.isMuted ?? true)
                 }, "microphone-changed"),
             }),
             Widget.Label({
@@ -86,13 +88,13 @@ const MicrophoneModule = () => Widget.Button({
 
 const SpeakerModule = () => Widget.Button({
     className: "module",
-    onClicked: () => Audio.speaker.isMuted = !Audio.speaker.isMuted,
+    onClicked: () => muteAudioStream("speaker"),
     child: Widget.Box({
         spacing: consts.MARGINS[2],
         children: [
             Widget.Label({
                 setup: self => self.hook(Audio, () => {
-                    self.label = repr.speaker.icon(Audio.speaker?.isMuted ?? true, Audio.speaker?.volume);
+                    self.label = repr.speaker.icon(Audio.speaker?.stream.isMuted ?? true, Audio.speaker?.volume);
                 }, "speaker-changed"),
             }),
             Widget.Label({

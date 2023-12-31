@@ -1,9 +1,9 @@
+import { setupGlobals } from "./globals.js";
 import { App, Utils } from "./imports.js"
-import Brightness from "./services/brightness.js";
 
 import Bar from "./widgets/bar/init.js";
 
-globalThis.Brightness = Brightness;
+setupGlobals();
 
 const scss = App.configDir + "/style.scss";
 const css = App.configDir + "/style.css";
