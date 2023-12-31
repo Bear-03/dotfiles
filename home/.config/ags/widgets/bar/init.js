@@ -32,7 +32,7 @@ const ActiveWindowLabel = () => Widget.Label({
     truncate: "end",
     max_width_chars: ACTIVE_WINDOW_TRUNCATE,
     setup: self => self.hook(self, () => {
-        self.tooltipText = self.label.length > ACTIVE_WINDOW_TRUNCATE ? self.label : "";
+        self.tooltipText = self.label.length >= ACTIVE_WINDOW_TRUNCATE ? self.label : "";
     }, "notify::label"),
 });
 
