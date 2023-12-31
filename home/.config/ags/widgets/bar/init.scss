@@ -26,9 +26,17 @@
                 margin-left: -3px; // centering fix
             }
 
-            .details {
+            .percent {
                 margin-left: $margin2;
             }
+        }
+    }
+
+    // box spacing does not work because of revealer
+    .workspaces {
+        .known:not(:first-child),
+        .unknown {
+            margin-left: $margin2;
         }
     }
 }

@@ -1,5 +1,6 @@
 import { Variable } from "../imports.js";
 
+export const oldActiveWindowTitle = Variable("");
 export const controlPanelVisible = Variable(false);
 export const showBatteryTime = Variable(false);
 export const showSystemDetails = Variable(false);

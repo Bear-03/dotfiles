@@ -7,26 +7,56 @@ import consts from "../../shared/consts.js";
 
 const WorkspacesModule = (length = 5) => Widget.Box({
     className: "module workspaces",
-    spacing: consts.MARGINS[1],
     children: [
         ...Array.from({ length }, (_, i) => i + 1).map(i => Widget.Button({
+            className: "known",
             onClicked: () => Hyprland.sendMessage(`dispatch workspace ${i}`),
             child: Widget.Label({
-                className: "label-icon",
                 label: Hyprland.active.workspace.bind("id").transform(id => repr.workspace.icon(i, id)),
             })
         })),
-        Widget.Label({
-            visible: Hyprland.active.workspace.bind("id").transform(id => id > length),
-            label: Hyprland.active.workspace.bind("id").transform(id => id.toString()),
+        Widget.Revealer({
+            revealChild: Hyprland.active.workspace.bind("id").transform(id => id > length),
+            transition: "slide_right",
+            transitionDuration: consts.TRANSITION_DURATIONS[1],
+            child: Widget.Label({
+                className: "unknown",
+                label: Hyprland.active.workspace.bind("id").transform(id => id.toString()),
+            }),
         })
     ]
 });
 
-const ActiveWindowModule = () => Widget.Label({
-    className: "module",
-    visible: Hyprland.active.client.bind("title").transform(title => Boolean(title)),
-    label: Hyprland.active.client.bind("title").transform(title => stringEllipsis(title, 60)),
+const ActiveWindowModule = () => Widget.Box({
+    children: [
+        Widget.Revealer({
+            revealChild: Hyprland.active.client.bind("title").transform(title => Boolean(title)),
+            transition: "crossfade",
+            transitionDuration: consts.TRANSITION_DURATIONS[0],
+            child: Widget.Box({
+                className: "module",
+                children: [
+                    Widget.Stack({
+                        hhomogeneous: false,
+                        interpolateSize: true,
+                        transition: "crossfade",
+                        transitionDuration: consts.TRANSITION_DURATIONS[0],
+                        items: [
+                            ["first", Widget.Label()],
+                            ["second", Widget.Label()],
+                        ],
+                        setup: self => self.hook(Hyprland.active.client, () => {
+                            const notShownIndex = self.items.findIndex((x) => x[0] != self.shown);
+                            const [notShownName, notShown] = self.items[notShownIndex];
+
+                            notShown.label = stringEllipsis(Hyprland.active.client.title, 60);
+                            self.shown = notShownName;
+                        })
+                    })
+                ]
+            })
+        })
+    ]
 });
 
 const MicrophoneModule = () => Widget.Button({
@@ -92,7 +122,7 @@ const BatteryModule = () => Widget.Box({
                         hhomogeneous: false,
                         transition: "crossfade",
                         interpolateSize: true,
-                        transitionDuration: consts.TRANSITION_DURATION,
+                        transitionDuration: consts.TRANSITION_DURATIONS[0],
                         items: [
                             ["percent", Widget.Label({
                                 className: "percent",
@@ -147,20 +177,15 @@ const UsageIcon = ({ usage, icon }) => Widget.Overlay({
     ]
 })
 
-const UsageDetails = ({ label }) => Widget.Stack({
-    hhomogeneous: false,
-    transition: "crossfade",
-    interpolateSize: true,
-    transitionDuration: consts.TRANSITION_DURATION,
-    items: [
-        ["hidden", Widget.Label()],
-        ["shown", Widget.Label({
-            className: "details",
-            label,
-        })],
-    ],
-    shown: showSystemDetails.bind().transform(v => v ? "shown" : "hidden"),
-})
+const UsageDetails = ({ label }) => Widget.Revealer({
+    revealChild: showSystemDetails.bind(),
+    transition: "slide_right",
+    transitionDuration: consts.TRANSITION_DURATIONS[0],
+    child: Widget.Label({
+        className: "percent",
+        label,
+    })
+});
 
 const SystemModule = () => Widget.Box({
     className: "module system",
