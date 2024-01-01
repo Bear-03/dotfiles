@@ -4,6 +4,7 @@ export const oldActiveWindowTitle = Variable("");
 export const controlPanelVisible = Variable(false);
 export const showBatteryTime = Variable(false);
 export const showSystemDetails = Variable(false);
+export const showMiscDetails = Variable(false);
 export const cpu = Variable(0, {
     listen: [["top", "-b"], line => {
         if (!line.startsWith("%Cpu")) {

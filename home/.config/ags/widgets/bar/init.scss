@@ -27,9 +27,13 @@
                 margin-left: -3px; // centering fix
             }
 
-            .percent {
+            .icon-details {
                 margin-left: $margin2;
             }
+        }
+
+        &.misc .icon-details {
+            margin-left: $margin1;
         }
     }
 

@@ -1,7 +1,7 @@
 import { Hyprland, Audio, Battery, Network, Bluetooth, Utils, Widget, SystemTray } from "../../imports.js";
 import Brightness from "../../services/brightness.js";
 import repr from "../../shared/repr.js";
-import { cpu, mem, showBatteryTime, showSystemDetails } from "../../shared/variables.js";
+import { cpu, mem, showBatteryTime, showMiscDetails, showSystemDetails } from "../../shared/variables.js";
 import consts from "../../shared/consts.js";
 import { muteAudioStream } from "../../shared/util.js";
 
@@ -146,32 +146,78 @@ const BatteryModule = () => Widget.Box({
     ]
 });
 
-const IconOnlyModule = () => Widget.Box({
-    className: "module",
-    spacing: consts.MARGINS[0],
+const IconWithDetails = ({ revealDetails, icon, details }) => Widget.Box({
     children: [
-        Widget.Label({
-            label: Brightness.bind("percent").transform(p => repr.brightness.icon(p)),
+        icon,
+        Widget.Revealer({
+            revealChild: revealDetails,
+            transition: "slide_left",
+            transitionDuration: consts.TRANSITION_DURATIONS[0],
+            child: details,
         }),
-        Widget.Label({
-            setup: self => self
-                .hook(Network, self => {
-                    self.label = repr.network.icon(Network.wifi?.internet, Network.wifi?.strength);
-                }),
-        }),
-        Widget.Label({
-            setup: self => self
-                .hook(Bluetooth, self => {
-                    self.label = repr.bluetooth.icon(Bluetooth.enabled, Bluetooth.connectedDevices);
-                }),
-        }),
+    ]
+})
+
+// TODO: Make wifi and bluetooth not reveal if not connected to anything
+// TODO: Add tooltip to wifi and bluetooth
+const MiscModule = () => Widget.Box({
+    className: "module misc",
+    children: [
+        Widget.EventBox({
+            onHover: () => showMiscDetails.value = true,
+            onHoverLost: () => showMiscDetails.value = false,
+            child: Widget.Box({
+                spacing: consts.MARGINS[1],
+                children: [
+                    IconWithDetails({
+                        revealDetails: showMiscDetails.bind(),
+                        icon: Widget.Label({
+                            label: Brightness.bind("percent").transform(p => repr.brightness.icon(p)),
+                        }),
+                        details: Widget.Label({
+                            className: "icon-details",
+                            label: Brightness.bind("percent").transform(p => repr.brightness.percent(p)),
+                        })
+                    }),
+                    IconWithDetails({
+                        revealDetails: showMiscDetails.bind(),
+                        icon: Widget.Label({
+                            setup: self => self
+                                .hook(Network, self => {
+                                    self.label = repr.network.icon(Network.wifi?.internet, Network.wifi?.strength);
+                                }),
+                        }),
+                        details: Widget.Label({
+                            className: "icon-details",
+                            truncate: "end",
+                            max_width_chars: 10,
+                            label: Network.wifi.bind("ssid"),
+                        })
+                    }),
+                    IconWithDetails({
+                        revealDetails: showMiscDetails.bind(),
+                        icon: Widget.Label({
+                            setup: self => self.hook(Bluetooth, self => {
+                                self.label = repr.bluetooth.icon(Bluetooth.enabled, Bluetooth.connectedDevices);
+                            }),
+                        }),
+                        details: Widget.Label({
+                            className: "icon-details",
+                            truncate: "end",
+                            max_width_chars: 10,
+                            label: Bluetooth.bind("connectedDevices").transform(d => d[0]?.name ?? ""),
+                        }),
+                    }),
+                ]
+            })
+        })
     ]
 })
 
 const UsageIcon = ({ usage, icon }) => Widget.Overlay({
     child: Widget.CircularProgress({
         className: "circular-progress",
-        value: usage.bind(),
+        value: usage,
         rounded: true,
         startAt: 0.75,
     }),
@@ -183,16 +229,6 @@ const UsageIcon = ({ usage, icon }) => Widget.Overlay({
     ]
 })
 
-const UsageDetails = ({ label }) => Widget.Revealer({
-    revealChild: showSystemDetails.bind(),
-    transition: "slide_right",
-    transitionDuration: consts.TRANSITION_DURATIONS[0],
-    child: Widget.Label({
-        className: "percent",
-        label,
-    })
-});
-
 const SystemModule = () => Widget.Box({
     className: "module system",
     children: [
@@ -202,27 +238,27 @@ const SystemModule = () => Widget.Box({
             child: Widget.Box({
                 spacing: consts.MARGINS[1],
                 children: [
-                    Widget.Box({
-                        children: [
-                            UsageIcon({
-                                usage: cpu,
-                                icon: repr.cpu.icon
-                            }),
-                            UsageDetails({
-                                label: cpu.bind().transform(usage => repr.cpu.usagePercent(usage))
-                            }),
-                        ]
+                    IconWithDetails({
+                        revealDetails: showSystemDetails.bind(),
+                        icon: UsageIcon({
+                            usage: cpu.bind(),
+                            icon: repr.cpu.icon,
+                        }),
+                        details: Widget.Label({
+                            className: "icon-details",
+                            label: cpu.bind().transform(usage => repr.cpu.usagePercent(usage))
+                        })
                     }),
-                    Widget.Box({
-                        children: [
-                            UsageIcon({
-                                usage: mem,
-                                icon: repr.mem.icon
-                            }),
-                            UsageDetails({
-                                label: mem.bind().transform(usage => repr.mem.usagePercent(usage))
-                            }),
-                        ]
+                    IconWithDetails({
+                        revealDetails: showSystemDetails.bind(),
+                        icon: UsageIcon({
+                            usage: mem.bind(),
+                            icon: repr.mem.icon,
+                        }),
+                        details: Widget.Label({
+                            className: "icon-details",
+                            label: mem.bind().transform(usage => repr.cpu.usagePercent(usage))
+                        })
                     }),
                 ]
             })
@@ -272,7 +308,7 @@ const Right = () => Widget.Box({
         MicrophoneModule(),
         SpeakerModule(),
         BatteryModule(),
-        IconOnlyModule(),
+        MiscModule(),
         SystemModule(),
         SysTrayModule(),
         ClockModule(),
