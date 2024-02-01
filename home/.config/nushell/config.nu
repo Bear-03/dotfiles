@@ -38,6 +38,11 @@ def pyenv [env_path?: string] {
         $env_path
     }
 
+    if (not ($env_path | path exists)) {
+        print $"Creating environment '($env_path)'..."
+        python -m venv $env_path
+    }
+
     print $"Activating environment '($env_path)'... \(Deactivate with Ctrl-D\)"
     bash -c $"source ($env_path)/bin/activate && nu"
 }
