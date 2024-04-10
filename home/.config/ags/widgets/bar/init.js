@@ -76,7 +76,7 @@ const MicrophoneModule = () => Widget.Button({
         children: [
             Widget.Label({
                 setup: self => self.hook(Audio, () => {
-                    self.label = repr.microphone.icon(Audio.microphone?.stream.isMuted ?? true)
+                    self.label = repr.microphone.icon(Audio.microphone?.stream?.isMuted ?? true)
                 }, "microphone-changed"),
             }),
             Widget.Label({
@@ -97,7 +97,7 @@ const SpeakerModule = () => Widget.Button({
         children: [
             Widget.Label({
                 setup: self => self.hook(Audio, () => {
-                    self.label = repr.speaker.icon(Audio.speaker?.stream.isMuted ?? true, Audio.speaker?.volume);
+                    self.label = repr.speaker.icon(Audio.speaker?.stream?.isMuted ?? true, Audio.speaker?.volume);
                 }, "speaker-changed"),
             }),
             Widget.Label({
