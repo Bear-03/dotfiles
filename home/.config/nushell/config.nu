@@ -30,17 +30,23 @@ def pacman-au [] {
     }
 }
 
-# Activate python venv
-def pyenv [env_path?: string] {
+# Create and activate python venv
+def pyvenv [
+    env_path?: string,
+    --version (-v): string
+] {
     let env_path = if ($env_path == null) {
         ".venv"
     } else {
         $env_path
     }
 
+    let python_cmd = $"python($version)"
+
     if (not ($env_path | path exists)) {
-        print $"Creating environment '($env_path)'..."
-        python -m venv $env_path
+        let version = (nu -c $"($python_cmd) -V")
+        print $"Creating environment '($env_path)' with ($version)..."
+        nu -c $"($python_cmd) -m venv ($env_path)"
     }
 
     print $"Activating environment '($env_path)'... \(Deactivate with Ctrl-D\)"
