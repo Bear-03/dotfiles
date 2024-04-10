@@ -4,7 +4,7 @@
 
 def link [...argv: any] {
     ^mkdir -p ($argv.1 | path dirname)
-    ln -rns $argv
+    ln -rns ...$argv
 }
 
 # "to" gets the destination dir from the origin
@@ -14,7 +14,7 @@ def link-dir [from_dir: string, to_dir: string] {
 
     cd $from_dir
 
-    (ls -la "./**/*" | where type == file).name
+    (ls -la ./**/* | where type == file).name
     | each { |from_file|
         let to_file = $to_dir + $from_file
 
