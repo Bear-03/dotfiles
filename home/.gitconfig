@@ -5,3 +5,4 @@
 	name = Bear-03
 [core]
 	autocrlf = false
+	editor = code --wait
