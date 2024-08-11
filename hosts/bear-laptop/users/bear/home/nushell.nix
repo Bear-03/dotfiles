@@ -6,10 +6,22 @@
             configFile.source = ../nushell/config.nu;
         };
 
+        # Shell commands autocomplete
         carapace = {
             enable = true;
             enableNushellIntegration = true;
         };
+
+        # Tree replacement
+        broot = {
+            enable = true;
+            enableNushellIntegration = true;
+        };
+
+        # Grep replacement
+        ripgrep.enable = true;
+        # Cat replacement
+        bat.enable = true;
 
         starship = {
             enable = true;
@@ -34,8 +46,5 @@
                 };
             };
         };
-
-        ripgrep.enable = true;
-        bat.enable = true;
     };
 }

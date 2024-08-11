@@ -9,6 +9,7 @@ $env.config = {
 alias la = ls -la
 alias grep = rg
 alias cat = bat
+alias tree = broot
 
 # Create and activate python venv
 def pyvenv [
