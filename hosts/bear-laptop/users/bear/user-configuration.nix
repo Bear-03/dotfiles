@@ -9,7 +9,6 @@ username: { pkgs, ... } @ inputs:
         adw-gtk3 # Adwaita theme for gtk
         adwaita-icon-theme # Cursor theme
         neofetch
-        swaybg # Background image
         xorg.xlsclients # List all windows using XWayland
         brightnessctl # Brightness control, to be used primarily by AGS
         sassc # SCSS compiler for AGS

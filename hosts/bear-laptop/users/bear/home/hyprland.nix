@@ -7,10 +7,9 @@
                 ",highres,auto,1"
             ];
             exec-once = [
-                # This isn't a full string because it needs to be a relative path, which nix supports
-                ("swaybg --image " + ../bg.png)
                 "hyprctl setcursor Adwaita 20"
                 "lxqt-policykit-agent"
+                "hyprpaper"
                 "ags"
             ];
             input = {
@@ -31,6 +30,9 @@
             misc = {
                 animate_manual_resizes = true;
                 middle_click_paste = false;
+            };
+            debug = {
+                disable_logs = false;
             };
             decoration =  {
                 rounding = 10;
@@ -138,6 +140,20 @@
                 "SUPER, mouse:272, movewindow"
                 "SUPER, mouse:273, resizewindow"
             ];
+        };
+    };
+
+    services = {
+        # Wallpaper management
+        hyprpaper = let
+            wallpaper = builtins.toString ../bg.png;
+        in
+        {
+            enable = true;
+            settings = {
+                preload = [ wallpaper ];
+                wallpaper = [ ",${wallpaper}" ];
+            };
         };
     };
 }
