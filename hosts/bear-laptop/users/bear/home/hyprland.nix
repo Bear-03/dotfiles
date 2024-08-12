@@ -127,7 +127,7 @@
                 "SUPER SHIFT, 9, movetoworkspace, 9"
                 "SUPER SHIFT, 0, movetoworkspace, 10"
             ];
-            bindl = [
+            bindle = [
                 # Fn keys
                 ", XF86MonBrightnessUp, exec, ags run-js \"Brightness.increase()\""
                 ", XF86MonBrightnessDown, exec, ags run-js \"Brightness.decrease()\""
