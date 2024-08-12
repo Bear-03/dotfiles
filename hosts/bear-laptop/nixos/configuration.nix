@@ -56,9 +56,12 @@
         rtkit.enable = true; # For pipewire
     };
 
-    programs.hyprland = {
-        enable = true;
-        xwayland.enable = true;
+    programs = {
+        noisetorch.enable = true;
+        hyprland = {
+            enable = true;
+            xwayland.enable = true;
+        };
     };
 
     services = {
