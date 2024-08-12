@@ -10,6 +10,7 @@
                 "hyprctl setcursor Adwaita 20"
                 "lxqt-policykit-agent"
                 "hyprpaper"
+                "hypridle"
                 "ags"
             ];
             input = {
@@ -153,6 +154,21 @@
             settings = {
                 preload = [ wallpaper ];
                 wallpaper = [ ",${wallpaper}" ];
+            };
+        };
+
+        # Screensaver
+        hypridle = {
+            enable = true;
+            settings = {
+                listener = [
+                    {
+                        timeout = 300; # 5 min
+                        # Set monitor backlight to minimum, avoid 0 on OLED monitor.
+                        on-timeout = "brightnessctl -s set 10";
+                        on-resume = "brightnessctl -r";
+                    }
+                ];
             };
         };
     };
