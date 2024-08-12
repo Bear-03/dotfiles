@@ -29,7 +29,7 @@
                 add_newline = false;
                 hostname = {
                     ssh_only = false;
-                    format = "@(bold blue)[hostname](bold red) ";
+                    format = "@(bold blue)[$hostname](bold red) ";
                 };
                 username = {
                     style_user = "yellow bold";
