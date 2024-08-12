@@ -10,13 +10,12 @@ username: { pkgs, ... } @ inputs:
         adwaita-icon-theme # Cursor theme
         neofetch
         swaybg # Background image
-        discord
         xorg.xlsclients # List all windows using XWayland
         brightnessctl # Brightness control, to be used primarily by AGS
         sassc # SCSS compiler for AGS
         pavucontrol # Audio controller
-        noisetorch
         hyprshot # Screenshots in wayland
         bluetuith # Bluetooth TUI
+        vesktop # THird-party discord client with screensharing
     ];
 }
