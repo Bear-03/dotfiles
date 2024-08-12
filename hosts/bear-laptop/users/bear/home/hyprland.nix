@@ -82,10 +82,6 @@
                 "SUPER, T, togglesplit" # Vertical-Horizontal split switch (dwindle)
 
                 # Fn keys
-                ", XF86MonBrightnessUp, exec, ags run-js \"Brightness.increase()\""
-                ", XF86MonBrightnessDown, exec, ags run-js \"Brightness.decrease()\""
-                ", XF86AudioRaiseVolume, exec, ags run-js \"increaseSpeakerVolume()\""
-                ", XF86AudioLowerVolume, exec, ags run-js \"decreaseSpeakerVolume()\""
                 ", XF86AudioMute, exec, ags run-js \"muteSpeaker()\""
                 ", XF86AudioMicMute, exec, ags run-js \"muteMicrophone()\""
 
@@ -130,6 +126,17 @@
                 "SUPER SHIFT, 8, movetoworkspace, 8"
                 "SUPER SHIFT, 9, movetoworkspace, 9"
                 "SUPER SHIFT, 0, movetoworkspace, 10"
+            ];
+            bindl = [
+                # Fn keys
+                ", XF86MonBrightnessUp, exec, ags run-js \"Brightness.increase()\""
+                ", XF86MonBrightnessDown, exec, ags run-js \"Brightness.decrease()\""
+                ", XF86AudioRaiseVolume, exec, ags run-js \"increaseSpeakerVolume()\""
+                ", XF86AudioLowerVolume, exec, ags run-js \"decreaseSpeakerVolume()\""
+            ];
+            bindm = [
+                "SUPER, mouse:272, movewindow"
+                "SUPER, mouse:273, resizewindow"
             ];
         };
     };
