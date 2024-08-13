@@ -144,7 +144,7 @@
         };
     };
 
-    services = {
+    services = 5{
         # Wallpaper management
         hyprpaper = let
             wallpaper = builtins.toString ../bg.png;
@@ -163,9 +163,11 @@
             settings = {
                 listener = [
                     {
-                        timeout = 300; # 5 min
+                        timeout = 5 * 60; # In seconds
                         # Set monitor backlight to minimum, avoid 0 on OLED monitor.
+                        # Save previous value with -s
                         on-timeout = "brightnessctl -s set 10";
+                        # Restore previous value
                         on-resume = "brightnessctl -r";
                     }
                 ];
