@@ -46,6 +46,7 @@
             powerOnBoot = false;
             settings = {
         	    General = {
+                    # Enables showing battery charge
         	    	Experimental = true;
         	    };
             };
