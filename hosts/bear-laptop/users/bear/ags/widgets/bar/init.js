@@ -278,7 +278,7 @@ const SysTrayModule = () => Widget.Revealer({
     transition: "slide_left",
     transitionDuration: consts.TRANSITION_DURATIONS[0],
     child: Widget.Box({
-        className: "module",
+        className: "module tray",
         children: SystemTray.bind("items").transform(i => i.map(SysTrayItem)),
     }),
 })

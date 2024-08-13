@@ -35,6 +35,10 @@
         &.misc .icon-details {
             margin-left: $margin1;
         }
+
+        &.tray :not(:first-child) {
+            margin-left: $margin1;
+        }
     }
 
     // box spacing does not work because of revealer
