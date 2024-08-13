@@ -38,8 +38,8 @@
         value = import ../users/${username}/user-configuration.nix username inputs;
     }) usernames);
 
-    # Enable hardware acceleration
     hardware = {
+        # Enable hardware acceleration
         graphics.enable = true;
         bluetooth = {
             enable = true;
