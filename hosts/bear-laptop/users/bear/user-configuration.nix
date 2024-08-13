@@ -16,5 +16,6 @@ username: { pkgs, ... } @ inputs:
         hyprshot # Screenshots in wayland
         bluetuith # Bluetooth TUI
         vesktop # THird-party discord client with screensharing
+        telegram-desktop
     ];
 }
