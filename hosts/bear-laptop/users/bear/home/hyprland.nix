@@ -144,7 +144,7 @@
         };
     };
 
-    services = 5{
+    services = {
         # Wallpaper management
         hyprpaper = let
             wallpaper = builtins.toString ../bg.png;
