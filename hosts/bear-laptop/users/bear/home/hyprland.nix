@@ -130,6 +130,11 @@
                 "SUPER SHIFT, 9, movetoworkspace, 9"
                 "SUPER SHIFT, 0, movetoworkspace, 10"
             ];
+            bindl = [
+                # If lid is closed when hypridle is active, then when it is
+                # opened it has to return to the old brightness with no extra input
+                ", switch:off:Lid Switch, exec, brightnessctl -r"
+            ];
             bindle = [
                 # Fn keys
                 ", XF86MonBrightnessUp, exec, ags run-js \"Brightness.increase()\""
