@@ -14,6 +14,7 @@
     outputs = { self, nixpkgs, home-manager, ... } @ inputs : {
         nixosConfigurations = let
             hostnames = builtins.attrNames (builtins.readDir ./hosts);
+            flakeRoot = ./.;
         in
         # Iterate all hostnames and generate config for each one of them
         # based on folder structure
@@ -21,7 +22,11 @@
             host-dir = ./hosts/${hostname};
             # Users of this host
             usernames = builtins.attrNames (builtins.readDir (host-dir + /users));
-            inputs-ext = inputs // { inherit hostname; inherit usernames; };
+            inputs-ext = inputs // {
+                inherit hostname;
+                inherit usernames;
+                inherit flakeRoot;
+            };
         in
         {
             name = hostname;

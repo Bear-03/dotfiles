@@ -1,13 +1,12 @@
-username: { config, pkgs, ... } @ inputs:
+username: { config, pkgs, flakeRoot, ... } @ inputs:
 {
     imports = [
+        (flakeRoot + /modules/home/nushell.nix)
         ./theme.nix
         ./hyprland.nix
         ./alacritty.nix
         ./git.nix
-        ./bottom.nix
         ./ags.nix
-        ./nushell.nix
     ];
 
     home = {
@@ -48,6 +47,7 @@ username: { config, pkgs, ... } @ inputs:
         vscode.enable = true;
         home-manager.enable = true;
         rofi.enable = true;
+        bottom.enable = true;
     };
 
     services = {

@@ -1,5 +1,10 @@
-{ config, pkgs, usernames, hostname, ... } @ inputs:
+{ config, pkgs, usernames, hostname, flakeRoot, ... } @ inputs:
 {
+    imports = [
+        (flakeRoot + /modules/nixos/users.nix)
+        (flakeRoot + /modules/nixos/nix.nix)
+    ];
+
     boot = {
         # Add support for NTFS external drives
         supportedFilesystems = [ "ntfs" ];
@@ -32,11 +37,6 @@
     };
     # Configure console keymap
     console.keyMap = "es";
-
-    users.users = builtins.listToAttrs (map (username: {
-        name = username;
-        value = import ../users/${username}/user-configuration.nix username inputs;
-    }) usernames);
 
     hardware = {
         # Enable hardware acceleration
@@ -108,20 +108,6 @@
         TTYVHangup = true;
         TTYVTDisallocate = true;
     };
-
-    nix = {
-        settings = {
-            auto-optimise-store = true;
-            experimental-features = [ "nix-command" "flakes" ];
-        };
-        gc = {
-            automatic = true;
-            dates = "weekly";
-            options = "--delete-older-than 1w";
-        };
-    };
-
-    nixpkgs.config.allowUnfree = true;
 
     environment = {
         sessionVariables =  {
