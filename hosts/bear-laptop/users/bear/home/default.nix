@@ -7,6 +7,7 @@ username: { config, pkgs, flakeRoot, ... } @ inputs:
         ./alacritty.nix
         ./git.nix
         ./ags.nix
+        ./udiskie.nix
     ];
 
     home = {

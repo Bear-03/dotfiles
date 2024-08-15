@@ -67,7 +67,8 @@
     };
 
     services = {
-        upower.enable = true;
+        upower.enable = true; # Battery management, mainly for AGS.
+        udisks2.enable = true; # Drive mounting management
         auto-cpufreq = {
             enable = true;
             settings = {

@@ -264,22 +264,28 @@ const SystemModule = () => Widget.Box({
     ]
 });
 
-const SysTrayItem = (item) => Widget.Button({
-    child: Widget.Icon({
-        icon: item.bind("icon")
+const SysTrayItem = (item) => Widget.Revealer({
+    className: item.bind("status").transform(status => status != "Passive" ? "shown" : ""),
+    revealChild: item.bind("status").transform(status => status != "Passive"),
+    transition: "slide_left",
+    transitionDuration: consts.TRANSITION_DURATIONS[0],
+    child: Widget.Button({
+        tooltipMarkup: item.bind("tooltip-markup"),
+        onPrimaryClick: (_, event) => item.activate(event),
+        onSecondaryClick: (_, event) => item.openMenu(event),
+        child: Widget.Icon({
+            icon: item.bind("icon"),
+        }),
     }),
-    tooltipMarkup: item.bind("tooltip-markup"),
-    onPrimaryClick: (_, event) => item.activate(event),
-    onSecondaryClick: (_, event) => item.openMenu(event),
 });
 
 const SysTrayModule = () => Widget.Revealer({
-    revealChild: SystemTray.bind("items").transform(i => i.length != 0),
+    revealChild: SystemTray.bind("items").transform(items => items.length != 0),
     transition: "slide_left",
     transitionDuration: consts.TRANSITION_DURATIONS[0],
     child: Widget.Box({
         className: "module tray",
-        children: SystemTray.bind("items").transform(i => i.map(SysTrayItem)),
+        children: SystemTray.bind("items").transform(items => items.map(SysTrayItem)),
     }),
 })
 
