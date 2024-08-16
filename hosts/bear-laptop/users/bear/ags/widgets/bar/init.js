@@ -1,9 +1,9 @@
-import { Hyprland, Audio, Battery, Network, Bluetooth, Utils, Widget, SystemTray } from "../../imports.js";
+import { Hyprland, Audio, Battery, Network, Bluetooth, Utils, Widget, SystemTray, Variable } from "../../imports.js";
 import Brightness from "../../services/brightness.js";
 import repr from "../../shared/repr.js";
 import { cpu, mem, showBatteryTime, showMiscDetails, showSystemDetails } from "../../shared/variables.js";
 import consts from "../../shared/consts.js";
-import { muteAudioStream } from "../../shared/util.js";
+import { muteAudioStream, capitalize } from "../../shared/util.js";
 
 const WorkspacesModule = (length = 5) => Widget.Box({
     className: "module workspaces",
@@ -264,30 +264,43 @@ const SystemModule = () => Widget.Box({
     ]
 });
 
+const activeTrayItems = Variable(0);
+
 const SysTrayItem = (item) => Widget.Revealer({
-    className: item.bind("status").transform(status => status != "Passive" ? "shown" : ""),
-    revealChild: item.bind("status").transform(status => status != "Passive"),
     transition: "slide_left",
     transitionDuration: consts.TRANSITION_DURATIONS[0],
     child: Widget.Button({
-        tooltipMarkup: item.bind("tooltip-markup"),
         onPrimaryClick: (_, event) => item.activate(event),
         onSecondaryClick: (_, event) => item.openMenu(event),
         child: Widget.Icon({
             icon: item.bind("icon"),
         }),
     }),
+    setup: (self) => self.hook(item, () => {
+        self.child.tooltipMarkup = item.tooltipMarkup || capitalize(item.title);
+
+        // Hook is called twice on changes, so everything has to be recomputed
+        activeTrayItems.setValue(SystemTray.items.filter(item => item.status != "Passive").length);
+
+        if (item.status == "Passive") {
+            self.revealChild = false;
+            self.className = "";
+        } else if (item.status) {
+            self.revealChild = true;
+            self.className = "shown";
+        }
+    }),
 });
 
 const SysTrayModule = () => Widget.Revealer({
-    revealChild: SystemTray.bind("items").transform(items => items.length != 0),
+    revealChild: activeTrayItems.bind().as(value => value != 0),
     transition: "slide_left",
     transitionDuration: consts.TRANSITION_DURATIONS[0],
     child: Widget.Box({
         className: "module tray",
         children: SystemTray.bind("items").transform(items => items.map(SysTrayItem)),
     }),
-})
+});
 
 const ClockModule = () => Widget.Label({
     className: "module",

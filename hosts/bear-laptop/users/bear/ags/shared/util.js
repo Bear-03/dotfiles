@@ -16,3 +16,7 @@ export function mappedGet(array, index, indexLow, indexHigh, roundingFn = Math.r
 export function muteAudioStream(type) {
     Audio[type].stream.change_is_muted(!Audio[type].stream.isMuted);
 }
+
+export function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
