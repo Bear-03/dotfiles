@@ -277,7 +277,7 @@ const SysTrayItem = (item) => Widget.Revealer({
         }),
     }),
     setup: (self) => self.hook(item, () => {
-        self.child.tooltipMarkup = item.tooltipMarkup || capitalize(item.title);
+        self.child.tooltipMarkup = item.tooltipMarkup || (item.title ? capitalize(item.title) : "");
 
         // Hook is called twice on changes, so everything has to be recomputed
         activeTrayItems.setValue(SystemTray.items.filter(item => item.status != "Passive").length);
