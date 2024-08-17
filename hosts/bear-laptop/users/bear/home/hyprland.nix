@@ -97,14 +97,14 @@
                 # Resize active window
                 "SUPER CTRL, K, resizeactive, 0 -20"
                 "SUPER CTRL, J, resizeactive, 0 20"
-                "SUPER CTRL, L, resizeactive, -20 0"
-                "SUPER CTRL, H, resizeactive, 20 0"
+                "SUPER CTRL, L, resizeactive, 20 0"
+                "SUPER CTRL, H, resizeactive, -20 0"
 
                 # Move (position) active window
                 "SUPER ALT, K, moveactive, 0 -20"
                 "SUPER ALT, J, moveactive, 0 20"
-                "SUPER ALT, L, moveactive, -20 0"
-                "SUPER ALT, H, moveactive, 20 0"
+                "SUPER ALT, L, moveactive, 20 0"
+                "SUPER ALT, H, moveactive, -20 0"
 
                 # Change workspace
                 "SUPER, 1, workspace, 1"
