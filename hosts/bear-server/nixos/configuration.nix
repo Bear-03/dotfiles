@@ -9,8 +9,8 @@
         # Add support for NTFS external drives
         supportedFilesystems = [ "ntfs" ];
         loader = {
-            systemd-boot.enable = true;
-            efi.canTouchEfiVariables = true;
+            grub.enable = true;
+            generic-extlinux-compatible.enable = true;
         };
     };
 
