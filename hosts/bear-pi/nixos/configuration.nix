@@ -7,7 +7,7 @@
 
     boot = {
         loader = {
-            grub.= {
+            grub = {
                 enable = true;
                 devices = [ "nodev" ];
             }
