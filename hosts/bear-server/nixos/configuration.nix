@@ -22,6 +22,7 @@
     time.timeZone = "Europe/Madrid";
 
     services = {
+        services.openssh.enable = true;
         auto-cpufreq = {
             enable = true;
             settings = {
@@ -35,13 +36,6 @@
                 };
             };
         };
-    };
-
-    environment = {
-        sessionVariables =  {
-        };
-        systemPackages = with pkgs; [
-        ];
     };
 
     # This value determines the NixOS release from which the default
