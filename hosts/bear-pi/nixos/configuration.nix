@@ -10,7 +10,7 @@
             grub = {
                 enable = true;
                 devices = [ "nodev" ];
-            }
+            };
             generic-extlinux-compatible.enable = true;
         };
     };
