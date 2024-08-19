@@ -9,13 +9,13 @@ username: { config, pkgs, flakeRoot, ... } @ inputs:
         homeDirectory = "/home/${username}";
 
         packages = with pkgs; [
-            vim
+            neovim
             git
         ];
 
         sessionVariables = {
-            EDITOR = "vim";
-            VISUAL = "vim";
+            EDITOR = "neovim";
+            VISUAL = "neovim";
         };
 
         stateVersion = "24.05";
