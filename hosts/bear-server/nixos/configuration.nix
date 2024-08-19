@@ -22,7 +22,7 @@
     time.timeZone = "Europe/Madrid";
 
     services = {
-        services.openssh.enable = true;
+        openssh.enable = true;
         auto-cpufreq = {
             enable = true;
             settings = {
