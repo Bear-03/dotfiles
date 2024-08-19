@@ -8,6 +8,8 @@
     boot = {
         # Add support for NTFS external drives
         supportedFilesystems = [ "ntfs" ];
+        # Support to cross-compile NixOS images to aarch64
+        binfmt.emulatedSystems = [ "aarch64-linux" ];
         loader = {
             systemd-boot.enable = true;
             efi.canTouchEfiVariables = true;

@@ -21,5 +21,7 @@ username: { pkgs, ... } @ inputs:
         p7zip # 7zip tools
         zip
         unzip
+        zstd # .zst file management, for building some types of nixos images
+        nixos-generators # NixOS image builder helper
     ];
 }
