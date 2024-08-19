@@ -1,13 +1,11 @@
 { config, pkgs, usernames, hostname, flakeRoot, ... } @ inputs:
 {
-    imports = [
-        (flakeRoot + /modules/nixos/users.nix)
-        (flakeRoot + /modules/nixos/nix.nix)
-    ];
+    #imports = [
+    #    (flakeRoot + /modules/nixos/users.nix)
+    #    (flakeRoot + /modules/nixos/nix.nix)
+    #];
 
     boot = {
-        # Add support for NTFS external drives
-        supportedFilesystems = [ "ntfs" ];
         loader = {
             grub.enable = true;
             generic-extlinux-compatible.enable = true;
