@@ -5,14 +5,9 @@
         (flakeRoot + /modules/nixos/nix.nix)
     ];
 
-    boot = {
-        loader = {
-            grub = {
-                enable = true;
-                devices = [ "nodev" ];
-            };
-            generic-extlinux-compatible.enable = true;
-        };
+    boot.loader.grub = {
+        enable = true;
+        devices = [ "nodev" ];
     };
 
     networking = {
