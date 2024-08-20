@@ -1,9 +1,9 @@
 { config, pkgs, usernames, hostname, flakeRoot, ... } @ inputs:
 {
-    #imports = [
-    #    (flakeRoot + /modules/nixos/users.nix)
-    #    (flakeRoot + /modules/nixos/nix.nix)
-    #];
+    imports = [
+        (flakeRoot + /modules/nixos/users.nix)
+        (flakeRoot + /modules/nixos/nix.nix)
+    ];
 
     boot = {
         loader = {
