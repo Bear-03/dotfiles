@@ -3,6 +3,7 @@
     imports = [
         (flakeRoot + /modules/nixos/users.nix)
         (flakeRoot + /modules/nixos/nix.nix)
+        (flakeRoot + /modules/nixos/auto-cpufreq.nix)
     ];
 
     boot.loader = {
@@ -19,13 +20,6 @@
 
     services = {
         openssh.enable = true;
-        auto-cpufreq = {
-            enable = true;
-            settings.charger = {
-                governor = "performance";
-                turbo = "auto";
-            };
-        };
     };
 
     # This value determines the NixOS release from which the default

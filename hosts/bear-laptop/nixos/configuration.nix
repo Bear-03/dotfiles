@@ -3,6 +3,8 @@
     imports = [
         (flakeRoot + /modules/nixos/users.nix)
         (flakeRoot + /modules/nixos/nix.nix)
+        (flakeRoot + /modules/nixos/auto-cpufreq.nix)
+        ./greetd.nix
     ];
 
     boot = {
@@ -71,25 +73,6 @@
     services = {
         upower.enable = true; # Battery management, mainly for AGS.
         udisks2.enable = true; # Drive mounting management
-        auto-cpufreq = {
-            enable = true;
-            settings = {
-                charger = {
-                    governor = "performance";
-                    turbo = "auto";
-                };
-                battery = {
-                    governor = "powersave";
-                    turbo = "auto";
-                };
-            };
-        };
-        greetd = {
-            enable = true;
-            settings.default_session = {
-                command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd hyprland";
-            };
-        };
         pipewire = {
             enable = true;
             alsa = {
@@ -98,18 +81,6 @@
             };
             pulse.enable = true;
         };
-    };
-
-    # Mute TTY warnings showing in tuigreet
-    systemd.services.greetd.serviceConfig = {
-        Type = "idle";
-        StandardInput = "tty";
-        StandardOutput = "tty";
-        StandardError = "journal"; # Without this errors will spam on screen
-        # Without these bootlogs will spam on screen
-        TTYReset = true;
-        TTYVHangup = true;
-        TTYVTDisallocate = true;
     };
 
     environment = {
