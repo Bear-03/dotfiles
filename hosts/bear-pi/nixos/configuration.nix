@@ -5,10 +5,7 @@
         (flakeRoot + /modules/nixos/nix.nix)
     ];
 
-    boot.loader.grub = {
-        enable = true;
-        devices = [ "nodev" ];
-    };
+    boot.loader.generic-extlinux-compatible.enable = true;
 
     networking = {
         hostName = hostname;
@@ -21,15 +18,9 @@
         openssh.enable = true;
         auto-cpufreq = {
             enable = true;
-            settings = {
-                charger = {
-                    governor = "performance";
-                    turbo = "auto";
-                };
-                battery = {
-                    governor = "powersave";
-                    turbo = "auto";
-                };
+            settings.charger = {
+                governor = "performance";
+                turbo = "auto";
             };
         };
     };
