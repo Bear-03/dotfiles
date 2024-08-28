@@ -5,7 +5,10 @@
         (flakeRoot + /modules/nixos/nix.nix)
     ];
 
-    boot.loader.generic-extlinux-compatible.enable = true;
+    boot.loader = {
+        grub.enable = false;
+        generic-extlinux-compatible.enable = true;
+    };
 
     networking = {
         hostName = hostname;
