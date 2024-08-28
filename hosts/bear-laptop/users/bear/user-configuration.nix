@@ -23,5 +23,6 @@ username: { pkgs, ... } @ inputs:
         unzip
         zstd # .zst file management, for building some types of nixos images
         nixos-generators # NixOS image builder helper
+        gcc-unwrapped
     ];
 }
