@@ -7,7 +7,8 @@
 {
     # Enable SSH in the boot process.
     systemd.services.sshd.wantedBy = pkgs.lib.mkForce [ "multi-user.target" ];
-    users.users.nixos = {
+    services.openssh.settings.PermitRootLogin = "yes";
+    users.users.root = {
         initialPassword = "pass";
         initialHashedPassword = lib.mkForce null;
     };
