@@ -21,6 +21,16 @@
 
     time.timeZone = "Europe/Madrid";
 
+    services.openssh = {
+        enable = true;
+        settings.PermitRootLogin = "yes";
+    };
+
+    # Allows remote nixos-rebuild without loging in as root
+    # Source: https://github.com/NixOS/nixpkgs/issues/118655#issuecomment-1537131599
+
+
+
     # This value determines the NixOS release from which the default
     # settings for stateful data, like file locations and database versions
     # on your system were taken. It‘s perfectly fine and recommended to leave
