@@ -5,7 +5,6 @@ username: { pkgs, ... } @ inputs:
     extraGroups = [ "audio" "storage" "networkmanager" "wheel" ];
     packages = with pkgs; [
         lxqt.lxqt-policykit # Polkit support
-        git-lfs
         adw-gtk3 # Adwaita theme for gtk
         adwaita-icon-theme # Cursor theme
         neofetch

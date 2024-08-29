@@ -1,13 +1,27 @@
 { pkgs, ... }:
 let
-    name = "Bear-03";
-    email = "64696287+Bear-03@users.noreply.github.com";
+    dir-condition = service: "gitdir:~/projects/${service}/";
 in
 {
     programs.git = {
         enable = true;
-        userName = name;
-        userEmail = email;
+        lfs.enable = true;
+        includes = [
+            {
+                condition = dir-condition "github";
+                contents = {
+                    user.name = "Bear-03";
+                    user.email = "64696287+Bear-03@users.noreply.github.com";
+                };
+            }
+            {
+                condition = dir-condition "gitlab";
+                contents = {
+                    user.name = "Bear-03";
+                    user.email = "6111520-Bear-03@users.noreply.gitlab.com";
+                };
+            }
+        ];
         extraConfig = {
             color.ui = true;
             credential.helper = "store";
@@ -17,12 +31,6 @@ in
             };
             pull.rebase = true;
             push.autoSetupRemote = true;
-            "filter \"lfs\"" = {
-                clean = "${pkgs.git-lfs}/bin/git-lfs clean -- %f";
-                smudge = "${pkgs.git-lfs}/bin/git-lfs smudge --skip -- %f";
-                process = "${pkgs.git-lfs}/bin/git-lfs filter-process --skip";
-                required = true;
-            };
         };
     };
 }
