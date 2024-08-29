@@ -44,16 +44,16 @@
 
                             # Iterate users of the host to link all their home config files
                             users = builtins.listToAttrs
-                                # Filter out all empty attrsets so listToAttrs can work
-                                (builtins.filter (x: x != {}) (map (username:
+                                # Filter out all nulls
+                                (builtins.filter (x: x != null) (map (username:
                                     let
                                         home-path = host-dir + /users/${username}/home;
                                     in
-                                    # If it isn't present, add an empty attrset instead of actual data
+                                    # If it isn't present, add null as placeholder, will be filtered out later
                                     if builtins.pathExists home-path then {
                                         name = username;
                                         value = import home-path username;
-                                    } else {}) usernames));
+                                    } else null) usernames));
                         };
                     }
                 ];
