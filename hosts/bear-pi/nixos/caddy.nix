@@ -1,11 +1,11 @@
-# let
-#     domain = "bearpi.hopto.org";
-# in
+let
+    domain = "192.168.8.33";
+in
 {
     networking.firewall.allowedTCPPorts = [ 80 443 ];
     services.caddy = {
         enable = true;
-        virtualHosts."http://localhost".extraConfig = ''
+        virtualHosts."http://${domain}".extraConfig = ''
             reverse_proxy localhost:8096
         '';
     };
