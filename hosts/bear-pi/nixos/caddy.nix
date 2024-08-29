@@ -7,6 +7,7 @@ in
         enable = true;
         virtualHosts."http://${domain}".extraConfig = ''
             reverse_proxy localhost:8096
+            tls internal # Change when using an actual domain
         '';
     };
 }
