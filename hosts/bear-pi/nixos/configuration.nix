@@ -6,6 +6,7 @@
         (flakeRoot + /modules/nixos/auto-cpufreq.nix)
         ./caddy.nix
         ./jellyfin.nix
+        ./ssh.nix
     ];
 
     boot.loader = {
@@ -19,10 +20,6 @@
     };
 
     time.timeZone = "Europe/Madrid";
-
-    services = {
-        openssh.enable = true;
-    };
 
     # This value determines the NixOS release from which the default
     # settings for stateful data, like file locations and database versions
