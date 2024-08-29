@@ -6,7 +6,6 @@
         (flakeRoot + /modules/nixos/auto-cpufreq.nix)
         ./caddy.nix
         ./jellyfin.nix
-        ./ssh.nix
     ];
 
     boot.loader = {
