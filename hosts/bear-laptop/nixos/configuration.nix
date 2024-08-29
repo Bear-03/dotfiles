@@ -88,8 +88,7 @@
             # Hint electron apps to use wayland
             ELECTRON_OZONE_PLATFORM_HINT = "wayland";
         };
-        systemPackages = with pkgs; [
-        ];
+        systemPackages = with pkgs; [];
     };
 
     # This value determines the NixOS release from which the default

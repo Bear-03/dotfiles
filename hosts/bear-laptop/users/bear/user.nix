@@ -15,7 +15,7 @@ username: { pkgs, ... } @ inputs:
         pavucontrol # Audio controller
         hyprshot # Screenshots in wayland
         bluetuith # Bluetooth TUI
-        vesktop # THird-party discord client with screensharing
+        vesktop # Third-party discord client with screensharing
         telegram-desktop
         trash-cli # Trashcan management
         p7zip # 7zip tools
