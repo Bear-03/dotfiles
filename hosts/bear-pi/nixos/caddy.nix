@@ -5,7 +5,7 @@
     networking.firewall.allowedTCPPorts = [ 80 443 ];
     services.caddy = {
         enable = true;
-        virtualHosts."localhost".extraConfig = ''
+        virtualHosts."http://localhost".extraConfig = ''
             reverse_proxy localhost:8096
         '';
     };
