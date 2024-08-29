@@ -4,6 +4,8 @@
         (flakeRoot + /modules/nixos/users.nix)
         (flakeRoot + /modules/nixos/nix.nix)
         (flakeRoot + /modules/nixos/auto-cpufreq.nix)
+        ./caddy.nix
+        ./jellyfin.nix
     ];
 
     boot.loader = {

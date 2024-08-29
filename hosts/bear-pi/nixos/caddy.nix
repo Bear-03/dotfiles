@@ -1,6 +1,6 @@
-let
-    domain = "bearpi.hopto.org";
-in
+# let
+#     domain = "bearpi.hopto.org";
+# in
 {
     networking.firewall.allowedTCPPorts = [ 80 443 ];
     services.caddy = {
