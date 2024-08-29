@@ -1,12 +1,12 @@
-let
-    domain = "bearpi.hopto.org";
-in
+# let
+#     domain = "bearpi.hopto.org";
+# in
 {
     networking.firewall.allowedTCPPorts = [ 80 443 ];
     services.caddy = {
         enable = true;
-        virtualHosts."https://jellyfin.${domain}".extraConfig = ''
-            reverse_proxy :8096
+        virtualHosts."localhost".extraConfig = ''
+            reverse_proxy localhost:8096
         '';
     };
 }
