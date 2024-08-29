@@ -11,6 +11,5 @@ username: { pkgs, ... } @ inputs:
         zip
         unzip
         neovim
-        git
     ];
 }
