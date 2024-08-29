@@ -42,11 +42,18 @@
                             useUserPackages = true;
                             extraSpecialArgs = inputs-ext;
 
-                            # Iterate users of the host to link all their config files
-                            users = builtins.listToAttrs (map (username: {
-                                name = username;
-                                value = import (host-dir + /users/${username}/home) username;
-                            }) usernames);
+                            # Iterate users of the host to link all their home config files
+                            users = builtins.listToAttrs
+                                # Filter out all empty attrsets so listToAttrs can work
+                                (builtins.filter (x: x != {}) (map (username:
+                                    let
+                                        home-path = host-dir + /users/${username}/home;
+                                    in
+                                    # If it isn't present, add an empty attrset instead of actual data
+                                    if builtins.pathExists home-path then {
+                                        name = username;
+                                        value = import home-path username;
+                                    } else {}) usernames));
                         };
                     }
                 ];
