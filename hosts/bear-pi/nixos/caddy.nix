@@ -8,5 +8,5 @@
         virtualHosts."https://jellyfin.${domain}".extraConfig = ''
             reverse_proxy :8096
         '';
-    }
+    };
 }
