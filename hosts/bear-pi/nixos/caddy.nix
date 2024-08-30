@@ -1,5 +1,5 @@
 let
-    domain = "192.168.8.33"; # TODO: Change to domain
+    domain = "192.168.1.151"; # TODO: Change to domain
 in
 {
     networking.firewall.allowedTCPPorts = [ 80 443 ];

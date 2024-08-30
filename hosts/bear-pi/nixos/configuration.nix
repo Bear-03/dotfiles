@@ -8,9 +8,12 @@
         ./jellyfin.nix
     ];
 
-    boot.loader = {
-        grub.enable = false;
-        generic-extlinux-compatible.enable = true;
+    boot = {
+        supportedFilesystems = [ "ntfs" ];
+        loader = {
+            grub.enable = false;
+            generic-extlinux-compatible.enable = true;
+        };
     };
 
     networking = {
