@@ -1,10 +1,6 @@
 { pkgs, ... } @ inputs:
 {
-    services.jellyfin = {
-        enable = true;
-        dataDir = "/mnt/main/jellyfin";
-    };
-
+    services.jellyfin.enable = true;
     environment.systemPackages = with pkgs; [
         jellyfin
         jellyfin-web

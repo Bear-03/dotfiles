@@ -1,6 +1,7 @@
-{ config, pkgs, usernames, hostname, flakeRoot, ... } @ inputs:
+{ config, pkgs, nixos-hardware, usernames, hostname, flakeRoot, ... } @ inputs:
 {
     imports = [
+        nixos-hardware.nixosModules.raspberry-pi-4
         (flakeRoot + /modules/nixos/users.nix)
         (flakeRoot + /modules/nixos/nix.nix)
         (flakeRoot + /modules/nixos/auto-cpufreq.nix)
@@ -16,6 +17,14 @@
         };
     };
 
+    hardware = {
+        raspberry-pi."4".apply-overlays-dtmerge.enable = true;
+        deviceTree = {
+            enable = true;
+            filter = "*rpi-4-*.dtb";
+        };
+    };
+
     networking = {
         hostName = hostname;
         networkmanager.enable = true;
@@ -24,6 +33,11 @@
     time.timeZone = "Europe/Madrid";
 
     services.openssh.enable = true;
+
+    environment.systemPackages = with pkgs; [
+        libraspberrypi
+        raspberrypi-eeprom
+    ];
 
     # This value determines the NixOS release from which the default
     # settings for stateful data, like file locations and database versions
