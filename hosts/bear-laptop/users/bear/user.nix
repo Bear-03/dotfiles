@@ -24,5 +24,7 @@ username: { pkgs, ... } @ inputs:
         nixos-generators # NixOS image builder helper
         gcc-unwrapped
         qbittorrent
+        vlc
+        jellyfin-media-player
     ];
 }
