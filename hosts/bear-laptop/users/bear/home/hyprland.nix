@@ -147,6 +147,12 @@
                 "SUPER, mouse:273, resizewindow"
             ];
         };
+        extraConfig = ''
+            device {
+                name = e-signal-usb-gaming-mouse
+                sensitivity = -0.7
+            }
+        '';
     };
 
     services = {
