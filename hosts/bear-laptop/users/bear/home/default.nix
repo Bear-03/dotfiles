@@ -8,6 +8,7 @@ username: { config, pkgs, flakeRoot, ... } @ inputs:
         ./git.nix
         ./ags.nix
         ./udiskie.nix
+        ./flatpak.nix
     ];
 
     home = {

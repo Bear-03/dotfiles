@@ -9,7 +9,14 @@
             url = "github:nix-community/home-manager";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        declarative-flatpak.url = "github:GermanBread/declarative-flatpak/stable-v3";
         ags.url = "github:Aylur/ags";
+
+        # Roblox for linux
+        sober = {
+            url = "https://sober.vinegarhq.org/sober.flatpakref";
+            flake = false;
+        };
     };
 
     outputs = { self, nixpkgs, home-manager, ... } @ inputs : {
