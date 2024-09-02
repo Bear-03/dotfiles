@@ -14,15 +14,17 @@ in
 
     services.flatpak = {
         packages = [
+            "flathub:app/org.freedesktop.Platform.VulkanLayer.MangoHud//stable"
             ":${config.home.homeDirectory}/${sober-home-path}"
         ];
         overrides = {
-            "global" = {
+            global = {
                 filesystems = [
                     "home"
                 ];
                 environment = {
                     "MOZ_ENABLE_WAYLAND" = 1;
+                    "MANGOHUD" = 1;
                 };
                 sockets = [
                     "!x11"
