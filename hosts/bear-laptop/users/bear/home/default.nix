@@ -50,6 +50,10 @@ username: { config, pkgs, flakeRoot, ... } @ inputs:
         home-manager.enable = true;
         rofi.enable = true;
         bottom.enable = true;
+        yazi = {
+            enable = true;
+            enableNushellIntegration = true;
+        };
     };
 
     services = {
