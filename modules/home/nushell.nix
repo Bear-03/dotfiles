@@ -23,6 +23,12 @@
         # Cat replacement
         bat.enable = true;
 
+        # Shell file explorer
+        yazi = {
+            enable = true;
+            enableNushellIntegration = true;
+        };
+
         starship = {
             enable = true;
             settings = {
