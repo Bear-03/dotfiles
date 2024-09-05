@@ -51,6 +51,20 @@ in
                     # TODO: Jellyseer
                 ];
             }
+            {
+                "Network" = [
+                    {
+                        "Caddy" = {
+                            icon = "caddy.png";
+                            widget = {
+                                # WARNING: This will not work with https, it needs to be http
+                                url = "http://localhost:2019";
+                                type = "caddy";
+                            };
+                        };
+                    }
+                ];
+            }
         ];
     };
 }
