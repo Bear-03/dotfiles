@@ -26,5 +26,6 @@ username: { pkgs, ... } @ inputs:
         qbittorrent
         vlc
         jellyfin-media-player
+        globalprotect-openconnect # VPN manager for uni network
     ];
 }
