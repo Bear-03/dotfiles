@@ -7,7 +7,7 @@
         (flakeRoot + /modules/nixos/auto-cpufreq.nix)
         ./caddy.nix
         ./jellyfin.nix
-        ./containers.nix
+        ./homepage.nix
     ];
 
     boot = {

@@ -1,0 +1,3 @@
+{
+    jellyfin-api-key = "";
+}

@@ -1,5 +1,5 @@
 let
-    domain = "bearspi.duckdns.org";
+    domains = (import ./vars.nix).domains;
 in
 {
     networking.firewall.allowedTCPPorts = [
@@ -15,12 +15,12 @@ in
 
     services.caddy = {
         enable = true;
-        # Homarr
-        virtualHosts."${domain}".extraConfig = ''
-            reverse_proxy localhost:7575
+        # Homepage Dashboard
+        virtualHosts."${domains.base}".extraConfig = ''
+            reverse_proxy localhost:8082
         '';
         # Jellyfin
-        virtualHosts."jelly.${domain}".extraConfig = ''
+        virtualHosts."${domains.jellyfin}".extraConfig = ''
             reverse_proxy localhost:8096
         '';
     };
