@@ -7,12 +7,6 @@ in
         443 # HTTPS
     ];
 
-    networking.firewall.allowedUDPPorts = [
-        # Jellyfin server discovery within private network
-        1900 # Service discovery
-        7359 # Client discovery
-    ];
-
     services.caddy = {
         enable = true;
         # Homepage Dashboard
