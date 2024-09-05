@@ -1,7 +1,7 @@
 { pkgs, ... } @ inputs:
 let
     domains = (import ./vars.nix).domains;
-    jellyfin-api-key = (import ../secrets.nix).jellyfin-api-key;
+    secrets = (import ../secrets.nix);
 in
 {
     systemd.user.services.glances = {
@@ -64,11 +64,24 @@ in
                             widget = {
                                 inherit url;
                                 type = "jellyfin";
-                                key = jellyfin-api-key;
+                                key = secrets.jellyfin-api-key;
                             };
                         };
                     }
-                    # TODO: Jellyseer
+                    {
+                        "Jellyseerr" = let
+                            url = "https://${domains.jellyseerr}";
+                        in
+                        {
+                            icon = "jellyseerr.svg";
+                            href = url;
+                            widget = {
+                                inherit url;
+                                type = "jellyseerr";
+                                key = secrets.jellyseerr-api-key;
+                            };
+                        };
+                    }
                 ];
             }
             {
