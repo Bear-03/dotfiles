@@ -53,7 +53,6 @@ in
         ];
         services = [
             {
-                # TODO: Add system group with glances
                 "Media" = [
                     {
                         "Jellyfin" = let
