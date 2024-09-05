@@ -1,2 +1,3 @@
 *.ignore # Temporarily ignored files
 result # NixOS results from building ISO (symlink)
+**/secrets.nix # Config secrets
