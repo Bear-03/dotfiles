@@ -15,6 +15,11 @@ in
 
     services.caddy = {
         enable = true;
+        # Homarr
+        virtualHosts."${domain}".extraConfig = ''
+            reverse_proxy localhost:7575
+        '';
+        # Jellyfin
         virtualHosts."jelly.${domain}".extraConfig = ''
             reverse_proxy localhost:8096
         '';
