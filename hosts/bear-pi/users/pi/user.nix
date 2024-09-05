@@ -7,6 +7,7 @@ username: { pkgs, ... } @ inputs:
     extraGroups = [ "gpio" "storage" "networkmanager" "wheel" ];
     packages = with pkgs; [
         neofetch
+        glances # Monitoring tool for homepage dashboard
         trash-cli # Trashcan management
         zip
         unzip
