@@ -18,7 +18,7 @@ in
 
         virtualHosts."${domains.debug}".extraConfig = ''
             templates
-            respond "{{.RemoteIP}}" 403
+            respond "{{.RemoteIP}}"
         '';
 
         # Jellyfin
