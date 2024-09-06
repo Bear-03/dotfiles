@@ -10,6 +10,7 @@ in
 
     services.caddy = {
         enable = true;
+
         # Homepage Dashboard
         virtualHosts."${domains.base}".extraConfig = ''
             reverse_proxy localhost:8082
@@ -24,13 +25,14 @@ in
         virtualHosts."${domains.jellyfin}".extraConfig = ''
             reverse_proxy localhost:8096
         '';
+
         # Jellyseerr
         # Neither Subdomains nor subfolders in URLs are supported by Jellyseerr
         # Workaround for subdomain found here: https://docs.overseerr.dev/extending-overseerr/reverse-proxy
         # Adapted fron NGINX config to Caddy
         virtualHosts."${domains.jellyseerr}".extraConfig = ''
             reverse_proxy {
-                to 127.0.0.1:5055
+                to localhost:5055
 
                 header_up Referer {http.referer}
                 header_up Host {host}
