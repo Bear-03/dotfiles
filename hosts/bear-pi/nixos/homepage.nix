@@ -5,8 +5,10 @@ let
 in
 {
     systemd.user.services.glances = {
+        # Connections plugin has to be disabled or else grances crashes after ~2h.
+        # See: https://github.com/nicolargo/glances/issues/2493
         script = ''
-            ${pkgs.glances}/bin/glances -w --disable-webui
+            ${pkgs.glances}/bin/glances -w --disable-webui --disable-plugin connections
         '';
         wantedBy = [ "multi-user.target" ];
     };
