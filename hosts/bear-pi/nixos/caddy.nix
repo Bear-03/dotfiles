@@ -14,6 +14,12 @@ in
         virtualHosts."${domains.base}".extraConfig = ''
             reverse_proxy localhost:8082
         '';
+
+        virtualHosts."${domains.debug}".extraConfig = ''
+            templates
+            respond "{{.RemoteIP}}" 403
+        '';
+
         # Jellyfin
         virtualHosts."${domains.jellyfin}".extraConfig = ''
             reverse_proxy localhost:8096
