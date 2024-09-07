@@ -8,6 +8,7 @@
         ./caddy.nix
         ./jellyfin.nix
         ./homepage.nix
+        ./containers.nix
     ];
 
     boot = {

@@ -1,6 +1,7 @@
 { pkgs, ... } @ inputs:
 let
-    domains = (import ./vars.nix).domains;
+    vars = (import ./vars.nix);
+    domains = vars.domains;
     secrets = (import ../secrets.nix);
 in
 {
