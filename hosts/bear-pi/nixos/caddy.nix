@@ -3,12 +3,10 @@ let
     secrets = (import ../secrets.nix);
 in
 {
-    networking.firewall = {
-        allowedTCPPorts = [
-            80 # HTTP
-            443 # HTTPS
-        ];
-    };
+    networking.firewall.allowedTCPPorts = [
+        80 # HTTP
+        443 # HTTPS
+    ];
 
     services = {
         # DynDNS Management (Refresh DNS Provider if IP changes)
@@ -40,6 +38,10 @@ in
             # Wireguard connections should happen at domains.base:51820
             virtualHosts."${domains.wireguard}".extraConfig = ''
                 reverse_proxy localhost:51821
+            '';
+
+            virtualHosts."${domains.adguard}".extraConfig = ''
+                reverse_proxy localhost:3000
             '';
 
             # Jellyfin

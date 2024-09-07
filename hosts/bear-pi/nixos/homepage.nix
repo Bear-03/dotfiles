@@ -31,6 +31,11 @@ in
                     columns = 3;
                     useEqualHeights = true;
                 };
+                "Network" = {
+                    style = "row";
+                    columns = 3;
+                    useEqualHeights = true;
+                };
             };
         };
         widgets = [
@@ -89,13 +94,59 @@ in
             }
             {
                 "System" = let
-                    glances-base-cfg = {
+                    glances-cfg = cfg: cfg // {
                         type = "glances";
                         url = "http://localhost:61208";
                         version = 4;
                     };
                 in
                 [
+                    {
+                        "CPU" = {
+                            widget = glances-cfg {
+                                metric = "cpu";
+                            };
+                        };
+                    }
+                    {
+                        "RAM" = {
+                            widget = glances-cfg {
+                                metric = "memory";
+                            };
+                        };
+                    }
+                    {
+                        "Network" = {
+                            widget = glances-cfg {
+                                metric = "network:wlan0";
+                            };
+                        };
+                    }
+                    {
+                        "Processes" = {
+                            widget = glances-cfg {
+                                metric = "process";
+                            };
+                        };
+                    }
+                    {
+                        "Root Drive" = {
+                            widget = glances-cfg {
+                                metric = "disk:mmcblk0";
+                            };
+                        };
+                    }
+                    {
+                        "Main Drive" = {
+                            widget = glances-cfg {
+                                metric = "disk:sda";
+                            };
+                        };
+                    }
+                ];
+            }
+            {
+                "Network" = [
                     {
                         "Caddy" = {
                             icon = "caddy.png";
@@ -107,37 +158,15 @@ in
                         };
                     }
                     {
-                        "CPU" = {
-                            widget = glances-base-cfg // {
-                                metric = "cpu";
-                            };
-                        };
-                    }
-                    {
-                        "RAM" = {
-                            widget = glances-base-cfg // {
-                                metric = "memory";
-                            };
-                        };
-                    }
-                    {
-                        "Network" = {
-                            widget = glances-base-cfg // {
-                                metric = "network:wlan0";
-                            };
-                        };
-                    }
-                    {
-                        "Root Drive" = {
-                            widget = glances-base-cfg // {
-                                metric = "disk:mmcblk0";
-                            };
-                        };
-                    }
-                    {
-                        "Main Drive" = {
-                            widget = glances-base-cfg // {
-                                metric = "disk:sda";
+                        "Adguard" = let
+                            url = "https://${domains.adguard}";
+                        in {
+                            icon = "adguard-home.svg";
+                            href = url;
+                            widget = {
+                                inherit (secrets.adguard) username password;
+                                inherit url;
+                                type = "adguard";
                             };
                         };
                     }

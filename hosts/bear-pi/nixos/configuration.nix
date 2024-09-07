@@ -9,6 +9,7 @@
         ./jellyfin.nix
         ./homepage.nix
         ./containers.nix
+        ./adguard.nix
     ];
 
     boot = {
