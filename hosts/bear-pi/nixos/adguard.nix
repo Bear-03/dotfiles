@@ -1,7 +1,18 @@
+let
+    vars = (import ./vars.nix);
+    inherit (vars) domains;
+in
 {
-    networking.firewall = {
-        allowedTCPPorts = [ 53 ];
-        allowedUDPPorts = [ 53 ];
+    networking = {
+        nameservers = [
+            "127.0.0.1" # Also use adguard on this machine
+            "1.1.1.1"
+            "1.0.0.1"
+        ];
+        firewall = {
+            allowedTCPPorts = [ 53 ];
+            allowedUDPPorts = [ 53 ];
+        };
     };
 
     services.adguardhome = {
@@ -17,6 +28,12 @@
                     "8.8.4.4"
                 ];
             };
+            filtering.rewrites = [
+                {
+                    domain = "*.${domains.internal-base}";
+                    answer = vars.local-ip;
+                }
+            ];
         };
     };
 }

@@ -15,7 +15,7 @@ in
             protocol = "duckdns";
             ssl = false; # Enabling SSL results in an error as the IP fecther isn't available via HTTPS
             domains = [
-                domains.duckdns-identifier
+                domains.identifier
             ];
             extraConfig = ''
                 password=${secrets.duckdns-token}
@@ -25,19 +25,13 @@ in
             enable = true;
 
             # Homepage Dashboard
-            virtualHosts."${domains.base}".extraConfig = ''
+            virtualHosts."${domains.homepage}".extraConfig = ''
                 reverse_proxy localhost:8082
             '';
 
             virtualHosts."${domains.debug}".extraConfig = ''
                 templates
                 respond "{{.RemoteIP}}"
-            '';
-
-            # Wg-easy UI
-            # Wireguard connections should happen at domains.base:51820
-            virtualHosts."${domains.wireguard}".extraConfig = ''
-                reverse_proxy localhost:51821
             '';
 
             virtualHosts."${domains.adguard}".extraConfig = ''
@@ -49,11 +43,19 @@ in
                 reverse_proxy localhost:8096
             '';
 
+            # Wg-easy UI
+            # Wireguard connections should happen at domains.base:51820
+            virtualHosts."${domains.wireguard}".extraConfig = ''
+                tls internal
+                reverse_proxy localhost:51821
+            '';
+
             # Jellyseerr
             # Neither Subdomains nor subfolders in URLs are supported by Jellyseerr
             # Workaround for subdomain found here: https://docs.overseerr.dev/extending-overseerr/reverse-proxy
             # Adapted fron NGINX config to Caddy
             virtualHosts."${domains.jellyseerr}".extraConfig = ''
+                tls internal
                 reverse_proxy {
                     to localhost:5055
 
