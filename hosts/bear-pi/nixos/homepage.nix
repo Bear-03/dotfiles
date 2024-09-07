@@ -9,9 +9,12 @@ in
         # Connections plugin has to be disabled or else grances crashes after ~2h.
         # See: https://github.com/nicolargo/glances/issues/2493
         script = ''
-            ${pkgs.glances}/bin/glances -w --disable-webui --disable-plugin cloud,connections
+            ${pkgs.glances}/bin/glances -w --disable-webui
         '';
         wantedBy = [ "multi-user.target" ];
+        # There's a bug in glances that makes it automatically stop every
+        # couple of hours so we need to restart the service
+        serviceConfig.Restart = "always";
     };
 
     services.homepage-dashboard = {
