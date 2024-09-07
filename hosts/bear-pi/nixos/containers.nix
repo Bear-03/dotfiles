@@ -8,10 +8,12 @@ in
         wg-easy = {
             hostname = "wg-easy";
             autoStart = true;
-            image = "ghcr.io/wg-easy/wg-easy:latest";
+            # Prometheus metrics are only available on nightly for now
+            image = "ghcr.io/wg-easy/wg-easy:nightly";
             environment = {
                 WG_HOST = domains.base;
                 PASSWORD_HASH = secrets.wireguard-password-hash;
+                ENABLE_PROMETHEUS_METRICS = "true";
             };
             volumes = [
                 "etc_wireguard:/etc/wireguard"

@@ -160,13 +160,42 @@ in
                     {
                         "Adguard" = let
                             url = "https://${domains.adguard}";
-                        in {
+                        in
+                        {
                             icon = "adguard-home.svg";
                             href = url;
                             widget = {
                                 inherit (secrets.adguard) username password;
                                 inherit url;
                                 type = "adguard";
+                            };
+                        };
+                    }
+                    {
+                        "Wireguard" = let
+                            url = "https://${domains.wireguard}";
+                        in
+                        {
+                            icon = "wireguard.svg";
+                            href = url;
+                            widget = {
+                                type = "customapi";
+                                url = "${url}/metrics/json";
+                                method = "GET";
+                                mappings = [
+                                    {
+                                        field = "wireguard_configured_peers";
+                                        label = "Configured Peers";
+                                    }
+                                    {
+                                        field = "wireguard_enabled_peers";
+                                        label = "Enabled Peers";
+                                    }
+                                    {
+                                        field = "wireguard_connected_peers";
+                                        label = "Connected Peers";
+                                    }
+                                ];
                             };
                         };
                     }
