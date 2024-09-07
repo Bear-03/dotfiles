@@ -11,6 +11,5 @@ username: { pkgs, ... } @ inputs:
         trash-cli # Trashcan management
         zip
         unzip
-        neovim
     ];
 }

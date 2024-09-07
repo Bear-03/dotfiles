@@ -9,7 +9,7 @@ in
         # Connections plugin has to be disabled or else grances crashes after ~2h.
         # See: https://github.com/nicolargo/glances/issues/2493
         script = ''
-            ${pkgs.glances}/bin/glances -w --disable-webui --disable-plugin connections
+            ${pkgs.glances}/bin/glances -w --disable-webui --disable-plugin cloud,connections
         '';
         wantedBy = [ "multi-user.target" ];
     };
