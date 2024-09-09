@@ -75,8 +75,6 @@ in
                     header_up X-Forwarded-Host {host}:{remote_port}
                     header_up X-Forwarded-Server {host}
                     header_up X-Forwarded-Port {remote_port}
-                    header_up X-Forwarded-For {remote}
-                    header_up X-Forwarded-Proto {scheme}
                     header_up X-Forwarded-Ssl on
                 }
             '';
