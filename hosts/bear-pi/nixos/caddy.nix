@@ -1,6 +1,17 @@
 let
     domains = (import ./vars.nix).domains;
     secrets = (import ../secrets.nix);
+    internal = cfg: ''
+        @internal {
+            remote_ip 192.168.1.0/24
+        }
+
+        handle @internal {
+            ${cfg}
+        }
+
+        respond "Forbidden" 403
+    '';
 in
 {
     networking.firewall.allowedTCPPorts = [
@@ -45,8 +56,7 @@ in
 
             # Wg-easy UI
             # Wireguard connections should happen at domains.base:51820
-            virtualHosts."${domains.wireguard}".extraConfig = ''
-                tls internal
+            virtualHosts."${domains.wireguard}".extraConfig = internal ''
                 reverse_proxy localhost:51821
             '';
 
@@ -54,8 +64,7 @@ in
             # Neither Subdomains nor subfolders in URLs are supported by Jellyseerr
             # Workaround for subdomain found here: https://docs.overseerr.dev/extending-overseerr/reverse-proxy
             # Adapted fron NGINX config to Caddy
-            virtualHosts."${domains.jellyseerr}".extraConfig = ''
-                tls internal
+            virtualHosts."${domains.jellyseerr}".extraConfig = internal ''
                 reverse_proxy {
                     to localhost:5055
 

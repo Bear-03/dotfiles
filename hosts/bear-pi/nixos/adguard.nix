@@ -30,7 +30,7 @@ in
             };
             filtering.rewrites = [
                 {
-                    domain = "*.${domains.internal-base}";
+                    domain = "*.${domains.base}";
                     answer = vars.local-ip;
                 }
             ];

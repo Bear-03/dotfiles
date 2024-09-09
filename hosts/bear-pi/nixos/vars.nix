@@ -2,13 +2,12 @@
     local-ip = "192.168.1.2";
     domains = rec {
         identifier = "bearspi";
-        external-base = "${identifier}.duckdns.org";
-        internal-base = "${identifier}.lan";
-        homepage = external-base;
-        debug = "debug.${external-base}";
-        adguard = "adguard.${external-base}";
-        jellyfin = "jelly.${external-base}";
-        wireguard = "wg.${internal-base}";
-        jellyseerr = "seerr.${internal-base}";
+        base = "${identifier}.duckdns.org";
+        homepage = base;
+        debug = "debug.${base}";
+        adguard = "adguard.${base}";
+        jellyfin = "jelly.${base}";
+        wireguard = "wg.${base}";
+        jellyseerr = "seerr.${base}";
     };
 }

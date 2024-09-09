@@ -14,7 +14,7 @@ in
                 # Wireguard will be available at "external-base:51820
                 # No need to open port in firewall on nixos
                 # The container setup does it automatically
-                WG_HOST = domains.external-base;
+                WG_HOST = domains.base;
                 WG_DEFAULT_DNS = vars.local-ip; # Use this machine as DNS
                 PASSWORD_HASH = secrets.wireguard-password-hash;
                 ENABLE_PROMETHEUS_METRICS = "true";
