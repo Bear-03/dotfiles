@@ -3,7 +3,8 @@ let
     secrets = (import ../secrets.nix);
     internal = cfg: ''
         @internal {
-            remote_ip 192.168.1.0/24
+            # LAN and VPN
+            remote_ip 192.168.1.0/24 10.88.0.0/16
         }
 
         handle @internal {
@@ -77,6 +78,25 @@ in
                     header_up X-Forwarded-Port {remote_port}
                     header_up X-Forwarded-Ssl on
                 }
+            '';
+
+            # Prowlarr
+            virtualHosts."${domains.prowlarr}".extraConfig = internal ''
+                reverse_proxy localhost:9696
+            '';
+
+            virtualHosts."${domains.deluge}".extraConfig = internal ''
+                reverse_proxy localhost:8112
+            '';
+
+            # Radarr
+            virtualHosts."${domains.radarr}".extraConfig = internal ''
+                reverse_proxy localhost:7878
+            '';
+
+            # Sonarr
+            virtualHosts."${domains.sonarr}".extraConfig = internal ''
+                reverse_proxy localhost:8989
             '';
         };
     };

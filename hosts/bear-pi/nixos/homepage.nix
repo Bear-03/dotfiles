@@ -11,7 +11,7 @@ in
         script = ''
             ${pkgs.glances}/bin/glances -w --disable-webui
         '';
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = [ "default.target" ];
         # There's a bug in glances that makes it automatically stop every
         # couple of hours so we need to restart the service
         serviceConfig.Restart = "always";
@@ -25,6 +25,11 @@ in
             headerStyle = "boxedWidgets";
             layout = {
                 "Media" = {
+                    style = "row";
+                    columns = 3;
+                    useEqualHeights = true;
+                };
+                "Servarr" = {
                     style = "row";
                     columns = 2;
                     useEqualHeights = true;
@@ -93,13 +98,73 @@ in
                             };
                         };
                     }
+                    {
+                        "Deluge" = let
+                            url = "https://${domains.deluge}";
+                        in
+                        {
+                            icon = "deluge.svg";
+                            href = url;
+                            widget = {
+                                inherit url;
+                                type = "deluge";
+                                password = secrets.deluge.password;
+                            };
+                        };
+                    }
+                ];
+            }
+            {
+                "Servarr" = [
+                    {
+                        "Prowlarr" = let
+                            url = "https://${domains.prowlarr}";
+                        in
+                        {
+                            icon = "prowlarr.svg";
+                            href = url;
+                            widget = {
+                                inherit url;
+                                type = "prowlarr";
+                                key = secrets.prowlarr-api-key;
+                            };
+                        };
+                    }
+                    {
+                        "Radarr" = let
+                            url = "https://${domains.radarr}";
+                        in
+                        {
+                            icon = "radarr.svg";
+                            href = url;
+                            widget = {
+                                inherit url;
+                                type = "radarr";
+                                key = secrets.radarr-api-key;
+                            };
+                        };
+                    }
+                    {
+                        "Sonarr" = let
+                            url = "https://${domains.sonarr}";
+                        in
+                        {
+                            icon = "sonarr.svg";
+                            href = url;
+                            widget = {
+                                inherit url;
+                                type = "sonarr";
+                                key = secrets.sonarr-api-key;
+                            };
+                        };
+                    }
                 ];
             }
             {
                 "System" = let
                     glances-cfg = cfg: cfg // {
                         type = "glances";
-                        url = "http://localhost:61208";
+                        url = "http://${domains.glances}";
                         version = 4;
                     };
                 in
@@ -156,7 +221,7 @@ in
                             widget = {
                                 type = "caddy";
                                 # WARNING: This will not work with https, it needs to be http
-                                url = "http://localhost:2019";
+                                url = "http://${domains.caddy}";
                             };
                         };
                     }
