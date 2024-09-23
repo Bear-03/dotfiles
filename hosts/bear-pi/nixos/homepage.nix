@@ -158,6 +158,20 @@ in
                             };
                         };
                     }
+                    {
+                        "Lidarr" = let
+                            url = "https://${domains.lidarr}";
+                        in
+                        {
+                            icon = "lidarr.svg";
+                            href = url;
+                            widget = {
+                                inherit url;
+                                type = "lidarr";
+                                key = secrets.lidarr-api-key;
+                            };
+                        };
+                    }
                 ];
             }
             {

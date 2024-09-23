@@ -12,6 +12,7 @@
         prowlarr = "prowlarr.${base}";
         radarr = "radarr.${base}";
         sonarr = "sonarr.${base}";
+        lidarr = "lidarr.${base}";
         deluge = "deluge.${base}";
 
         # These won't be accessed by anything outside of the config so

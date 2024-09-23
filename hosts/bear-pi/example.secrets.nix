@@ -4,6 +4,7 @@
     prowlarr-api-key = "";
     radarr-api-key = "";
     sonarr-api-key = "";
+    lidarr-api-key = "";
     duckdns-token = "";
     wireguard-password-hash = "";
     adguard = {
