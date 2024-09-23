@@ -1,10 +1,10 @@
-{ config, pkgs, nixos-hardware, usernames, hostname, flakeRoot, ... } @ inputs:
+{ config, pkgs, nixos-hardware, usernames, hostname, flake-root, ... } @ inputs:
 {
     imports = [
         nixos-hardware.nixosModules.raspberry-pi-4
-        (flakeRoot + /modules/nixos/users.nix)
-        (flakeRoot + /modules/nixos/nix.nix)
-        (flakeRoot + /modules/nixos/auto-cpufreq.nix)
+        (flake-root + /modules/nixos/users.nix)
+        (flake-root + /modules/nixos/nix.nix)
+        (flake-root + /modules/nixos/auto-cpufreq.nix)
         ./caddy.nix
         ./jellyfin.nix
         ./homepage.nix

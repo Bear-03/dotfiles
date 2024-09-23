@@ -1,7 +1,7 @@
-{ hostname, usernames, flakeRoot, pkgs, ... } @ inputs:
+{ host-dir, hostname, usernames, flake-root, pkgs, ... } @ inputs:
 {
     users.users = builtins.listToAttrs (map (username: {
         name = username;
-        value = import (flakeRoot + /hosts/${hostname}/users/${username}/user.nix) username inputs;
+        value = import (host-dir + /users/${username}/user.nix) username inputs;
     }) usernames);
 }

@@ -1,9 +1,8 @@
-{ config, pkgs, usernames, hostname, flakeRoot, ... } @ inputs:
+{ config, pkgs, usernames, hostname, flake-root, ... } @ inputs:
 {
     imports = [
-        (flakeRoot + /modules/nixos/users.nix)
-        (flakeRoot + /modules/nixos/nix.nix)
-        (flakeRoot + /modules/nixos/auto-cpufreq.nix)
+        (flake-root + /modules/nixos/nix.nix)
+        (flake-root + /modules/nixos/auto-cpufreq.nix)
         ./greetd.nix
     ];
 
