@@ -9,6 +9,7 @@ in
         prowlarr.enable = true;
         radarr.enable = true;
         sonarr.enable = true;
+        lidarr.enable = true;
         deluge = {
             enable = true;
             declarative = true;
@@ -16,6 +17,8 @@ in
             config = {
                 download_location = "/mnt/main/jellyfin/torrents";
                 enabled_plugins = [ "Label" ];
+                # Cannot afford to contribute more, my bandwidth is shit
+                share_ratio_limit = "0.1";
             };
             authFile = pkgs.writeText "deluge-auth" ''
                 ${secrets.deluge.username}:${secrets.deluge.password}:10

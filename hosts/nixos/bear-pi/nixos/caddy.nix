@@ -98,6 +98,10 @@ in
             virtualHosts."${domains.sonarr}".extraConfig = internal ''
                 reverse_proxy localhost:8989
             '';
+
+            virtualHosts."${domains.lidarr}".extraConfig = internal ''
+                reverse_proxy localhost:8686
+            '';
         };
     };
 }
