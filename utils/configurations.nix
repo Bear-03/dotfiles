@@ -25,7 +25,7 @@ in
             system = import (hostDir + /system.nix);
             specialArgs = inputs-ext;
             modules = [
-                (flakeRoot + /modules/nixos/users.nix)
+                (flakeRoot + /modules/nixos)
                 (hostDir + /nixos/configuration.nix)
                 (hostDir + /nixos/hardware-configuration.nix)
                 home-manager.nixosModules.home-manager {
