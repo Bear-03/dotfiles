@@ -2,11 +2,11 @@ username: { config, pkgs, flakeRoot, ... } @ inputs:
 {
     imports = [
         (flakeRoot + /modules/home/nushell.nix)
+        (flakeRoot + /modules/home/alacritty.nix)
+        (flakeRoot + /modules/home/hyprland.nix)
+        (flakeRoot + /modules/home/ags.nix)
         ./theme.nix
-        ./hyprland.nix
-        ./alacritty.nix
         ./git.nix
-        ./ags.nix
         ./udiskie.nix
         ./flatpak.nix
     ];
