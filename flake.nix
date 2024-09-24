@@ -19,10 +19,13 @@
         };
     };
 
-    outputs = { self, nixpkgs, home-manager, ... } @ inputs : {
-        nixosConfigurations = import (flake-root + /utils/nixos-systems.nix) {
-            flake-root = ./.;
-            hosts-dir = ./hosts/nixos;
-        };
+    outputs = { self, nixpkgs, home-manager, ... } @ inputs: let
+        configurationUtils = (import ./utils/configurations.nix nixpkgs.lib);
+        flakeRoot = ./.;
+        inputs-ext = inputs // { inherit flakeRoot; };
+    in
+    {
+        nixosConfigurations = configurationUtils.nixos (inputs-ext // { hostsDir = ./hosts/nixos; });
+        homeConfigurations = configurationUtils.home (inputs-ext // { hostsDir = ./hosts/nix; });
     };
 }

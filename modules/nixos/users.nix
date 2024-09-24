@@ -1,7 +1,10 @@
-{ host-dir, hostname, usernames, flake-root, pkgs, ... } @ inputs:
+{ hostDir, hostname, flakeRoot, pkgs, ... } @ inputs: let
+    inherit (import (flakeRoot + /utils/functions.nix) pkgs.lib) mapFilesToAttrs;
+    usersDir = hostDir + /users;
+in
 {
-    users.users = builtins.listToAttrs (map (username: {
-        name = username;
-        value = import (host-dir + /users/${username}/user.nix) username inputs;
-    }) usernames);
+    users.users = mapFilesToAttrs {
+        dir = usersDir;
+        valueFn = username: import (usersDir + /${username}/user.nix) username inputs;
+    };
 }

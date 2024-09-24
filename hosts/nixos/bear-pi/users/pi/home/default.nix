@@ -1,7 +1,7 @@
-username: { config, pkgs, flake-root, ... } @ inputs:
+username: { config, pkgs, flakeRoot, ... } @ inputs:
 {
     imports = [
-        (flake-root + /modules/home/nushell.nix)
+        (flakeRoot + /modules/home/nushell.nix)
     ];
 
     home = {
