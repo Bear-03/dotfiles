@@ -1,11 +1,6 @@
 username: { config, pkgs, flakeRoot, ... } @ inputs:
 {
     imports = [
-        (flakeRoot + /modules/home/nushell.nix)
-        (flakeRoot + /modules/home/alacritty.nix)
-        (flakeRoot + /modules/home/hyprland.nix)
-        (flakeRoot + /modules/home/ags.nix)
-        ./theme.nix
         ./git.nix
         ./udiskie.nix
         ./flatpak.nix
@@ -54,5 +49,16 @@ username: { config, pkgs, flakeRoot, ... } @ inputs:
 
     services = {
         swaync.enable = true;
+    };
+
+    modules = {
+        nushell.enable = true;
+        alacritty.enable = true;
+        ags.enable = true;
+        theme.enable = true;
+        hyprland = {
+            enable = true;
+            wallpaper = ../bg.png;
+        };
     };
 }

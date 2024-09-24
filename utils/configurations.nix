@@ -33,6 +33,9 @@ in
                         useGlobalPkgs = true;
                         useUserPackages = true;
                         extraSpecialArgs = inputs-ext;
+                        sharedModules = [
+                            (flakeRoot + /modules/home)
+                        ];
 
                         # Iterate users of the host to link all their home config files
                         users = mapFilesToAttrs {
@@ -81,6 +84,7 @@ in
                     pkgs = import nixpkgs.legacyPackages.${system};
                     specialArgs = inputs-ext;
                     modules = [
+                        (flakeRoot + /modules/home)
                         (usersDir + /${username}/home)
                     ];
                 };

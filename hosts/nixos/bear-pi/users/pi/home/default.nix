@@ -1,9 +1,5 @@
-username: { config, pkgs, flakeRoot, ... } @ inputs:
+username: { pkgs, flakeRoot, ... } @ inputs:
 {
-    imports = [
-        (flakeRoot + /modules/home/nushell.nix)
-    ];
-
     home = {
         inherit username;
         homeDirectory = "/home/${username}";
@@ -25,4 +21,6 @@ username: { config, pkgs, flakeRoot, ... } @ inputs:
         home-manager.enable = true;
         bottom.enable = true;
     };
+
+    modules.nushell.enable = true;
 }
