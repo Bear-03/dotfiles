@@ -1,9 +1,6 @@
-{ config, pkgs, usernames, hostname, flakeRoot, ... } @ inputs:
+{ config, pkgs, hostname, flakeRoot, ... } @ inputs:
 {
     imports = [
-        (flakeRoot + /modules/nixos/users.nix)
-        (flakeRoot + /modules/nixos/nix.nix)
-        (flakeRoot + /modules/nixos/auto-cpufreq.nix)
         ./greetd.nix
     ];
 
@@ -97,6 +94,15 @@
                 support32Bit = true;
             };
             pulse.enable = true;
+        };
+    };
+
+    modules = {
+        nix.enable = true;
+        auto-cpufreq.enable = true;
+        users = {
+            enable = true;
+            hostDir = ./..;
         };
     };
 

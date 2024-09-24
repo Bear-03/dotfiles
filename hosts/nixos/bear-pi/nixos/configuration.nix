@@ -2,9 +2,6 @@
 {
     imports = [
         nixos-hardware.nixosModules.raspberry-pi-4
-        (flakeRoot + /modules/nixos/users.nix)
-        (flakeRoot + /modules/nixos/nix.nix)
-        (flakeRoot + /modules/nixos/auto-cpufreq.nix)
         ./caddy.nix
         ./jellyfin.nix
         ./homepage.nix
@@ -36,6 +33,15 @@
     time.timeZone = "Europe/Madrid";
 
     services.openssh.enable = true;
+
+    modules = {
+        nix.enable = true;
+        auto-cpufreq.enable = true;
+        users = {
+            enable = true;
+            hostDir = ./..;
+        };
+    };
 
     environment.systemPackages = with pkgs; [
         libraspberrypi
