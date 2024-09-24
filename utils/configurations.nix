@@ -54,7 +54,7 @@ in
         };
     };
 
-    # home-manager switch --flake .#myprofile
+    # home-manager switch --flake .#username@hostname
     home = {
         flakeRoot,
         hostsDir,
