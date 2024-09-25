@@ -2,6 +2,7 @@ import { setupGlobals } from "./globals.js";
 import { App, Utils } from "./imports.js"
 
 import Bar from "./widgets/bar/init.js";
+import { onAllMonitors } from "./shared/util.js";
 
 setupGlobals();
 
@@ -16,6 +17,6 @@ if (scssResult) {
 App.config({
     style: css,
     windows: [
-        Bar(),
+        ...onAllMonitors(Bar),
     ]
 });

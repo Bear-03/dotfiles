@@ -1,3 +1,4 @@
+import Gdk from "gi://Gdk"
 import { Audio } from "../imports.js";
 
 export function clamp(value, min, max) {
@@ -19,4 +20,23 @@ export function muteAudioStream(type) {
 
 export function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+/**
+ * Taken from: https://github.com/Aylur/dotfiles/blob/18b83b2d2c6ef2b9045edefe49a66959f93b358a/ags/lib/utils.ts#L60
+ * @returns {[number]} [start...length]
+ */
+export function range(length, start = 1) {
+    return Array.from({ length }, (_, i) => i + start)
+}
+
+/**
+ * Instantiates a window on all montitors
+ * Inspired by: https://github.com/Aylur/dotfiles/blob/18b83b2d2c6ef2b9045edefe49a66959f93b358a/ags/lib/utils.ts#L52
+ * @param {(number) => Gtk.Window} window Window to instantiate on monitor
+ * @returns {[Gtk.Window]} All windows instantiated on each monitor
+ */
+export function onAllMonitors(window) {
+    const monitorCount = Gdk.Display.get_default()?.get_n_monitors() || 1;
+    return range(monitorCount, 0).flatMap(window);
 }
