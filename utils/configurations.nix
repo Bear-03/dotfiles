@@ -5,25 +5,22 @@ lib: let
 in
 {
     nixos = {
+        inputs,
         flakeRoot,
         hostsDir,
-        nixpkgs,
-        home-manager,
         ...
-    } @ inputs:
+    } @ args: let
+        inherit (inputs) nixpkgs home-manager;
+    in
     mapFilesToAttrs {
         dir = hostsDir;
         valueFn = hostname: let
             hostDir = hostsDir + /${hostname};
-            # Users of this host
-            inputs-ext = inputs // {
-                inherit hostname;
-                inherit hostDir;
-            };
+            argsExt = args // { inherit hostname hostDir; };
         in
         nixpkgs.lib.nixosSystem {
             system = import (hostDir + /system.nix);
-            specialArgs = inputs-ext;
+            specialArgs = argsExt;
             modules = [
                 (flakeRoot + /modules/nixos)
                 (hostDir + /nixos/configuration.nix)
@@ -32,7 +29,7 @@ in
                     home-manager = {
                         useGlobalPkgs = true;
                         useUserPackages = true;
-                        extraSpecialArgs = inputs-ext;
+                        extraSpecialArgs = argsExt;
                         sharedModules = [
                             (flakeRoot + /modules/home)
                         ];
@@ -56,12 +53,13 @@ in
 
     # home-manager switch --flake .#username@hostname
     home = {
+        inputs,
         flakeRoot,
         hostsDir,
-        nixpkgs,
-        home-manager,
         ...
-    } @ inputs:
+    } @ args: let
+        inherit (inputs) nixpkgs home-manager;
+    in
     flattenAttrs {
         sep = "@";
         reverse = true;
@@ -70,10 +68,7 @@ in
             valueFn = hostname: let
                 hostDir = hostsDir + /${hostname};
                 usersDir = hostDir + /users;
-                inputs-ext = inputs // {
-                    inherit hostname;
-                    inherit hostDir;
-                };
+                argsExt = args // { inherit hostname hostDir; };
             in
             mapFilesToAttrs {
                 dir = usersDir;
@@ -82,7 +77,7 @@ in
                 in
                 home-manager.lib.homeManagerConfiguration {
                     pkgs = import nixpkgs.legacyPackages.${system};
-                    specialArgs = inputs-ext;
+                    specialArgs = argsExt;
                     modules = [
                         (flakeRoot + /modules/home)
                         (usersDir + /${username}/home)

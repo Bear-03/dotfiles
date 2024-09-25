@@ -1,6 +1,8 @@
-{ config, lib, pkgs, ags, ... }:
+{ config, lib, pkgs, inputs, ... }:
 with lib;
 let
+    inherit (inputs) ags;
+
     cfg = config.modules.ags;
 in
 {

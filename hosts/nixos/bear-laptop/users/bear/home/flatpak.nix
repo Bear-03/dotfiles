@@ -1,5 +1,6 @@
-{ config, sober, declarative-flatpak, ... } @ inputs:
+{ config, inputs, ... }:
 let
+    inherit (inputs) sober declarative-flatpak;
     sober-home-path = ".cache/sober.flatpakref";
 in
 {

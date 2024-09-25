@@ -1,4 +1,4 @@
-username: { pkgs, ... } @ inputs:
+username: { pkgs, ... }:
 {
     isNormalUser = true;
     # A password is always needed for SSH, so we provide a default one

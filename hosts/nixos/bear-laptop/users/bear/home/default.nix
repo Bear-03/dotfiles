@@ -1,4 +1,4 @@
-username: { config, pkgs, flakeRoot, ... } @ inputs:
+username: { config, pkgs, flakeRoot, ... }:
 {
     imports = [
         ./git.nix

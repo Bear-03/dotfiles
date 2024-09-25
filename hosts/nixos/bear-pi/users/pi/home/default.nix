@@ -1,4 +1,4 @@
-username: { pkgs, flakeRoot, ... } @ inputs:
+username: { pkgs, flakeRoot, ... }:
 {
     home = {
         inherit username;

@@ -1,4 +1,4 @@
-{ config, lib, flakeRoot, pkgs, ... } @ inputs:
+{ config, lib, pkgs, flakeRoot, ... } @ args:
 with lib;
 let
     inherit (import (flakeRoot + /utils/functions.nix) pkgs.lib) mapFilesToAttrs;
@@ -22,7 +22,7 @@ in
         in
         mapFilesToAttrs {
             dir = usersDir;
-            valueFn = username: import (usersDir + /${username}/user.nix) username inputs;
+            valueFn = username: import (usersDir + /${username}/user.nix) username args;
         };
     };
 }

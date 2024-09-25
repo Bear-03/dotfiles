@@ -22,10 +22,10 @@
     outputs = { self, nixpkgs, home-manager, ... } @ inputs: let
         configurationUtils = (import ./utils/configurations.nix nixpkgs.lib);
         flakeRoot = ./.;
-        inputs-ext = inputs // { inherit flakeRoot; };
+        args = { inherit inputs flakeRoot; };
     in
     {
-        nixosConfigurations = configurationUtils.nixos (inputs-ext // { hostsDir = ./hosts/nixos; });
-        homeConfigurations = configurationUtils.home (inputs-ext // { hostsDir = ./hosts/nix; });
+        nixosConfigurations = configurationUtils.nixos (args // { hostsDir = ./hosts/nixos; });
+        homeConfigurations = configurationUtils.home (args // { hostsDir = ./hosts/nix; });
     };
 }

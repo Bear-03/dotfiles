@@ -1,4 +1,4 @@
-{ pkgs, ... } @ inputs:
+{ pkgs, ... }:
 let
     vars = (import ./vars.nix);
     domains = vars.domains;

@@ -1,4 +1,4 @@
-{ config, lib, ... } @ inputs:
+{ config, lib, ... }:
 with lib;
 let
     cfg = config.modules.hyprland;

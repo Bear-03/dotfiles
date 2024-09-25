@@ -1,4 +1,4 @@
-username: { pkgs, ... } @ inputs:
+username: { pkgs, ... }:
 {
     isNormalUser = true;
     shell = pkgs.nushell;

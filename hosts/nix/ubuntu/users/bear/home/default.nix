@@ -1,4 +1,4 @@
-username: inputs:
+username: args:
 {
     home = {
         inherit username;

@@ -1,4 +1,6 @@
-{ config, pkgs, nixos-hardware, usernames, hostname, flakeRoot, ... } @ inputs:
+{ config, pkgs, inputs, hostname, flakeRoot, ... }: let
+    inherit (inputs) nixos-hardware;
+in
 {
     imports = [
         nixos-hardware.nixosModules.raspberry-pi-4
