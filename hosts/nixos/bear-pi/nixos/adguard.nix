@@ -1,6 +1,5 @@
 let
     vars = (import ./vars.nix);
-    inherit (vars) domains;
 in
 {
     networking = {
@@ -30,7 +29,7 @@ in
             };
             filtering.rewrites = [
                 {
-                    domain = "*.${domains.base}";
+                    domain = "*.${vars.domains.base}";
                     answer = vars.local-ip;
                 }
             ];
