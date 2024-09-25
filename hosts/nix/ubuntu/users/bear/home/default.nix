@@ -19,4 +19,6 @@ username: args:
             wallpaper = ../bg.png;
         };
     };
+
+    nixpkgs.config.allowUnfree = true;
 }
