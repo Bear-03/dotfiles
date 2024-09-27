@@ -1,4 +1,4 @@
-{ pkgs, flakeRoot, ... }:
+username: { pkgs, flakeRoot, ... }:
 {
     home = {
         inherit username;
