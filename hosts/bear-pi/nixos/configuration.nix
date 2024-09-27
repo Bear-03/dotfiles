@@ -13,6 +13,7 @@ in
 
     boot = {
         supportedFilesystems = [ "ntfs" ];
+        initrd.systemd.tpm2.enable = false;
         loader = {
             grub.enable = false;
             generic-extlinux-compatible.enable = true;
