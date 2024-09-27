@@ -1,7 +1,7 @@
 { config, lib, pkgs, flakeRoot, ... } @ args:
 with lib;
 let
-    inherit (import (flakeRoot + /utils/functions.nix) pkgs.lib) mapFilesToAttrs;
+    mapFilesToAttrs = import (flakeRoot + /utils/map-files-to-attrs.nix) pkgs.lib;
     cfg = config.modules.users;
     usersDir = hostDir + /users;
 in
