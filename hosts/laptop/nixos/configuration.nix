@@ -16,7 +16,7 @@
     };
 
     networking = {
-        hostName = hostname;
+        hostName = "bear-laptop";
         networkmanager.enable = true;
         # Rules needed for wireguard to work through network manager
         # Source: https://nixos.wiki/wiki/WireGuard

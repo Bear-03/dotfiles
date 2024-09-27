@@ -28,7 +28,7 @@ in
     };
 
     networking = {
-        hostName = hostname;
+        hostName = "bear-pi";
         networkmanager.enable = true;
     };
 
