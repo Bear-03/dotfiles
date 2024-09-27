@@ -29,18 +29,6 @@ mapFilesToAttrs {
                     sharedModules = [
                         (flakeRoot + /modules/home)
                     ];
-
-                    # Iterate users of the host to link all their home config files
-                    users = mapFilesToAttrs {
-                        dir = hostDir + /users;
-                        valueFn = username: let
-                            homePath = hostDir + /users/${username}/home;
-                        in
-                        # If it isn't present, add null as placeholder, will be filtered out later
-                        if builtins.pathExists homePath
-                        then (import homePath username)
-                        else null;
-                    };
                 };
             }
         ];

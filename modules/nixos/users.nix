@@ -1,6 +1,7 @@
-{ config, lib, pkgs, flakeRoot, hostDir, ... } @ args:
+{ config, lib, pkgs, inputs, flakeRoot, ... } @ args:
 with lib;
 let
+    inherit (inputs) home-manager;
     mapFilesToAttrs = import (flakeRoot + /utils/map-files-to-attrs.nix) pkgs.lib;
     cfg = config.modules.users;
 in
@@ -19,6 +20,17 @@ in
         users.users = mapFilesToAttrs {
             dir = cfg.dir;
             valueFn = username: import (cfg.dir + /${username}/user.nix) (args // { inherit username; });
+        };
+
+        home-manager.users = mapFilesToAttrs {
+            dir = cfg.dir;
+            valueFn = username: let
+                homePath = cfg.dir + /${username}/home;
+            in
+            # If it isn't present, add null as placeholder, will be filtered out later
+            if builtins.pathExists homePath
+            then (import homePath username)
+            else null;
         };
     };
 }

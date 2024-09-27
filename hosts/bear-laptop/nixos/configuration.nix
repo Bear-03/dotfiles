@@ -1,4 +1,4 @@
-{ config, pkgs, hostname, flakeRoot, ... }:
+{ config, pkgs, hostname, flakeRoot, ... } @ args:
 {
     imports = [
         ./greetd.nix
