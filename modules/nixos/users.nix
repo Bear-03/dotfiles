@@ -1,28 +1,24 @@
-{ config, lib, pkgs, flakeRoot, ... } @ args:
+{ config, lib, pkgs, flakeRoot, hostDir, ... } @ args:
 with lib;
 let
     mapFilesToAttrs = import (flakeRoot + /utils/map-files-to-attrs.nix) pkgs.lib;
     cfg = config.modules.users;
-    usersDir = hostDir + /users;
 in
 {
     options.modules.users = {
         enable = mkEnableOption "NixOS file-based configuration";
-        hostDir = mkOption {
+        dir = mkOption {
             type = types.path;
             description = ''
-                Path to the directory of the host to fetch the users from.
+                Path to the directory to fetch the users from.
             '';
         };
     };
 
     config = mkIf cfg.enable {
-        users.users = let
-            usersDir = cfg.hostDir + /users;
-        in
-        mapFilesToAttrs {
-            dir = usersDir;
-            valueFn = username: import (usersDir + /${username}/user.nix) username args;
+        users.users = mapFilesToAttrs {
+            dir = cfg.dir;
+            valueFn = username: import (cfg.dir + /${username}/user.nix) (args // { inherit username; });
         };
     };
 }

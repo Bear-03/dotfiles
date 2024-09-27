@@ -41,7 +41,7 @@ in
         auto-cpufreq.enable = true;
         users = {
             enable = true;
-            hostDir = ./..;
+            dir = ../users;
         };
     };
 
