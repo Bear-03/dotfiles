@@ -6,7 +6,7 @@ lib: {
     files = builtins.attrNames (builtins.readDir dir);
 in
 builtins.listToAttrs (
-    builtins.filter (x: x.name != null && x.value != null) (
+    builtins.filter (x: x.name != null || x.value != null) (
         map
         (filename: {
             name = keyFn filename;
