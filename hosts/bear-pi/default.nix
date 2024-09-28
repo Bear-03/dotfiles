@@ -5,11 +5,11 @@ in
     imports = [
         nixos-hardware.nixosModules.raspberry-pi-4
         ./nixos/hardware-configuration.nix
-        ./caddy.nix
-        ./jellyfin.nix
-        ./homepage.nix
-        ./wireguard.nix
-        ./adguard.nix
+        ./nixos/caddy.nix
+        ./nixos/jellyfin.nix
+        ./nixos/homepage.nix
+        ./nixos/wireguard.nix
+        ./nixos/adguard.nix
     ];
 
     boot = {
@@ -43,7 +43,7 @@ in
         auto-cpufreq.enable = true;
         users = {
             enable = true;
-            dir = ../users;
+            dir = ./users;
         };
     };
 
