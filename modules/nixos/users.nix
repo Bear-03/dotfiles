@@ -15,10 +15,13 @@ in
         };
     };
 
-    config = mkIf cfg.enable {
+    config = let
+        argsExt = args // { inherit username; };
+    in
+    mkIf cfg.enable {
         users.users = mapFilesToAttrs {
             dir = cfg.dir;
-            valueFn = username: import (cfg.dir + /${username}) (args // { inherit username; });
+            valueFn = username: import (cfg.dir + /${username}) argsExt;
         };
 
         home-manager.users = mapFilesToAttrs {
@@ -30,7 +33,7 @@ in
             if builtins.pathExists homePath
             then (args: {
                 imports = [ homePath ];
-                _module.args = args // { inherit username; };
+                _module.args = argsExt;
             })
             else null;
         };
