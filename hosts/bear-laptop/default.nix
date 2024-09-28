@@ -1,7 +1,8 @@
 { config, pkgs, hostname, flakeRoot, ... } @ args:
 {
     imports = [
-        ./greetd.nix
+        ./nixos/hardware-configuration.nix
+        ./nixos/greetd.nix
     ];
 
     boot = {
@@ -101,7 +102,7 @@
         auto-cpufreq.enable = true;
         users = {
             enable = true;
-            dir = ../users;
+            dir = ./users;
         };
     };
 

@@ -4,6 +4,7 @@ in
 {
     imports = [
         nixos-hardware.nixosModules.raspberry-pi-4
+        ./nixos/hardware-configuration.nix
         ./caddy.nix
         ./jellyfin.nix
         ./homepage.nix

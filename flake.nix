@@ -20,9 +20,9 @@
     };
 
     outputs = { self, nixpkgs, ... } @ inputs: let
-        mkNixosConfigs = import ./utils/mk-nixos-configs.nix;
+        mkNixosConfigurations = import ./utils/mk-nixos-configurations.nix;
     in {
-        nixosConfigurations = mkNixosConfigs {
+        nixosConfigurations = mkNixosConfigurations {
             inherit inputs;
             flakeRoot = ./.;
             hostsDir = ./hosts;
