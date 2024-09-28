@@ -29,6 +29,10 @@ in
             };
             filtering.rewrites = [
                 {
+                    domain = "${vars.domains.base}";
+                    answer = vars.local-ip;
+                }
+                {
                     domain = "*.${vars.domains.base}";
                     answer = vars.local-ip;
                 }

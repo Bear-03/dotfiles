@@ -10,6 +10,7 @@ in
         ./nixos/homepage.nix
         ./nixos/wireguard.nix
         ./nixos/adguard.nix
+        ./nixos/ftp.nix
     ];
 
     boot = {
