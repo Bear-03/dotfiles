@@ -41,6 +41,11 @@ in
     modules = {
         nix.enable = true;
         auto-cpufreq.enable = true;
+        users."pi" = {
+            # A password is always needed for SSH, so we provide a default one
+            initialPassword = "pass";
+            extraGroups = [ "gpio" ];
+        }
     };
 
     environment.systemPackages = with pkgs; [

@@ -3,7 +3,6 @@
     imports = [
         ./hardware.nix
         ./greetd.nix
-        ./users/bear
     ];
 
     boot = {
@@ -52,6 +51,7 @@
             LC_TIME = "es_ES.UTF-8";
         };
     };
+
     # Configure console keymap
     console.keyMap = "es";
 
@@ -100,6 +100,7 @@
     modules = {
         nix.enable = true;
         auto-cpufreq.enable = true;
+        users."bear" = {};
     };
 
     environment = {
