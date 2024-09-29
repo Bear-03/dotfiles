@@ -5,8 +5,16 @@
         # NixOS official unstable packages
         nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
         nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+        snowfall-lib = {
+            url = "github:snowfallorg/lib";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
         home-manager = {
             url = "github:nix-community/home-manager";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+        nixos-generators = {
+            url = "github:nix-community/nixos-generators";
             inputs.nixpkgs.follows = "nixpkgs";
         };
         declarative-flatpak.url = "github:GermanBread/declarative-flatpak/stable-v3";
@@ -19,13 +27,13 @@
         };
     };
 
-    outputs = { self, nixpkgs, ... } @ inputs: let
-        mkNixosConfigurations = import ./utils/mk-nixos-configurations.nix;
-    in {
-        nixosConfigurations = mkNixosConfigurations {
-            inherit inputs;
-            flakeRoot = ./.;
-            hostsDir = ./hosts;
-        };
+    outputs = { home-manager, ... } @ inputs:
+    inputs.snowfall-lib.mkFlake {
+        inherit inputs;
+        src = ./.;
+
+        modules.nixos = [
+            home-manager.nixosModules.home-manager
+        ];
     };
 }

@@ -1,16 +1,16 @@
-{ config, pkgs, inputs, hostname, flakeRoot, ... }: let
+{ config, pkgs, inputs, ... }: let
     inherit (inputs) nixos-hardware;
 in
 {
     imports = [
         nixos-hardware.nixosModules.raspberry-pi-4
-        ./nixos/hardware.nix
-        ./nixos/caddy.nix
-        ./nixos/jellyfin.nix
-        ./nixos/homepage.nix
-        ./nixos/wireguard.nix
-        ./nixos/adguard.nix
-        ./nixos/ftp.nix
+        ./hardware.nix
+        ./caddy.nix
+        ./jellyfin.nix
+        ./homepage.nix
+        ./wireguard.nix
+        ./adguard.nix
+        ./ftp.nix
     ];
 
     boot = {
@@ -31,7 +31,6 @@ in
     };
 
     networking = {
-        hostName = hostname;
         networkmanager.enable = true;
     };
 
@@ -42,10 +41,6 @@ in
     modules = {
         nix.enable = true;
         auto-cpufreq.enable = true;
-        users = {
-            enable = true;
-            dir = ./users;
-        };
     };
 
     environment.systemPackages = with pkgs; [

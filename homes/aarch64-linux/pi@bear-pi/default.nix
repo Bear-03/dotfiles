@@ -1,12 +1,14 @@
-{ pkgs, flakeRoot, username, ... }:
+{ pkgs, flakeRoot, ... }:
 {
     home = {
-        inherit username;
-        homeDirectory = "/home/${username}";
-
         packages = with pkgs; [
             neovim
             git
+            neofetch
+            glances # Monitoring tool for homepage dashboard
+            trash-cli # Trashcan management
+            zip
+            unzip
         ];
 
         sessionVariables = {

@@ -1,8 +1,9 @@
-{ config, pkgs, hostname, flakeRoot, ... } @ args:
+{ config, pkgs, ... } @ args:
 {
     imports = [
-        ./nixos/hardware.nix
-        ./nixos/greetd.nix
+        ./hardware.nix
+        ./greetd.nix
+        ./users/bear
     ];
 
     boot = {
@@ -17,7 +18,6 @@
     };
 
     networking = {
-        hostName = hostname;
         networkmanager.enable = true;
         # Rules needed for wireguard to work through network manager
         # Source: https://nixos.wiki/wiki/WireGuard
@@ -100,10 +100,6 @@
     modules = {
         nix.enable = true;
         auto-cpufreq.enable = true;
-        users = {
-            enable = true;
-            dir = ./users;
-        };
     };
 
     environment = {
