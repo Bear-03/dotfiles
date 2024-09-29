@@ -45,7 +45,7 @@ in
             # A password is always needed for SSH, so we provide a default one
             initialPassword = "pass";
             extraGroups = [ "gpio" ];
-        }
+        };
     };
 
     environment.systemPackages = with pkgs; [

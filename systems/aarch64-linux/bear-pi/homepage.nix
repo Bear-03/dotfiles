@@ -2,7 +2,7 @@
 let
     vars = (import ./vars.nix);
     domains = vars.domains;
-    secrets = (import ../secrets.nix);
+    secrets = (import ./secrets.nix);
 in
 {
     systemd.user.services.glances = {

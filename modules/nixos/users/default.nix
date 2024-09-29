@@ -7,6 +7,7 @@ in
     options.${namespace}.users = mkOption {
         description = "User config";
         type = types.attrs;
+        default = {};
     };
 
     config.users.users = mapAttrs (_: value: {

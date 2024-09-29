@@ -24,5 +24,5 @@
         bottom.enable = true;
     };
 
-    modules.nushell.enable = true;
+    internal.nushell.enable = true;
 }
