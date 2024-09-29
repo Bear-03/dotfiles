@@ -1,10 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ namespace, config, lib, pkgs, ... }:
 with lib;
 let
-    cfg = config.modules.nushell;
+    cfg = config.${namespace}.nushell;
 in
 {
-    options.modules.nushell = {
+    options.${namespace}.nushell = {
         enable = mkEnableOption "Nushell and utility shell programs";
     };
 

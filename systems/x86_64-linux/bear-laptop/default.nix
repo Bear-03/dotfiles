@@ -97,7 +97,7 @@
         };
     };
 
-    modules = {
+    internal = {
         nix.enable = true;
         auto-cpufreq.enable = true;
         users."bear" = {};

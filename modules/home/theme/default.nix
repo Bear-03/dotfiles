@@ -1,11 +1,11 @@
 # Fonts, visuals...
-{ config, lib, pkgs, ... }:
+{ namespace, config, lib, pkgs, ... }:
 with lib;
 let
-    cfg = config.modules.theme;
+    cfg = config.${namespace}.theme;
 in
 {
-    options.modules.theme = {
+    options.${namespace}.theme = {
         enable = mkEnableOption "Theme configuration";
     };
 

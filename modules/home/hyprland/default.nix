@@ -1,10 +1,10 @@
-{ config, lib, ... }:
+{ namespace, config, lib, ... }:
 with lib;
 let
-    cfg = config.modules.hyprland;
+    cfg = config.${namespace}.hyprland;
 in
 {
-    options.modules.hyprland = {
+    options.${namespace}.hyprland = {
         enable = mkEnableOption "Hyprland configuration";
         wallpaper = mkOption {
             type = types.path;

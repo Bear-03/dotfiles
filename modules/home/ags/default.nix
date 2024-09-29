@@ -1,16 +1,16 @@
-{ config, lib, pkgs, inputs, ... }:
+{ namespace, config, lib, pkgs, inputs, ... }:
 with lib;
 let
     inherit (inputs) ags;
 
-    cfg = config.modules.ags;
+    cfg = config.${namespace}.ags;
 in
 {
     imports = [
         ags.homeManagerModules.default
     ];
 
-    options.modules.ags = {
+    options.${namespace}.ags = {
         enable = mkEnableOption "Ags widgets configuration";
     };
 

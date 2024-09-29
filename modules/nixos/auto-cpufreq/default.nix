@@ -1,10 +1,10 @@
-{ config, lib, ... }:
+{ namespace, config, lib, ... }:
 with lib;
 let
-    cfg = config.modules.auto-cpufreq;
+    cfg = config.${namespace}.auto-cpufreq;
 in
 {
-    options.modules.auto-cpufreq = {
+    options.${namespace}.auto-cpufreq = {
         enable = mkEnableOption "Auto-cpufreq configuration";
     };
 

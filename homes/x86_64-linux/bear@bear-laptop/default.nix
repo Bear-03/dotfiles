@@ -57,7 +57,7 @@
         bottom.enable = true;
     };
 
-    modules = {
+    internal = {
         nushell.enable = true;
         alacritty.enable = true;
         ags.enable = true;

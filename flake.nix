@@ -32,6 +32,8 @@
         inherit inputs;
         src = ./.;
 
+        snowfall.namespace = "internal";
+
         modules.nixos = [
             home-manager.nixosModules.home-manager
         ];

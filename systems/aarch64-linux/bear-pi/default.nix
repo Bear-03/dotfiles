@@ -38,7 +38,7 @@ in
 
     services.openssh.enable = true;
 
-    modules = {
+    internal = {
         nix.enable = true;
         auto-cpufreq.enable = true;
         users."pi" = {

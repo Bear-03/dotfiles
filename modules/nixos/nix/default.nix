@@ -1,10 +1,10 @@
-{ config, lib, ... }:
+{ namespace, config, lib, ... }:
 with lib;
 let
-    cfg = config.modules.nix;
+    cfg = config.${namespace}.nix;
 in
 {
-    options.modules.nix = {
+    options.${namespace}.nix = {
         enable = mkEnableOption "Nix and Nixpkgs configuration";
     };
 

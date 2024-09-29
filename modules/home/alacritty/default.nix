@@ -1,10 +1,10 @@
-{ config, lib, ... }:
+{ namespace, config, lib, ... }:
 with lib;
 let
-    cfg = config.modules.alacritty;
+    cfg = config.${namespace}.alacritty;
 in
 {
-    options.modules.alacritty = {
+    options.${namespace}.alacritty = {
         enable = mkEnableOption "Alacritty configuration";
     };
 

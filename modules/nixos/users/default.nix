@@ -1,10 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ namespace, config, lib, pkgs, ... }:
 with lib;
 let
-    cfg = config.modules.users;
+    cfg = config.${namespace}.users;
 in
 {
-    options.modules.users = mkOption {
+    options.${namespace}.users = mkOption {
         description = "User config";
         type = types.attrs;
     };
