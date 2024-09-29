@@ -1,7 +1,7 @@
 { config, pkgs, hostname, flakeRoot, ... } @ args:
 {
     imports = [
-        ./nixos/hardware-configuration.nix
+        ./nixos/hardware.nix
         ./nixos/greetd.nix
     ];
 
