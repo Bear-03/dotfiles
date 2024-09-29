@@ -7,6 +7,7 @@
     inherit (inputs) nixpkgs home-manager;
     inherit (nixpkgs) lib;
 
+    filesIn = import ./files-in.nix;
     mapFilesToAttrs = import ./map-files-to-attrs.nix lib;
 in
 mapFilesToAttrs {
@@ -19,18 +20,16 @@ mapFilesToAttrs {
         system = import (hostDir + /system.nix);
         specialArgs = argsExt;
         modules = [
-            (flakeRoot + /modules/nixos)
             hostDir
             home-manager.nixosModules.home-manager {
                 home-manager = {
                     useGlobalPkgs = true;
                     useUserPackages = true;
                     extraSpecialArgs = argsExt;
-                    sharedModules = [
-                        (flakeRoot + /modules/home)
-                    ];
+                    sharedModules = filesIn false (flakeRoot + /modules/home);
                 };
             }
-        ];
+        ]
+        ++ filesIn false (flakeRoot + /modules/nixos);
     };
 }

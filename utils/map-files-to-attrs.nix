@@ -3,7 +3,8 @@ lib: {
     keyFn ? lib.trivial.id,
     valueFn ? lib.trivial.id
 }: let
-    files = builtins.attrNames (builtins.readDir dir);
+    filesIn = import ./files-in.nix;
+    files = filesIn true dir;
 in
 builtins.listToAttrs (
     builtins.filter (x: x.name != null || x.value != null) (

@@ -17,7 +17,7 @@ in
     config = mkIf cfg.enable {
         programs.ags = {
             enable = true;
-            configDir = ../ags;
+            configDir = ./config;
             extraPackages = with pkgs; [
                 gtksourceview
                 webkitgtk
