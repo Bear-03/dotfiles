@@ -26,17 +26,37 @@ export function capitalize(string) {
  * Taken from: https://github.com/Aylur/dotfiles/blob/18b83b2d2c6ef2b9045edefe49a66959f93b358a/ags/lib/utils.ts#L60
  * @returns {[number]} [start...length]
  */
-export function range(length, start = 1) {
+export function range(length, start = 0) {
     return Array.from({ length }, (_, i) => i + start)
+}
+
+export function cartesian(a, b) {
+    const res = [];
+
+    for (const i of a) {
+        for (const j of b) {
+            res.push([i, j]);
+        }
+    }
+
+    return res;
+}
+
+let monitorDiscriminator = 0;
+export function nextMonitorDiscriminator() {
+    return monitorDiscriminator++;
 }
 
 /**
  * Instantiates a window on all montitors
  * Inspired by: https://github.com/Aylur/dotfiles/blob/18b83b2d2c6ef2b9045edefe49a66959f93b358a/ags/lib/utils.ts#L52
- * @param {(number) => Gtk.Window} window Window to instantiate on monitor
- * @returns {[Gtk.Window]} All windows instantiated on each monitor
+ * @param {[(Gdk.Monitor) => Gtk.Window]} windows Windows to instantiate on each monitor
+ * @returns {[Gtk.Window]} All windows instantiated for all monitors
  */
-export function onAllMonitors(window) {
-    const monitorCount = Gdk.Display.get_default()?.get_n_monitors() || 1;
-    return range(monitorCount, 0).flatMap(window);
+export function onAllMonitors(windows) {
+    const display = Gdk.Display.get_default();
+    const monitorCount = display.get_n_monitors();
+    const gdkmonitors = range(monitorCount).map((i) => display.get_monitor(i))
+
+    return cartesian(windows, gdkmonitors).map(([window, gdkmonitor]) => window(gdkmonitor));
 }

@@ -1,22 +1,18 @@
-import { setupGlobals } from "./globals.js";
-import { App, Utils } from "./imports.js"
+import * as setup from "./setup.js";
+import { App } from "./imports.js"
 
 import Bar from "./widgets/bar/init.js";
 import { onAllMonitors } from "./shared/util.js";
 
-setupGlobals();
+const ALL_MONITOR_WINDOWS = [Bar];
 
-const scss = App.configDir + "/style.scss";
-const css = "/tmp/ags-style.css";
-
-const scssResult = Utils.exec(`bash -c "sassc ${scss} ${css} 2>&1"`).trim();
-if (scssResult) {
-    console.warn("\n" + scssResult);
-}
+setup.globals();
+setup.monitorRefresh(ALL_MONITOR_WINDOWS);
+const css = setup.scss();
 
 App.config({
     style: css,
     windows: [
-        ...onAllMonitors(Bar),
+        ...onAllMonitors(ALL_MONITOR_WINDOWS),
     ]
 });

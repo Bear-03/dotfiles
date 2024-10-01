@@ -3,7 +3,7 @@ import Brightness from "../../services/brightness.js";
 import repr from "../../shared/repr.js";
 import { cpu, mem, showBatteryTime, showMiscDetails, showSystemDetails } from "../../shared/variables.js";
 import consts from "../../shared/consts.js";
-import { muteAudioStream, capitalize } from "../../shared/util.js";
+import { muteAudioStream, capitalize, nextMonitorDiscriminator } from "../../shared/util.js";
 
 const WorkspacesModule = (length = 5) => Widget.Box({
     className: "module workspaces",
@@ -333,8 +333,9 @@ const Right = () => Widget.Box({
     ],
 });
 
-export default () => Widget.Window({
-    name: "bar",
+export default (gdkmonitor) => Widget.Window({
+    name: `bar-${nextMonitorDiscriminator()}`,
+    gdkmonitor,
     anchor: ["top", "left", "right"],
     exclusivity: "exclusive",
     child: Widget.CenterBox({
