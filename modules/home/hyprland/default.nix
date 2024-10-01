@@ -39,6 +39,7 @@ in
         wayland.windowManager.hyprland = {
             enable = true;
             settings = {
+                source = "~/.config/hypr/monitors.conf"; # For nwg-displays to work
                 monitor = [
                     ",highres,auto,1"
                 ];
