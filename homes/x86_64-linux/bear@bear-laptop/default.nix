@@ -9,18 +9,11 @@
     home = {
         packages = with pkgs; [
             vim
-            rofi
             firefox
             lxqt.lxqt-policykit # Polkit support
-            adw-gtk3 # Adwaita theme for gtk
-            adwaita-icon-theme # Cursor theme
             neofetch
             xorg.xlsclients # List all windows using XWayland
-            brightnessctl # Brightness control, to be used primarily by AGS
-            sassc # SCSS compiler for AGS
             pavucontrol # Audio controller
-            hyprshot # Screenshots in wayland
-            bluetuith # Bluetooth TUI
             vesktop # Third-party discord client with screensharing
             telegram-desktop
             trash-cli # Trashcan management
@@ -33,7 +26,6 @@
             qbittorrent
             vlc
             jellyfin-media-player
-            nwg-displays # Display layout manager
         ];
 
         sessionVariables = {
@@ -43,18 +35,12 @@
             BROWSER = "firefox";
         };
 
-        file.".config/rofi" = {
-            source = ./rofi;
-            recursive = true;
-        };
-
         stateVersion = "24.05";
     };
 
     programs = {
         vscode.enable = true;
         home-manager.enable = true;
-        rofi.enable = true;
         bottom.enable = true;
     };
 

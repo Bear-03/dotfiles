@@ -1,11 +1,11 @@
-{ namespace, config, lib, ... }:
+{ namespace, config, lib, pkgs, ... }:
 with lib;
 let
     cfg = config.${namespace}.hyprland;
 in
 {
     options.${namespace}.hyprland = {
-        enable = mkEnableOption "Hyprland configuration";
+        enable = mkEnableOption "Hyprland";
         wallpaper = mkOption {
             type = types.path;
             description = ''
@@ -15,15 +15,25 @@ in
     };
 
     config = mkIf cfg.enable {
-        home.sessionVariables = {
-            # Fix white screen for java apps
-            _JAVA_AWT_WM_NONREPARENTING = 1;
-            # Fix RStudio
-            QT_QPA_PLATFORM = "xcb";
-            # Fix font antialiasing for java apps
-            JDK_JAVA_OPTIONS = "-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true";
-            # Fix images in WGPU apps
-            WGPU_BACKEND = "vulkan";
+        internal.rofi.enable = mkDefault true;
+
+        home = {
+            packages = with pkgs; [
+                hyprshot # Screenshots in wayland
+                bluetuith # Bluetooth TUI
+                nwg-displays # Display layout manager
+            ];
+
+            sessionVariables = {
+                # Fix white screen for java apps
+                _JAVA_AWT_WM_NONREPARENTING = 1;
+                # Fix RStudio
+                QT_QPA_PLATFORM = "xcb";
+                # Fix font antialiasing for java apps
+                JDK_JAVA_OPTIONS = "-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true";
+                # Fix images in WGPU apps
+                WGPU_BACKEND = "vulkan";
+            };
         };
 
         wayland.windowManager.hyprland = {
