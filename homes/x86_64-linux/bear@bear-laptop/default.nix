@@ -33,6 +33,7 @@
             qbittorrent
             vlc
             jellyfin-media-player
+            nwg-displays # Display layout manager
         ];
 
         sessionVariables = {

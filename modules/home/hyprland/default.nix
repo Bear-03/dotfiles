@@ -99,6 +99,7 @@ in
                     "SUPER, W, exec, [floating] alacritty -e nmtui"
                     "SUPER, P, exec, rofi -show drun"
                     "SUPER, B, exec, [floating] alacritty -e bluetuith"
+                    "SUPER, D, exec, [floating] nwg-displays"
                     "SUPER SHIFT, S, exec, hyprshot -m region --freeze --clipboard-only"
 
                     # Hyperland actions bindings
