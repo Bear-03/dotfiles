@@ -19,6 +19,7 @@ in
 
         home = {
             packages = with pkgs; [
+                brightnessctl # Brightness control
                 hyprshot # Screenshots in wayland
                 bluetuith # Bluetooth TUI
                 nwg-displays # Display layout manager

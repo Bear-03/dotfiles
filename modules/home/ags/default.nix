@@ -16,8 +16,8 @@ in
 
     config = mkIf cfg.enable {
         home.packages = with pkgs; [
-            brightnessctl # Brightness control, to be used primarily by AGS
-            sassc # SCSS compiler for AGS
+            brightnessctl # Brightness control
+            sassc # SCSS compiler
         ];
 
         programs.ags = {
