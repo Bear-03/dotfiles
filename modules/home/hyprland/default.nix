@@ -17,6 +17,11 @@ in
     config = mkIf cfg.enable {
         internal.rofi.enable = mkDefault true;
 
+        programs.hyprland = {
+            enable = true;
+            xwayland.enable = true;
+        };
+
         home = {
             packages = with pkgs; [
                 brightnessctl # Brightness control
