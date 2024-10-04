@@ -34,6 +34,8 @@ in
                 JDK_JAVA_OPTIONS = "-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true";
                 # Fix images in WGPU apps
                 WGPU_BACKEND = "vulkan";
+                # Hint electron apps to use wayland
+                ELECTRON_OZONE_PLATFORM_HINT = "wayland";
             };
         };
 
