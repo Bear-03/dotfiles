@@ -34,7 +34,7 @@
 
         snowfall.namespace = "internal";
 
-        modules.nixos = [
+        systems.modules.nixos = [
             home-manager.nixosModules.home-manager
         ];
     };
