@@ -30,9 +30,7 @@ in
         };
     };
 
-    networking = {
-        networkmanager.enable = true;
-    };
+    networking.networkmanager.enable = true;
 
     time.timeZone = "Europe/Madrid";
 

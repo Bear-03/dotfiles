@@ -75,13 +75,7 @@
         rtkit.enable = true; # For pipewire
     };
 
-    programs = {
-        noisetorch.enable = true;
-        hyprland = {
-            enable = true;
-            xwayland.enable = true;
-        };
-    };
+    programs.noisetorch.enable = true;
 
     services = {
         upower.enable = true; # Battery management, mainly for AGS.
