@@ -94,6 +94,7 @@
     internal = {
         nix.enable = true;
         auto-cpufreq.enable = true;
+        hyprland.enable = true;
         users."bear" = {};
     };
 
