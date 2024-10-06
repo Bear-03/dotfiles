@@ -35,7 +35,7 @@ in
             };
             Context = {
                 filesystems = [
-                    "home:ro"
+                    "/home:ro"
                 ];
                 sockets = [
                     "gpg-agent"
