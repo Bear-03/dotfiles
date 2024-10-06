@@ -29,7 +29,6 @@
         ];
 
         sessionVariables = {
-            TERM = "alacritty";
             EDITOR = "code";
             VISUAL = "code";
             BROWSER = "firefox";

@@ -9,6 +9,8 @@ in
     };
 
     config = mkIf cfg.enable {
+        home.sessionVariables.TERM = "alacritty";
+
         programs.alacritty = {
             enable = true;
             settings.window = {
