@@ -4,6 +4,10 @@ $env.config = {
     table: {
         mode: light,
     },
+    display_errors: {
+        exit_code: false
+        termination_signal: true
+    }
 }
 
 alias la = ls -la
