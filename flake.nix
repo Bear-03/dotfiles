@@ -17,7 +17,7 @@
             url = "github:nix-community/nixos-generators";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        declarative-flatpak.url = "github:GermanBread/declarative-flatpak/stable-v3";
+        nix-flatpak.url = "github:gmodena/nix-flatpak?ref=main";
         ags.url = "github:Aylur/ags";
 
         # Roblox for linux

@@ -3,7 +3,6 @@
     imports = [
         ./git.nix
         ./udiskie.nix
-        ./flatpak.nix
         ./firefox.nix
     ];
 

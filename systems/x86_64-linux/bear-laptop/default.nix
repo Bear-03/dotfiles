@@ -3,6 +3,7 @@
     imports = [
         ./hardware.nix
         ./greetd.nix
+        ./flatpak.nix
     ];
 
     boot = {
@@ -80,7 +81,6 @@
     services = {
         upower.enable = true; # Battery management, mainly for AGS.
         udisks2.enable = true; # Drive mounting management
-        flatpak.enable = true;
         pipewire = {
             enable = true;
             alsa = {
