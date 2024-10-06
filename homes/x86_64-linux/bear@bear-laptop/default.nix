@@ -4,12 +4,12 @@
         ./git.nix
         ./udiskie.nix
         ./flatpak.nix
+        ./firefox.nix
     ];
 
     home = {
         packages = with pkgs; [
             vim
-            firefox
             lxqt.lxqt-policykit # Polkit support
             neofetch
             xorg.xlsclients # List all windows using XWayland
@@ -31,7 +31,6 @@
         sessionVariables = {
             EDITOR = "code";
             VISUAL = "code";
-            BROWSER = "firefox";
         };
 
         stateVersion = "24.05";
