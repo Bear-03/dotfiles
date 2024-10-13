@@ -25,6 +25,7 @@
             qbittorrent
             vlc
             jellyfin-media-player
+            godot_4
         ];
 
         sessionVariables = {
