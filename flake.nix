@@ -19,12 +19,6 @@
         };
         nix-flatpak.url = "github:gmodena/nix-flatpak?ref=main";
         ags.url = "github:Aylur/ags";
-
-        # Roblox for linux
-        sober = {
-            url = "https://sober.vinegarhq.org/sober.flatpakref";
-            flake = false;
-        };
     };
 
     outputs = { home-manager, ... } @ inputs:

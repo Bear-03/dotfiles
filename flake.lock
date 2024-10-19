@@ -200,8 +200,7 @@
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
-        "snowfall-lib": "snowfall-lib",
-        "sober": "sober"
+        "snowfall-lib": "snowfall-lib"
       }
     },
     "snowfall-lib": {
@@ -224,18 +223,6 @@
         "owner": "snowfallorg",
         "repo": "lib",
         "type": "github"
-      }
-    },
-    "sober": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-kmCrsfdQ5zoh1yiCShI+e7BqPKZzfZuK/UAqbnMZEZw=",
-        "type": "file",
-        "url": "https://sober.vinegarhq.org/sober.flatpakref"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://sober.vinegarhq.org/sober.flatpakref"
       }
     },
     "systems": {

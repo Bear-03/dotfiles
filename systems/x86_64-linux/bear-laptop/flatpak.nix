@@ -1,10 +1,6 @@
 { pkgs, inputs, ... }:
 let
-    inherit (inputs) sober nix-flatpak;
-
-    soberPatchedPath = pkgs.writeText "sober.flatpakrepo" (
-        builtins.replaceStrings ["[Flatpak Ref]"] ["[Flatpak Repo]"] (builtins.readFile sober.outPath)
-    );
+    inherit (inputs) nix-flatpak;
 in
 {
     imports = [
@@ -20,14 +16,16 @@ in
                 name = "flathub";
                 location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
             }
-            {
-                name = "sober";
-                location = "file://${soberPatchedPath}";
-            }
         ];
         packages = [
-            { appId = "org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/24.08"; origin = "flathub"; }
-            { appId = "org.vinegarhq.Sober"; origin = "sober"; }
+            {
+                appId = "org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/24.08";
+                origin = "flathub";
+            }
+            {
+                flatpakref = "https://sober.vinegarhq.org/sober.flatpakref";
+                sha256 = "1pj8y1xhiwgbnhrr3yr3ybpfis9slrl73i0b1lc9q89vhip6ym2l";
+            }
         ];
         overrides.global = {
             Environment = {
