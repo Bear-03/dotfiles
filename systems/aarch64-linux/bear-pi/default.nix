@@ -42,7 +42,7 @@ in
         users."pi" = {
             # A password is always needed for SSH, so we provide a default one
             initialPassword = "pass";
-            extraGroups = [ "gpio" ];
+            extraGroups = [ "gpio" "storage" "networkmanager" "wheel" ];
         };
     };
 
