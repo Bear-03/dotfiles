@@ -10,7 +10,7 @@ in
         ./homepage.nix
         ./wireguard.nix
         ./adguard.nix
-        ./ftp.nix
+        ./ssh.nix
     ];
 
     boot = {
@@ -33,8 +33,6 @@ in
     networking.networkmanager.enable = true;
 
     time.timeZone = "Europe/Madrid";
-
-    services.openssh.enable = true;
 
     internal = {
         nix.enable = true;

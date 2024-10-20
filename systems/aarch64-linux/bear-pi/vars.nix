@@ -1,5 +1,6 @@
 {
     local-ip = "192.168.1.2";
+    drives.main = "/mnt/main";
     domains = rec {
         identifier = "bearspi";
         base = "${identifier}.duckdns.org";

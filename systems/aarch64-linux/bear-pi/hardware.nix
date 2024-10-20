@@ -1,4 +1,7 @@
 { config, lib, pkgs, modulesPath, ... }:
+let
+    vars = (import ./vars.nix);
+in
 {
     imports = [
         (modulesPath + "/installer/scan/not-detected.nix")
@@ -13,18 +16,19 @@
         };
     };
 
-    fileSystems."/" = {
-        device = "/dev/disk/by-uuid/44444444-4444-4444-8888-888888888888";
-        fsType = "ext4";
-    };
-
-    fileSystems."/mnt/main" = {
-        device = "/dev/disk/by-uuid/180CDDD40CDDACCE";
-        fsType = "ntfs";
-        options = [
-            "users"
-            "nofail"
-        ];
+    fileSystems = {
+        "/" = {
+            device = "/dev/disk/by-uuid/44444444-4444-4444-8888-888888888888";
+            fsType = "ext4";
+        };
+        ${vars.drives.main} = {
+            device = "/dev/disk/by-uuid/180CDDD40CDDACCE";
+            fsType = "ntfs";
+            options = [
+                "users"
+                "nofail"
+            ];
+        };
     };
 
     swapDevices = [ {
