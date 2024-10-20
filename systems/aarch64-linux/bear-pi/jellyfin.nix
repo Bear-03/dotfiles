@@ -18,7 +18,7 @@ in
                 download_location = "/mnt/main/jellyfin/torrents";
                 enabled_plugins = [ "Label" ];
                 # Cannot afford to contribute more, my bandwidth is shit
-                share_ratio_limit = "0.1";
+                share_ratio_limit = 0.1;
             };
             authFile = pkgs.writeText "deluge-auth" ''
                 ${secrets.deluge.username}:${secrets.deluge.password}:10
