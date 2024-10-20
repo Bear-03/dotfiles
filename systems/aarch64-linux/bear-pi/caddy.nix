@@ -35,73 +35,74 @@ in
         };
         caddy = {
             enable = true;
+            virtualHosts = {
+                # Homepage Dashboard
+                "${domains.homepage}".extraConfig = ''
+                    reverse_proxy localhost:8082
+                '';
 
-            # Homepage Dashboard
-            virtualHosts."${domains.homepage}".extraConfig = ''
-                reverse_proxy localhost:8082
-            '';
+                "${domains.debug}".extraConfig = ''
+                    templates
+                    respond "{{.RemoteIP}}"
+                '';
 
-            virtualHosts."${domains.debug}".extraConfig = ''
-                templates
-                respond "{{.RemoteIP}}"
-            '';
+                "${domains.adguard}".extraConfig = ''
+                    reverse_proxy localhost:3000
+                '';
 
-            virtualHosts."${domains.adguard}".extraConfig = ''
-                reverse_proxy localhost:3000
-            '';
+                # Jellyfin
+                "${domains.jellyfin}".extraConfig = ''
+                    reverse_proxy localhost:8096
+                '';
 
-            # Jellyfin
-            virtualHosts."${domains.jellyfin}".extraConfig = ''
-                reverse_proxy localhost:8096
-            '';
+                # Wg-easy UI
+                # Wireguard connections should happen at domains.base:51820
+                "${domains.wireguard}".extraConfig = internal ''
+                    reverse_proxy localhost:51821
+                '';
 
-            # Wg-easy UI
-            # Wireguard connections should happen at domains.base:51820
-            virtualHosts."${domains.wireguard}".extraConfig = internal ''
-                reverse_proxy localhost:51821
-            '';
+                # Jellyseerr
+                # Neither Subdomains nor subfolders in URLs are supported by Jellyseerr
+                # Workaround for subdomain found here: https://docs.overseerr.dev/extending-overseerr/reverse-proxy
+                # Adapted fron NGINX config to Caddy
+                "${domains.jellyseerr}".extraConfig = internal ''
+                    reverse_proxy {
+                        to localhost:5055
 
-            # Jellyseerr
-            # Neither Subdomains nor subfolders in URLs are supported by Jellyseerr
-            # Workaround for subdomain found here: https://docs.overseerr.dev/extending-overseerr/reverse-proxy
-            # Adapted fron NGINX config to Caddy
-            virtualHosts."${domains.jellyseerr}".extraConfig = internal ''
-                reverse_proxy {
-                    to localhost:5055
+                        header_up Referer {http.referer}
+                        header_up Host {host}
+                        header_up X-Real-IP {remote}
+                        header_up X-Real-Port {remote_port}
+                        header_up X-Forwarded-Host {host}:{remote_port}
+                        header_up X-Forwarded-Server {host}
+                        header_up X-Forwarded-Port {remote_port}
+                        header_up X-Forwarded-Ssl on
+                    }
+                '';
 
-                    header_up Referer {http.referer}
-                    header_up Host {host}
-                    header_up X-Real-IP {remote}
-                    header_up X-Real-Port {remote_port}
-                    header_up X-Forwarded-Host {host}:{remote_port}
-                    header_up X-Forwarded-Server {host}
-                    header_up X-Forwarded-Port {remote_port}
-                    header_up X-Forwarded-Ssl on
-                }
-            '';
+                # Prowlarr
+                "${domains.prowlarr}".extraConfig = internal ''
+                    reverse_proxy localhost:9696
+                '';
 
-            # Prowlarr
-            virtualHosts."${domains.prowlarr}".extraConfig = internal ''
-                reverse_proxy localhost:9696
-            '';
+                "${domains.deluge}".extraConfig = internal ''
+                    reverse_proxy localhost:8112
+                '';
 
-            virtualHosts."${domains.deluge}".extraConfig = internal ''
-                reverse_proxy localhost:8112
-            '';
+                # Radarr
+                "${domains.radarr}".extraConfig = internal ''
+                    reverse_proxy localhost:7878
+                '';
 
-            # Radarr
-            virtualHosts."${domains.radarr}".extraConfig = internal ''
-                reverse_proxy localhost:7878
-            '';
+                # Sonarr
+                "${domains.sonarr}".extraConfig = internal ''
+                    reverse_proxy localhost:8989
+                '';
 
-            # Sonarr
-            virtualHosts."${domains.sonarr}".extraConfig = internal ''
-                reverse_proxy localhost:8989
-            '';
-
-            virtualHosts."${domains.lidarr}".extraConfig = internal ''
-                reverse_proxy localhost:8686
-            '';
+                "${domains.lidarr}".extraConfig = internal ''
+                    reverse_proxy localhost:8686
+                '';
+                };
         };
     };
 }
