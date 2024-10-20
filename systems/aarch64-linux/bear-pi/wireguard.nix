@@ -1,7 +1,7 @@
 let
-    vars = (import ./vars.nix);
+    vars = import ./vars.nix;
     domains = vars.domains;
-    secrets = (import ./secrets.nix);
+    secrets = import ./secrets.nix;
 in
 {
     virtualisation.oci-containers.containers = {

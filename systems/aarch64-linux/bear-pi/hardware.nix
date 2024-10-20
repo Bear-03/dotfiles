@@ -1,6 +1,6 @@
 { config, lib, pkgs, modulesPath, ... }:
 let
-    vars = (import ./vars.nix);
+    vars = import ./vars.nix;
 in
 {
     imports = [

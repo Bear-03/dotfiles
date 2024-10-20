@@ -1,6 +1,6 @@
 let
     domains = (import ./vars.nix).domains;
-    secrets = (import ./secrets.nix);
+    secrets = import ./secrets.nix;
     internal = cfg: ''
         @internal {
             # LAN and VPN
