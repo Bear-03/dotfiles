@@ -20,6 +20,8 @@ in
                 # Cannot afford to contribute more, my bandwidth is shit
                 share_ratio_limit = 0.1;
             };
+            # WebUI password must be set from the UI itself
+            # these credentials refer to the connection auth
             authFile = pkgs.writeText "deluge-auth" ''
                 ${secrets.deluge.username}:${secrets.deluge.password}:10
             '';
