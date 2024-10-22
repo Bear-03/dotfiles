@@ -26,6 +26,7 @@
             vlc
             jellyfin-media-player
             godot_4
+            gimp
         ];
 
         sessionVariables = {
