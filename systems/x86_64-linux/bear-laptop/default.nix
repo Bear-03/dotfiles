@@ -62,12 +62,8 @@
         bluetooth = {
             enable = true;
             powerOnBoot = false;
-            settings = {
-        	    General = {
-                    # Enables showing battery charge
-        	    	Experimental = true;
-        	    };
-            };
+            # Enables showing battery charge
+            settings.General.Experimental = true;
         };
     };
 
