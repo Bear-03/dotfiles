@@ -22,13 +22,8 @@ in
         };
     };
 
-    hardware = {
-        raspberry-pi."4".apply-overlays-dtmerge.enable = true;
-        deviceTree = {
-            enable = true;
-            filter = "*rpi-4-*.dtb";
-        };
-    };
+    # Enable GPU
+    hardware.raspberry-pi."4".fkms-3d.enable = true;
 
     networking.networkmanager.enable = true;
 
