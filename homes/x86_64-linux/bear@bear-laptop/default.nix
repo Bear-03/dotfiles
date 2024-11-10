@@ -26,6 +26,7 @@
             jellyfin-media-player
             godot_4
             gimp
+            dbeaver-bin
         ];
 
         sessionVariables = {
