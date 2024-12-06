@@ -77,7 +77,7 @@ in
                 };
                 decoration =  {
                     rounding = 10;
-                    drop_shadow = "no";
+                    shadow.enabled = false;
                     blur = {
                         enabled = true;
                         size = 3;

@@ -18,7 +18,8 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
         nix-flatpak.url = "github:gmodena/nix-flatpak?ref=main";
-        ags.url = "github:Aylur/ags";
+        # TODO: Migrate to v2
+        ags.url = "github:Aylur/ags/v1";
     };
 
     outputs = { home-manager, ... } @ inputs:
