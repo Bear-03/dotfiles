@@ -5,6 +5,7 @@
         # NixOS official unstable packages
         nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
         nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+        nixfmt-indent.url = "github:NixOS/nixfmt/49c83554d956b6b4420137f1ea1864f6965d434c";
         snowfall-lib = {
             url = "github:snowfallorg/lib";
             inputs.nixpkgs.follows = "nixpkgs";

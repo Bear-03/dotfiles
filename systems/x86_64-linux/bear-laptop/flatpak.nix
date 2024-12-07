@@ -11,12 +11,6 @@ in
         enable = true;
         uninstallUnmanaged = true;
         update.onActivation = true;
-        remotes = [
-            {
-                name = "flathub";
-                location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
-            }
-        ];
         packages = [
             {
                 appId = "org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/24.08";
