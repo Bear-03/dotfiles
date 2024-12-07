@@ -1,7 +1,11 @@
 # Config file for the bootlable ISO for the system
 # nix build path:.#sd-aarch64-installerConfigurations.server-pi
 # The result will be in the result/ directory
-{ config, pkgs, lib, ... }:
+{
+    pkgs,
+    lib,
+    ...
+}:
 {
     # Enable SSH in the boot process.
     systemd.services.sshd.wantedBy = pkgs.lib.mkForce [ "multi-user.target" ];
@@ -11,7 +15,10 @@
         initialHashedPassword = lib.mkForce null;
     };
 
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+    nix.settings.experimental-features = [
+        "nix-command"
+        "flakes"
+    ];
 
     environment.systemPackages = with pkgs; [
         neovim

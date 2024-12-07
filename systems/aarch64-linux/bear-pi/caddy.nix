@@ -102,7 +102,7 @@ in
                 "${domains.lidarr}".extraConfig = internal ''
                     reverse_proxy localhost:8686
                 '';
-                };
+            };
         };
     };
 }

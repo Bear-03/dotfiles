@@ -1,4 +1,10 @@
-{ namespace, config, lib, pkgs, ... }:
+{
+    namespace,
+    config,
+    lib,
+    pkgs,
+    ...
+}:
 with lib;
 let
     cfg = config.${namespace}.hyprland;
@@ -75,7 +81,7 @@ in
                 debug = {
                     disable_logs = false;
                 };
-                decoration =  {
+                decoration = {
                     rounding = 10;
                     shadow.enabled = false;
                     blur = {
@@ -201,16 +207,17 @@ in
             swaync.enable = true;
 
             # Wallpaper management
-            hyprpaper = let
-                wallpaper = builtins.toString cfg.wallpaper;
-            in
-            {
-                enable = true;
-                settings = {
-                    preload = [ wallpaper ];
-                    wallpaper = [ ",${wallpaper}" ];
+            hyprpaper =
+                let
+                    wallpaper = builtins.toString cfg.wallpaper;
+                in
+                {
+                    enable = true;
+                    settings = {
+                        preload = [ wallpaper ];
+                        wallpaper = [ ",${wallpaper}" ];
+                    };
                 };
-            };
 
             # Screensaver
             hypridle = {

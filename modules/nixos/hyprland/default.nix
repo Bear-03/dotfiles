@@ -1,4 +1,9 @@
-{ namespace, lib, config, ... }:
+{
+    namespace,
+    lib,
+    config,
+    ...
+}:
 with lib;
 let
     cfg = config.${namespace}.hyprland;

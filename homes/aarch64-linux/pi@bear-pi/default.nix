@@ -1,4 +1,4 @@
-{ pkgs, flakeRoot, ... }:
+{ pkgs, ... }:
 {
     home = {
         packages = with pkgs; [

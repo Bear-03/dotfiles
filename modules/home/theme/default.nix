@@ -1,5 +1,11 @@
 # Fonts, visuals...
-{ namespace, config, lib, pkgs, ... }:
+{
+    namespace,
+    config,
+    lib,
+    pkgs,
+    ...
+}:
 with lib;
 let
     cfg = config.${namespace}.theme;

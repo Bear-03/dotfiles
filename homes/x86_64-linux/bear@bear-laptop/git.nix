@@ -1,4 +1,3 @@
-{ pkgs, ... }:
 let
     dir-condition = service: "gitdir:~/projects/${service}/";
 in

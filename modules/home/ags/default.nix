@@ -1,4 +1,11 @@
-{ namespace, config, lib, pkgs, inputs, ... }:
+{
+    namespace,
+    config,
+    lib,
+    pkgs,
+    inputs,
+    ...
+}:
 with lib;
 let
     inherit (inputs) ags;

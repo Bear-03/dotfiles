@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ inputs, ... }:
 let
     inherit (inputs) nix-flatpak;
 in

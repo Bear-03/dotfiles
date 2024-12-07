@@ -23,19 +23,20 @@
         ags.url = "github:Aylur/ags/v1";
     };
 
-    outputs = { home-manager, ... } @ inputs:
-    inputs.snowfall-lib.mkFlake {
-        inherit inputs;
-        src = ./.;
+    outputs =
+        { home-manager, ... }@inputs:
+        inputs.snowfall-lib.mkFlake {
+            inherit inputs;
+            src = ./.;
 
-        snowfall.namespace = "internal";
+            snowfall.namespace = "internal";
 
-        systems.modules.nixos = [
-            home-manager.nixosModules.home-manager
-        ];
+            systems.modules.nixos = [
+                home-manager.nixosModules.home-manager
+            ];
 
-        outputs-builder = channels: {
-            formatter = channels.nixpkgs.nixfmt-rfc-style;
+            outputs-builder = channels: {
+                formatter = channels.nixpkgs.nixfmt-rfc-style;
+            };
         };
-    };
 }

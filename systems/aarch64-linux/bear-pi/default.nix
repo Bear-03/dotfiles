@@ -1,4 +1,9 @@
-{ config, pkgs, inputs, ... }: let
+{
+    pkgs,
+    inputs,
+    ...
+}:
+let
     inherit (inputs) nixos-hardware;
 in
 {
@@ -35,7 +40,12 @@ in
         users."pi" = {
             # A password is always needed for SSH, so we provide a default one
             initialPassword = "pass";
-            extraGroups = [ "gpio" "storage" "networkmanager" "wheel" ];
+            extraGroups = [
+                "gpio"
+                "storage"
+                "networkmanager"
+                "wheel"
+            ];
         };
     };
 

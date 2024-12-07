@@ -1,4 +1,9 @@
-{ namespace, config, lib, ... }:
+{
+    namespace,
+    config,
+    lib,
+    ...
+}:
 with lib;
 let
     cfg = config.${namespace}.nix;
@@ -12,7 +17,10 @@ in
         nix = {
             settings = {
                 auto-optimise-store = true;
-                experimental-features = [ "nix-command" "flakes" ];
+                experimental-features = [
+                    "nix-command"
+                    "flakes"
+                ];
                 trusted-users = [ "@wheel" ];
 
                 # Yazi precompiled binaries

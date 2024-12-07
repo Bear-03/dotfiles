@@ -1,4 +1,9 @@
-{ namespace, config, lib, ... }:
+{
+    namespace,
+    config,
+    lib,
+    ...
+}:
 with lib;
 let
     cfg = config.${namespace}.alacritty;
