@@ -14,5 +14,5 @@
     deluge = {
         username = "";
         password = "";
-    }
+    };
 }
