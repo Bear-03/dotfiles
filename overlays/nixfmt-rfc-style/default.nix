@@ -1,6 +1,7 @@
-{ inputs, ... }: self: super: {
+{ inputs, ... }:
+self: super: {
     nixfmt-rfc-style = super.writeShellApplication {
-        name = "format";
+        name = "nixfmt";
         runtimeInputs = [
             inputs.nixfmt-indent.packages.${super.system}.default
         ];
