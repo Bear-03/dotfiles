@@ -33,5 +33,9 @@
         systems.modules.nixos = [
             home-manager.nixosModules.home-manager
         ];
+
+        outputs-builder = channels: {
+            formatter = channels.nixpkgs.nixfmt-rfc-style;
+        };
     };
 }
