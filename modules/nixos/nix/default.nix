@@ -2,6 +2,7 @@
     namespace,
     config,
     lib,
+    inputs,
     ...
 }:
 with lib;
@@ -15,6 +16,7 @@ in
 
     config = mkIf cfg.enable {
         nix = {
+            nixPath = attrsets.mapAttrsToList (name: value: "${name}=${value}") inputs;
             settings = {
                 auto-optimise-store = true;
                 experimental-features = [

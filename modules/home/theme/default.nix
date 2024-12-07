@@ -13,6 +13,7 @@ in
 {
     options.${namespace}.theme = {
         enable = mkEnableOption "Theme configuration";
+        foo = mkEnableOption "foo";
     };
 
     config = mkIf cfg.enable {
