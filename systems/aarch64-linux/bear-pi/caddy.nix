@@ -30,7 +30,7 @@ in
                 domains.identifier
             ];
             extraConfig = ''
-                password=${secrets.duckdns-token}
+                password=${secrets.duckdns.token}
             '';
         };
         caddy = {
@@ -59,25 +59,6 @@ in
                 # Wireguard connections should happen at domains.base:51820
                 "${domains.wireguard}".extraConfig = internal ''
                     reverse_proxy localhost:51821
-                '';
-
-                # Jellyseerr
-                # Neither Subdomains nor subfolders in URLs are supported by Jellyseerr
-                # Workaround for subdomain found here: https://docs.overseerr.dev/extending-overseerr/reverse-proxy
-                # Adapted fron NGINX config to Caddy
-                "${domains.jellyseerr}".extraConfig = internal ''
-                    reverse_proxy {
-                        to localhost:5055
-
-                        header_up Referer {http.referer}
-                        header_up Host {host}
-                        header_up X-Real-IP {remote}
-                        header_up X-Real-Port {remote_port}
-                        header_up X-Forwarded-Host {host}:{remote_port}
-                        header_up X-Forwarded-Server {host}
-                        header_up X-Forwarded-Port {remote_port}
-                        header_up X-Forwarded-Ssl on
-                    }
                 '';
 
                 # Prowlarr

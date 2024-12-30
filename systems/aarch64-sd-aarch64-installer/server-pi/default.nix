@@ -7,6 +7,8 @@
     ...
 }:
 {
+    sdImage.compressImage = false;
+
     # Enable SSH in the boot process.
     systemd.services.sshd.wantedBy = pkgs.lib.mkForce [ "multi-user.target" ];
     services.openssh.settings.PermitRootLogin = "yes";

@@ -2,7 +2,6 @@
     namespace,
     config,
     lib,
-    inputs,
     ...
 }:
 with lib;
@@ -16,7 +15,6 @@ in
 
     config = mkIf cfg.enable {
         nix = {
-            nixPath = attrsets.mapAttrsToList (name: value: "${name}=${value}") inputs;
             settings = {
                 auto-optimise-store = true;
                 experimental-features = [
@@ -35,8 +33,6 @@ in
                 options = "--delete-older-than 1w";
             };
         };
-
-        nixpkgs.config.allowUnfree = true;
 
         programs.nix-ld.enable = true;
     };

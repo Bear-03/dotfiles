@@ -72,7 +72,6 @@
     };
 
     programs.noisetorch.enable = true;
-    virtualisation.virtualbox.host.enable = true;
 
     services = {
         upower.enable = true; # Battery management, mainly for AGS.
@@ -91,9 +90,7 @@
         nix.enable = true;
         auto-cpufreq.enable = true;
         hyprland.enable = true;
-        users."bear" = {
-            extraGroups = [ "vboxusers" ];
-        };
+        users."bear" = {};
     };
 
     home-manager.backupFileExtension = "backup";

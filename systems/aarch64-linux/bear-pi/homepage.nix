@@ -1,21 +1,10 @@
-{ pkgs, ... }:
 let
     vars = import ./vars.nix;
     domains = vars.domains;
     secrets = import ./secrets.nix;
 in
 {
-    systemd.user.services.glances = {
-        # Connections plugin has to be disabled or else grances crashes after ~2h.
-        # See: https://github.com/nicolargo/glances/issues/2493
-        script = ''
-            ${pkgs.glances}/bin/glances -w --disable-webui
-        '';
-        wantedBy = [ "default.target" ];
-        # There's a bug in glances that makes it automatically stop every
-        # couple of hours so we need to restart the service
-        serviceConfig.Restart = "always";
-    };
+    services.glances.enable = true;
 
     services.homepage-dashboard = {
         enable = true;
@@ -26,7 +15,7 @@ in
             layout = {
                 "Media" = {
                     style = "row";
-                    columns = 3;
+                    columns = 2;
                     useEqualHeights = true;
                 };
                 "Servarr" = {
@@ -81,22 +70,7 @@ in
                                 widget = {
                                     inherit url;
                                     type = "jellyfin";
-                                    key = secrets.jellyfin-api-key;
-                                };
-                            };
-                    }
-                    {
-                        "Jellyseerr" =
-                            let
-                                url = "https://${domains.jellyseerr}";
-                            in
-                            {
-                                icon = "jellyseerr.svg";
-                                href = url;
-                                widget = {
-                                    inherit url;
-                                    type = "jellyseerr";
-                                    key = secrets.jellyseerr-api-key;
+                                    key = secrets.jellyfin.api-key;
                                 };
                             };
                     }
@@ -130,7 +104,7 @@ in
                                 widget = {
                                     inherit url;
                                     type = "prowlarr";
-                                    key = secrets.prowlarr-api-key;
+                                    key = secrets.prowlarr.api-key;
                                 };
                             };
                     }
@@ -145,7 +119,7 @@ in
                                 widget = {
                                     inherit url;
                                     type = "radarr";
-                                    key = secrets.radarr-api-key;
+                                    key = secrets.radarr.api-key;
                                 };
                             };
                     }
@@ -160,7 +134,7 @@ in
                                 widget = {
                                     inherit url;
                                     type = "sonarr";
-                                    key = secrets.sonarr-api-key;
+                                    key = secrets.sonarr.api-key;
                                 };
                             };
                     }
@@ -175,7 +149,7 @@ in
                                 widget = {
                                     inherit url;
                                     type = "lidarr";
-                                    key = secrets.lidarr-api-key;
+                                    key = secrets.lidarr.api-key;
                                 };
                             };
                     }

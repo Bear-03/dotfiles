@@ -16,7 +16,7 @@ in
                 # The container setup does it automatically
                 WG_HOST = domains.base;
                 WG_DEFAULT_DNS = vars.local-ip; # Use this machine as DNS
-                PASSWORD_HASH = secrets.wireguard-password-hash;
+                PASSWORD_HASH = secrets.wireguard.password-hash;
                 ENABLE_PROMETHEUS_METRICS = "true";
             };
             volumes = [

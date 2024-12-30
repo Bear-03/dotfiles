@@ -1,11 +1,11 @@
 { pkgs, ... }:
 let
     secrets = import ./secrets.nix;
+    vars = import ./vars.nix;
 in
 {
     services = {
         jellyfin.enable = true;
-        jellyseerr.enable = true;
         prowlarr.enable = true;
         radarr.enable = true;
         sonarr.enable = true;
@@ -15,7 +15,7 @@ in
             declarative = true;
             web.enable = true;
             config = {
-                download_location = "/mnt/main/jellyfin/torrents";
+                download_location = "${vars.drives.main}/jellyfin/torrents";
                 enabled_plugins = [ "Label" ];
                 # Cannot afford to contribute more, my bandwidth is shit
                 share_ratio_limit = 0.1;

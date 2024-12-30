@@ -1,5 +1,6 @@
 let
     vars = import ./vars.nix;
+    secrets = import ./secrets.nix;
 in
 {
     networking = {
@@ -17,6 +18,12 @@ in
     services.adguardhome = {
         enable = true;
         settings = {
+            users = [
+                {
+                    name = secrets.adguard.username;
+                    password = secrets.adguard.password-hash;
+                }
+            ];
             dns = {
                 upstream_dns = [
                     "1.1.1.1"
