@@ -27,6 +27,11 @@
             godot_4
             gimp
             dbeaver-bin
+            (heroic.override {
+                extraPkgs = pkgs: [
+                    pkgs.gamescope
+                ];
+            })
         ];
 
         sessionVariables = {

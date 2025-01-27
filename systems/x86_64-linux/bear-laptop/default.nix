@@ -58,6 +58,8 @@
     hardware = {
         # Enable hardware acceleration
         graphics.enable = true;
+        # XBOX One controller support
+        xone.enable = true;
         bluetooth = {
             enable = true;
             powerOnBoot = false;
@@ -71,7 +73,19 @@
         rtkit.enable = true; # For pipewire
     };
 
-    programs.noisetorch.enable = true;
+    programs = {
+        noisetorch.enable = true;
+        # Needed for heroic launcher & others
+        gamescope.enable = true;
+        gamemode.enable = true;
+        steam = {
+            enable = true;
+            gamescopeSession.enable = true;
+            remotePlay.openFirewall = true;
+            dedicatedServer.openFirewall = true;
+            localNetworkGameTransfers.openFirewall = true;
+        };
+    };
 
     services = {
         upower.enable = true; # Battery management, mainly for AGS.
