@@ -50,7 +50,7 @@
         obs-studio.enable = true;
     };
 
-    internal = {
+    beardots = {
         nushell.enable = true;
         alacritty.enable = true;
         ags.enable = true;

@@ -101,7 +101,7 @@
         };
     };
 
-    internal = {
+    beardots = {
         nix.enable = true;
         auto-cpufreq.enable = true;
         hyprland.enable = true;

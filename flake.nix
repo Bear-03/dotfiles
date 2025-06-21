@@ -30,7 +30,7 @@
             inherit inputs;
             src = ./.;
 
-            snowfall.namespace = "internal";
+            snowfall.namespace = "beardots";
 
             systems.modules.nixos = [
                 home-manager.nixosModules.home-manager

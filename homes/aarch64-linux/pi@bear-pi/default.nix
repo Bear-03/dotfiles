@@ -23,5 +23,5 @@
         bottom.enable = true;
     };
 
-    internal.nushell.enable = true;
+    beardots.nushell.enable = true;
 }

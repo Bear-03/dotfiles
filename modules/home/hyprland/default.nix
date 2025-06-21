@@ -21,7 +21,7 @@ in
     };
 
     config = mkIf cfg.enable {
-        internal.rofi.enable = mkDefault true;
+        beardots.rofi.enable = mkDefault true;
 
         home = {
             packages = with pkgs; [

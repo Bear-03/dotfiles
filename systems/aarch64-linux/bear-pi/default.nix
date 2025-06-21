@@ -34,7 +34,7 @@ in
 
     time.timeZone = "Europe/Madrid";
 
-    internal = {
+    beardots = {
         nix.enable = true;
         auto-cpufreq.enable = true;
         users."pi" = {
