@@ -28,6 +28,7 @@
             gimp
             dbeaver-bin
             globalprotect-openconnect
+            tokei # Count lines of code
             (heroic.override {
                 extraPkgs = pkgs: [
                     pkgs.gamescope
