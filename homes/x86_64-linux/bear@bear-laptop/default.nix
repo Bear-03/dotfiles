@@ -27,6 +27,7 @@
             godot_4
             gimp
             dbeaver-bin
+            globalprotect-openconnect
             (heroic.override {
                 extraPkgs = pkgs: [
                     pkgs.gamescope
@@ -46,6 +47,7 @@
         vscode.enable = true;
         home-manager.enable = true;
         bottom.enable = true;
+        obs-studio.enable = true;
     };
 
     internal = {

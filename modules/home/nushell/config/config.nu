@@ -10,6 +10,8 @@ $env.config = {
     }
 }
 
+$env.SHELL = $nu.current-exe
+
 alias la = ls -la
 alias grep = rg
 alias cat = bat
@@ -17,15 +19,9 @@ alias tree = broot
 
 # Create and activate python venv
 def pyvenv [
-    env_path?: string,
+    env_path: string = ".venv",
     --version (-v): string
 ] {
-    let env_path = if ($env_path == null) {
-        ".venv"
-    } else {
-        $env_path
-    }
-
     let python_cmd = $"python($version)"
 
     if (not ($env_path | path exists)) {
@@ -36,4 +32,12 @@ def pyvenv [
 
     print $"Activating environment '($env_path)'... \(Deactivate with Ctrl-D\)"
     bash -c $"source ($env_path)/bin/activate && nu"
+}
+
+def --wrapped nr [
+    --mode: string = "switch",
+    --flake: string = "path:.",
+    ...rest,
+] {
+    nixos-rebuild $mode --flake $flake --use-remote-sudo ...$rest
 }
