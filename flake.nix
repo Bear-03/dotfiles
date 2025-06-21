@@ -2,17 +2,15 @@
     description = "NixOS config flake";
 
     inputs = {
-        nixpkgs.url = "github:NixOS/nixpkgs/release-24.11";
-        nixpkgs-old.url = "github:NixOS/nixpkgs/release-24.05";
+        nixpkgs.url = "github:NixOS/nixpkgs/release-25.05";
 
         nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-        nixfmt-indent.url = "github:NixOS/nixfmt/49c83554d956b6b4420137f1ea1864f6965d434c";
         snowfall-lib = {
             url = "github:snowfallorg/lib";
             inputs.nixpkgs.follows = "nixpkgs";
         };
         home-manager = {
-            url = "github:nix-community/home-manager/release-24.11";
+            url = "github:nix-community/home-manager/release-25.05";
             inputs.nixpkgs.follows = "nixpkgs";
         };
         nixos-generators = {
