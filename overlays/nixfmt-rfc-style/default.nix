@@ -8,7 +8,7 @@ in
         paths = [ package ];
         buildInputs = with super; [ makeWrapper ];
         postBuild = ''
-            wrapProgram $out/bin/nixfmt-rfc-style \
+            wrapProgram $out/bin/nixfmt \
                 --add-flags "--indent=4" \
         '';
     };
