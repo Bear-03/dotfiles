@@ -71,8 +71,8 @@ in
                     gaps_out = 10;
                     border_size = 2;
                     layout = "dwindle";
-                    "col.active_border" = "rgba(ffffffff)";
-                    "col.inactive_border" = "rbga(00000000)";
+                    "col.active_border" = "0xffffffff";
+                    "col.inactive_border" = "0x00000000";
                 };
                 misc = {
                     animate_manual_resizes = true;
@@ -116,10 +116,10 @@ in
                 bind = [
                     # App bindings
                     "SUPER, Q, exec, alacritty"
-                    "SUPER, W, exec, [floating] alacritty -e nmtui"
+                    "SUPER, W, exec, [float] alacritty -e nmtui"
                     "SUPER, P, exec, rofi -show drun"
-                    "SUPER, B, exec, [floating] alacritty -e bluetuith"
-                    "SUPER, D, exec, [floating] nwg-displays"
+                    "SUPER, B, exec, [float] alacritty -e bluetuith"
+                    "SUPER, D, exec, [float] nwg-displays"
                     "SUPER SHIFT, S, exec, hyprshot -m region --freeze --clipboard-only"
 
                     # Hyperland actions bindings
